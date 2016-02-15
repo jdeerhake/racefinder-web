@@ -1,0 +1,15 @@
+@import 'includes';
+
+#map {
+  position: absolute;
+  top: $layout-modal-app-bar-height;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+
+@include layout(sidebar) {
+
+
+}

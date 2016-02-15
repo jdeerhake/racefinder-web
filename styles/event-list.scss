@@ -1,0 +1,28 @@
+@import 'includes';
+
+.event-list {
+  position: fixed;
+  right: 0;
+  bottom: -$layout-modal-modal-height;
+  left: 0;
+  height: $layout-modal-modal-height;
+  @include transition( all linear 0.2s );
+
+  &.has-active {
+    display: block;
+    bottom: 0;
+  }
+}
+
+@include layout(sidebar) {
+
+  .event-list {
+    top: $layout-modal-app-bar-height;
+    left: auto;
+    height: 100%;
+    width: $layout-sidebar-bar-width;
+    overflow: auto;
+    border: solid 5px transparent;
+  }
+
+}

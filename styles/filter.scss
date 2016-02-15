@@ -1,0 +1,15 @@
+@import 'includes';
+
+.filter {
+
+  #app > & {
+    display: none;
+  }
+
+  > fieldset {
+    margin-bottom: 30px;
+    width: 100%;
+    text-align: center;
+  }
+
+}

@@ -1,0 +1,24 @@
+@import 'includes';
+
+.race {
+  list-style-type: disc;
+  list-style-position: inside;
+  position: relative;
+
+  .name {
+    font-weight: normal;
+    font-size: 0.8rem;
+  }
+
+  .inactive & .name {
+    white-space: nowrap;
+    display: block;
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
+
+}
+
+@include layout(sidebar) {
+
+}

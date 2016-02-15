@@ -1,0 +1,8 @@
+@mixin layout($type) {
+  @if $type == tiled {
+    @media (min-width: $layout-tiled-break) { @content; }
+  }
+  @else if $type == sidebar {
+    @media (min-width: $layout-sidebar-break) { @content; }
+  }
+}

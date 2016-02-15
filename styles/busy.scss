@@ -1,0 +1,10 @@
+@import 'includes';
+
+.busy {
+  display: none;
+
+  &.visible {
+    display: block;
+  }
+
+}

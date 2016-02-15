@@ -1,0 +1,50 @@
+{
+  "name": "frontend-web",
+  "version": "0.0.0",
+  "description": "",
+  "main": "-",
+  "scripts": {
+    "watch": "webpack -w",
+    "build": "webpack"
+  },
+  "author": "John M Deerhake <jdeerhake@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "babel-core": "^6.5.1",
+    "babel-loader": "^6.2.2",
+    "babel-preset-es2015": "^6.5.0",
+    "babel-preset-react": "^6.5.0",
+    "babel-preset-stage-1": "^6.5.0",
+    "compass-mixins": "^0.12.7",
+    "css-loader": "^0.23.1",
+    "flux": "^2.1.1",
+    "gulp": "^3.9.0",
+    "gulp-util": "^3.0.6",
+    "handlebars": "^4.0.5",
+    "hbsfy": "^2.2.1",
+    "jquery": "^2.1.4",
+    "json-loader": "^0.5.2",
+    "lodash": "^4.3.0",
+    "material-ui": "^0.14.4",
+    "moment": "^2.10.6",
+    "node-libs-browser": "^1.0.0",
+    "node-sass": "^3.3.2",
+    "node-uuid": "^1.4.3",
+    "promise": "^7.0.4",
+    "react": "^0.14.7",
+    "react-dom": "^0.14.7",
+    "react-tap-event-plugin": "^0.2.2",
+    "sass-loader": "^3.1.2",
+    "sha1": "^1.1.1",
+    "style-loader": "^0.13.0",
+    "webpack": "^1.12.0"
+  },
+  "devDependencies": {
+    "eslint-plugin-react": "^3.6.3",
+    "livereload": "^0.4.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@bitbucket.org/racefinder/frontend-web.git"
+  },
+}
