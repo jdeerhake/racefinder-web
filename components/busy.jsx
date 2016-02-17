@@ -2,10 +2,12 @@ import React from 'react'
 
 import '../styles/busy.scss'
 
+const { bool } = React.PropTypes
+
 class Busy extends React.Component {
 
   static propTypes = {
-    active: React.PropTypes.bool
+    active: bool
   };
 
   static defaultProps = {

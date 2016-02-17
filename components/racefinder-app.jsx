@@ -1,13 +1,14 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import _ from 'lodash'
-import Busy from './busy.jsx'
+import RefreshIndicator from 'material-ui/lib/refresh-indicator'
 import EventList from './event-list.jsx'
 import EventActions from '../actions/event-actions'
 import RequestStore from '../stores/event-requester-store'
 import RequestStatusStore from '../stores/request-status-store'
 import Map from './map.jsx'
 import Header from './header.jsx'
+import styles from '../lib/styles'
 
 import '../styles/racefinder-app.scss'
 
@@ -25,8 +26,9 @@ class RacefinderApp extends React.Component {
   }, getStateFromStore() );
 
   componentDidMount() {
+    const elWidth = ReactDOM.findDOMNode( this.refs.list ).clientWidth
     this.setState({
-      listWidth:  ReactDOM.findDOMNode( this.refs.list ).clientWidth
+      listWidth: elWidth === document.body.clientWidth ? 0 : elWidth
     })
 
     RequestStore.on( 'change', this.updateStateFromStore )
@@ -40,18 +42,26 @@ class RacefinderApp extends React.Component {
 
   createSearchEvents = _.debounce(() => {
     EventActions.search( RequestStore.getAll() )
-  }, 1500 );
+  }, 500 );
 
   render() {
+    const progressSize = 50
+    const progressLeft = (document.body.clientWidth - this.state.listWidth - progressSize) / 2
+
     return (
       <div id='app'>
         <Header filters={this.state.filters} />
-        <Busy active={this.state.hasActiveRequest} />
+        <RefreshIndicator
+          status={this.state.hasActiveRequest ? 'loading' : 'hide'}
+          left={progressLeft}
+          top={document.body.clientHeight * 0.15}
+          size={progressSize}
+          loadingColor={styles.color.active} />
         <Map
           listWidth={this.state.listWidth}
-          zoom={11}
+          zoom={10}
           styles={require( '../lib/map-styles' )}
-          center={new google.maps.LatLng( 34.4324414, -119.6967455 )} />
+          center={new google.maps.LatLng( 34.018418, -118.107009 )} />
         <EventList ref='list' />
       </div>
     )

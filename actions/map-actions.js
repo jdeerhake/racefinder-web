@@ -23,6 +23,12 @@ let MapActions = {
     })
   },
 
+  click() {
+    Dispatcher.dispatch({
+      type: 'map_click'
+    })
+  },
+
   createMap( gMap ) {
     Dispatcher.dispatch({
       type: 'map_created',

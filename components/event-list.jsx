@@ -40,11 +40,10 @@ class EventList extends React.Component {
   };
 
   classList = () => {
-    return this.props.classes
-      .concat( React.Children.count( this.props.children ) === 0 ? 'empty' : false )
-      .concat( this.state.activeEventIDs.length ? 'has-active' : false )
-      .filter( Boolean )
-      .join( ' ' )
+    return this.props.classes.concat([
+      !this.state.events.length && 'empty',
+      !!this.state.activeEventIDS.length  && 'has-active'
+    ].filter( Boolean )).join( ' ' )
   };
 
   scrollToActive = () => {

@@ -17,6 +17,7 @@ store.handle([
 store.handle([
   'event_deactivate_all',
   'event_reset',
+  'map_click',
   'map_change_bounds',
   'map_change_zoom'
 ], function() {

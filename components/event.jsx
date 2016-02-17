@@ -59,7 +59,12 @@ class Event extends React.Component {
   };
 
   formattedStartTime = () => {
-    return moment.unix( this.props.startDate ).format( 'ha' )
+    const time = moment.unix( this.props.startDate )
+    if( time.format( 'm' ) === '0' ) {
+      return time.format( 'ha' )
+    } else {
+      return time.format( 'h:mma' )
+    }
   };
 
   render() {

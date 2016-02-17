@@ -71,6 +71,7 @@ class Map extends React.Component {
     addMapEventListener( gMap, 'bounds_changed', this.handleBoundsChanged )
     addMapEventListener( gMap, 'center_changed', this.handleCenterChanged )
     addMapEventListener( gMap, 'zoom_changed', this.handleZoomChanged )
+    addMapEventListener( gMap, 'click', this.handleClick )
   };
 
   handleBoundsChanged = _.debounce(() => {
@@ -83,6 +84,10 @@ class Map extends React.Component {
 
   handleZoomChanged = () => {
     MapActions.changeZoom( this.state.gMap.getZoom() )
+  };
+
+  handleClick = () => {
+    MapActions.click()
   };
 
   getBounds = () => {
@@ -106,11 +111,7 @@ class Map extends React.Component {
 
   listCoverageMultiplier = () => {
     let totalWidth = ReactDOM.findDOMNode( this.refs.map ).clientWidth
-    if( this.props.listWidth === totalWidth ) {
-      return 0
-    } else {
-      return this.props.listWidth / totalWidth
-    }
+    return this.props.listWidth / totalWidth
   };
 
   render() {

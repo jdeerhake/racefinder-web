@@ -18,8 +18,10 @@
 
   .event-list {
     top: $layout-modal-app-bar-height;
+    bottom: auto;
     left: auto;
-    height: 100%;
+    height: auto;
+    max-height: 90%;
     width: $layout-sidebar-bar-width;
     overflow: auto;
     border: solid 5px transparent;
