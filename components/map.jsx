@@ -6,6 +6,7 @@ import MarkerStore from '../stores/marker-store'
 import HighlightedMarkerStore from '../stores/highlighted-marker-store'
 import ActiveMarkerStore from '../stores/active-marker-store'
 import Marker from './marker.jsx'
+import LocationSearch from './location-search.jsx'
 import MapStore from '../stores/map-store'
 
 import '../styles/map.scss'
@@ -51,7 +52,7 @@ class Map extends React.Component {
   }
 
   createGMap = () => {
-    let el = ReactDOM.findDOMNode( this )
+    let el = ReactDOM.findDOMNode( this.refs.gmap )
     let gMap = new google.maps.Map( el, this.props )
     MapActions.createMap( gMap )
   };
@@ -61,10 +62,14 @@ class Map extends React.Component {
   };
 
   onMapChange = () => {
-    let gMap = MapStore.get( 'gMap' )
-    if( gMap === this.state.gMap ) { return false }
-    this.setState({ gMap : MapStore.get( 'gMap' ) })
-    this.gMapListeners( gMap )
+    const gMap = MapStore.get( 'gMap' )
+    const center = MapStore.get( 'center' )
+    if( gMap !== this.state.gMap ) {
+      this.setState({ gMap : MapStore.get( 'gMap' ) })
+      this.gMapListeners( gMap )
+    } else if( center ) {
+      this.setCenter( center )
+    }
   };
 
   gMapListeners = ( gMap ) => {
@@ -109,8 +114,12 @@ class Map extends React.Component {
     return { lat: pt.lat(), lng: pt.lng() }
   };
 
+  setCenter = ({ lat, lng }) => {
+    this.state.gMap.setCenter( new google.maps.LatLng( lat, lng ) )
+  };
+
   listCoverageMultiplier = () => {
-    let totalWidth = ReactDOM.findDOMNode( this.refs.map ).clientWidth
+    let totalWidth = ReactDOM.findDOMNode( this.refs.gmap ).clientWidth
     return this.props.listWidth / totalWidth
   };
 
@@ -125,7 +134,12 @@ class Map extends React.Component {
                 {...marker} />)
     })
 
-    return (<div ref='map' id='map'>{ markers }</div>)
+    return (
+      <div id='map'>
+        <div ref='gmap' id='gmap'></div>
+        <LocationSearch onSearch={_} />
+        { markers }
+      </div>)
   }
 
 }

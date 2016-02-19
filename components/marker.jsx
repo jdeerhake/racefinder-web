@@ -13,12 +13,9 @@ class Marker extends React.Component {
     lng: React.PropTypes.string.isRequired
   };
 
-  constructor( props ) {
-    super( props )
-    this.state = {
-      gLatLng: false,
-      gMarker: false
-    }
+  state = {
+    gLatLng: false,
+    gMarker: false
   };
 
   componentWillMount() {

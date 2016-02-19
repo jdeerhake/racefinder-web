@@ -20,10 +20,6 @@ html, body, body > div#app {
 a {
   color: $color-link;
   text-decoration: none;
-
-  &:visited {
-    color: lighten( $color-link, 20% );
-  }
 }
 
 h3 {

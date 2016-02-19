@@ -2,16 +2,7 @@ import _ from 'lodash'
 import Dispatcher from '../dispatchers/racefinder-dispatcher.js'
 import Store from '../lib/store'
 
-let store = Store( Dispatcher, {
-
-  getAllSorted() {
-    return _.values( this.getAll() ).sort(( a, b ) => {
-      return a.location.lat - b.location.lat ||
-             a.location.lng - b.location.lng
-    })
-  }
-
-})
+let store = Store( Dispatcher, {} )
 
 store.handle( 'event_add', function ( payload ) {
   return this.add( payload.event.id, payload.event )

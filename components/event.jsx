@@ -5,19 +5,22 @@ import moment from 'moment'
 
 import  '../styles/event.scss'
 
+const { bool, arrayOf, string, object, number } = React.PropTypes
+
 class Event extends React.Component {
 
   static propTypes = {
-    active: React.PropTypes.bool,
-    classes: React.PropTypes.arrayOf( React.PropTypes.string ),
-    id: React.PropTypes.string,
-    index: React.PropTypes.string,
-    infoURL: React.PropTypes.string,
-    location: React.PropTypes.object,
-    logoImage: React.PropTypes.string,
-    name: React.PropTypes.string,
-    races: React.PropTypes.arrayOf( React.PropTypes.object ),
-    startDate: React.PropTypes.number
+    active: bool,
+    classes: arrayOf( string ),
+    focus: bool,
+    id: string,
+    index: string,
+    infoURL: string,
+    location: object,
+    logoImage: string,
+    name: string,
+    races: arrayOf( object ),
+    startDate: number
   };
 
   static defaultProps = {
@@ -26,7 +29,10 @@ class Event extends React.Component {
 
   classList = () => {
     return this.props.classes
-      .concat( this.props.active ? 'active' : 'inactive' )
+      .concat([
+        this.props.active ? 'active' : 'inactive',
+        this.props.focus && 'focus'
+      ])
       .filter( Boolean )
       .join( ' ' )
   };
@@ -90,6 +96,7 @@ class Event extends React.Component {
         <ul className='races'>
           { races }
         </ul>
+        <a className='register' href={ this.props.infoURL }>More information »</a>
       </li>
     )
   }

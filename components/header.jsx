@@ -27,7 +27,7 @@ class Header extends React.Component {
     this.setState({ filterOpen: false })
   };
 
-  renderActions = () => {
+  renderFilterActions = () => {
     return [
       <FlatButton
         label='OK'
@@ -44,7 +44,7 @@ class Header extends React.Component {
           iconClassNameRight='icon icon-filter'
           onRightIconButtonTouchTap={this.showFilter} />
         <Dialog
-          actions={this.renderActions()}
+          actions={this.renderFilterActions()}
           title='Filter Races'
           modal={false}
           open={this.state.filterOpen}>

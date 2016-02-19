@@ -15,8 +15,7 @@ store.handle( 'event_deactivate', function( payload ) {
 store.handle([
   'map_click',
   'map_change_bounds',
-  'event_deactivate_all',
-  'event_reset'
+  'event_deactivate_all'
 ], function() {
   return this.resetActive()
 })

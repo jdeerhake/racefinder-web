@@ -34,6 +34,16 @@ let MapActions = {
       type: 'map_created',
       gMap: gMap
     })
+  },
+
+  geocodeLocation( term ) {
+    const geocoder = new google.maps.Geocoder()
+    geocoder.geocode({
+      address: term
+    }, ( results, status ) => {
+      const { lat, lng } = results[0].geometry.location
+      MapActions.changeCenter({ lat, lng })
+    })
   }
 
 }

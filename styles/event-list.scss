@@ -12,6 +12,34 @@
     display: block;
     bottom: 0;
   }
+
+  .next, .prev {
+    display: block;
+    position: absolute;
+    top: 50%;
+    font-size: 40px;
+    padding: 5px 10px;
+    margin-top: -30px;
+    color: $color-stylized;
+  }
+
+  .prev {
+    left: 0;
+  }
+
+  .next {
+    right: 0;
+  }
+
+  .event {
+    display: none;
+
+    &.focus {
+      float: left;
+      display: block;
+    }
+  }
+
 }
 
 @include layout(sidebar) {
@@ -21,10 +49,19 @@
     bottom: auto;
     left: auto;
     height: auto;
-    max-height: 90%;
+    max-height: 95%;
     width: $layout-sidebar-bar-width;
     overflow: auto;
     border: solid 5px transparent;
+
+    .event, .event.focus {
+      float: none;
+      display: list-item;
+    }
+
+    .prev, .next {
+      display: none;
+    }
   }
 
 }
