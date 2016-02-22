@@ -19,10 +19,17 @@ function getStateFromStore() {
   }
 }
 
+const DEFAULT_ZOOM = 10
+
 class RacefinderApp extends React.Component {
 
   state = _.extend({
-    listWidth: 0
+    listWidth: 0,
+    mapProps: {
+      zoom: DEFAULT_ZOOM,
+      center: { lat: 54.018418, lng: -118.107009 },
+      styles: require( '../lib/map-styles' )
+    }
   }, getStateFromStore() );
 
   componentDidMount() {
@@ -57,11 +64,7 @@ class RacefinderApp extends React.Component {
           top={document.body.clientHeight * 0.15}
           size={progressSize}
           loadingColor={styles.color.active} />
-        <Map
-          listWidth={this.state.listWidth}
-          zoom={10}
-          styles={require( '../lib/map-styles' )}
-          center={new google.maps.LatLng( 34.018418, -118.107009 )} />
+        <Map listWidth={this.state.listWidth} {...this.state.mapProps} />
         <EventList ref='list' />
       </div>
     )

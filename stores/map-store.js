@@ -9,20 +9,21 @@ let store = Store( Dispatcher, {
 
 })
 
-store.handle( 'map_change_bounds', function( payload ) {
-  return this.addOrSet( 'bounds', payload.bounds )
+store.handle( 'map_change_bounds', payload => {
+  return store.addOrSet( 'bounds', payload.bounds )
 })
 
-store.handle( 'map_change_center', function( payload ) {
-  return this.addOrSet( 'center', payload.center )
+store.handle( 'map_change_center', payload => {
+  return store.addOrSet( 'center', payload.center )
 })
 
-store.handle( 'map_change_zoom', function( payload ) {
-  return this.addOrSet( 'zoom', payload.zoom )
+store.handle( 'map_change_zoom', payload => {
+  return store.addOrSet( 'zoom', payload.zoom )
 })
 
-store.handle( 'map_created', function( payload ) {
-  return this.addOrSet( 'gMap', payload.gMap )
+store.handle( 'map_created', payload => {
+  return store.addOrSet( 'gMap', payload.gMap )
 })
+
 
 export default store

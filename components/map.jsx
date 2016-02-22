@@ -21,15 +21,18 @@ function getStateFromStores() {
   }
 }
 
+const { object, bool, number } = React.PropTypes
+
 class Map extends React.Component {
 
   static propTypes = {
-    disableDefaultUI: React.PropTypes.bool,
-    listWidth: React.PropTypes.number,
-    mapTypeID: React.PropTypes.number,
-    zoom: React.PropTypes.number,
-    zoomControl: React.PropTypes.bool,
-    zoomControlOptions: React.PropTypes.object
+    center: object,
+    disableDefaultUI: bool,
+    listWidth: number,
+    mapTypeID: number,
+    zoom: number,
+    zoomControl: bool,
+    zoomControlOptions: object
   };
 
   static defaultProps = {
@@ -51,9 +54,16 @@ class Map extends React.Component {
     this.createGMap()
   }
 
+  componentWillReceiveProps( nextProps ) {
+    if( nextProps.center !== this.props.center ) {
+      console.log( 'why?' )
+      this.moveMap( nextProps.center, nextProps.zoom )
+    }
+  }
+
   createGMap = () => {
-    let el = ReactDOM.findDOMNode( this.refs.gmap )
-    let gMap = new google.maps.Map( el, this.props )
+    const el = ReactDOM.findDOMNode( this.refs.gmap )
+    const gMap = new google.maps.Map( el, this.props )
     MapActions.createMap( gMap )
   };
 
@@ -63,12 +73,9 @@ class Map extends React.Component {
 
   onMapChange = () => {
     const gMap = MapStore.get( 'gMap' )
-    const center = MapStore.get( 'center' )
     if( gMap !== this.state.gMap ) {
       this.setState({ gMap : MapStore.get( 'gMap' ) })
       this.gMapListeners( gMap )
-    } else if( center ) {
-      this.setCenter( center )
     }
   };
 
@@ -114,8 +121,9 @@ class Map extends React.Component {
     return { lat: pt.lat(), lng: pt.lng() }
   };
 
-  setCenter = ({ lat, lng }) => {
-    this.state.gMap.setCenter( new google.maps.LatLng( lat, lng ) )
+  moveMap = ({ lat, lng }, zoom) => {
+    this.state.gMap.panTo( new google.maps.LatLng( lat, lng ) )
+    this.state.gMap.setZoom( zoom )
   };
 
   listCoverageMultiplier = () => {
@@ -137,7 +145,7 @@ class Map extends React.Component {
     return (
       <div id='map'>
         <div ref='gmap' id='gmap'></div>
-        <LocationSearch onSearch={_} />
+        <LocationSearch onSearch={ this.moveMap } />
         { markers }
       </div>)
   }
