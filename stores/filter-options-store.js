@@ -2,7 +2,7 @@ import moment from 'moment'
 import Dispatcher from '../dispatchers/racefinder-dispatcher'
 import Store from '../lib/store'
 
-let store = Store( Dispatcher, {} )
+const store = Store( Dispatcher, {} )
 
 store.add( 'dateRanges', [
   { text: 'This month',      val: [ moment(), moment().endOf( 'month' ) ]},

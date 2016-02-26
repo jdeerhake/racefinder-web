@@ -11,14 +11,20 @@ let EventActions = {
     let id = uuid()
     Dispatcher.dispatch({
       type: 'request_replaced',
-      id: id
+      id
     })
 
     Event.search( params, id ).then( events => {
       EventActions.resetEvents( events )
       Dispatcher.dispatch({
         type: 'request_response_received',
-        id: id
+        id
+      })
+    }, error => {
+      Dispatcher.dispatch({
+        type: 'request_error',
+        error,
+        id
       })
     })
   },

@@ -20,4 +20,9 @@ store.handle( 'request_cancelled', payload => {
   return store.removeActive( payload.id )
 })
 
+store.handle( 'request_error', payload => {
+  return store.removeActive( payload.id )
+})
+
+
 export default store

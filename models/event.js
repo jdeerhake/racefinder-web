@@ -30,7 +30,7 @@ function formatRequestParams( params ) {
   return {
     'start_date': params.dateRange && params.dateRange[0].format( DATE_FORMAT ),
     'end_date': params.dateRange && params.dateRange[1].format( DATE_FORMAT ),
-    'types': params.raceType ? [].concat( params.raceType ) : '',
+    'types': [].concat( params.raceType || [] ),
     'query': params.query,
     'n': params.n,
     's': params.s,

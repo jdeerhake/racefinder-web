@@ -96,7 +96,7 @@ class Event extends React.Component {
         <ul className='races'>
           { races }
         </ul>
-        <a className='register' href={ this.props.infoURL }>More information »</a>
+        <a className='register' target='_blank' href={ this.props.infoURL }>More information »</a>
       </li>
     )
   }

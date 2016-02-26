@@ -19,8 +19,8 @@ store.handle( 'map_change_bounds', function( payload ) {
   ].some( Boolean )
 })
 
-store.handle( 'filter_update_param', function( payload ) {
-  return this.addOrSet( payload.key, payload.val )
+store.handle( 'filter_update_param', function({ key, val }) {
+  return this.addOrSet( key, val )
 })
 
 export default store
