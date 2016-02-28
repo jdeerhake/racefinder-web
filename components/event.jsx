@@ -24,7 +24,8 @@ class Event extends React.Component {
   };
 
   static defaultProps = {
-    classes: [ 'event' ]
+    classes: [ 'event' ],
+    races: []
   };
 
   classList = () => {
