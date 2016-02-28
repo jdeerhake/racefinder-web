@@ -26,7 +26,7 @@ class Filter extends React.Component {
     dateRange: React.PropTypes.array.isRequired,
     onChange: React.PropTypes.func.isRequired,
     query: React.PropTypes.string.isRequired,
-    raceType: React.PropTypes.string.isRequired
+    type: React.PropTypes.string.isRequired
   };
 
   constructor( props ) {
@@ -39,7 +39,7 @@ class Filter extends React.Component {
   };
 
   createRaceTypeChange = ( ev, index ) => {
-    this.props.onChange( 'raceType', this.state.raceTypes[index].val )
+    this.props.onChange( 'type', this.state.types[index].val )
   };
 
   createDateRangeChange = ( ev, index ) => {
@@ -57,11 +57,11 @@ class Filter extends React.Component {
   };
 
   raceTypeSelector = () => {
-    const items = this.state.raceTypes.map(opt => <MenuItem key={opt.val} value={opt.val} primaryText={opt.text} />)
+    const items = this.state.types.map(opt => <MenuItem key={opt.val} value={opt.val} primaryText={opt.text} />)
 
     return (
       <DropDownMenu
-        value={this.props.raceType}
+        value={this.props.type}
         onChange={this.createRaceTypeChange}
         style={controlStyles} >
         {items}

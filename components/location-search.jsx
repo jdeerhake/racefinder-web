@@ -108,7 +108,7 @@ class LocationSearch extends React.Component {
   };
 
   renderSearchButton = () => {
-    const color = styles.color.accent
+    const color = styles.color.stylized
     if( this.state.searching && this.state.activeRequest ) {
       return (
         <RefreshIndicator

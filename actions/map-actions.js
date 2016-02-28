@@ -1,6 +1,6 @@
 import Dispatcher from '../dispatchers/racefinder-dispatcher.js'
 
-let MapActions = {
+const MapActions = {
 
   changeBounds( bounds ) {
     Dispatcher.dispatch({

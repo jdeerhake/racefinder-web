@@ -56,7 +56,6 @@ class Map extends React.Component {
 
   componentWillReceiveProps( nextProps ) {
     if( nextProps.center !== this.props.center ) {
-      console.log( 'why?' )
       this.moveMap( nextProps.center, nextProps.zoom )
     }
   }
@@ -79,20 +78,27 @@ class Map extends React.Component {
     }
   };
 
+  createMapStateChange = () => {
+    this.handleBoundsChanged()
+    this.handleCenterChanged()
+    this.handleZoomChanged()
+  };
+
   gMapListeners = ( gMap ) => {
     addMapEventListener( gMap, 'bounds_changed', this.handleBoundsChanged )
     addMapEventListener( gMap, 'center_changed', this.handleCenterChanged )
     addMapEventListener( gMap, 'zoom_changed', this.handleZoomChanged )
     addMapEventListener( gMap, 'click', this.handleClick )
+    addMapEventListener( gMap, 'tilesloaded', this.createMapStateChange )
   };
 
   handleBoundsChanged = _.debounce(() => {
     MapActions.changeBounds( this.getBounds() )
-  }, 500 );
+  }, 50 );
 
-  handleCenterChanged = () => {
+  handleCenterChanged = _.debounce(() => {
     MapActions.changeCenter( this.getCenter() )
-  };
+  }, 50 );
 
   handleZoomChanged = () => {
     MapActions.changeZoom( this.state.gMap.getZoom() )
@@ -118,7 +124,10 @@ class Map extends React.Component {
 
   getCenter = () => {
     let pt = this.state.gMap.getCenter()
-    return { lat: pt.lat(), lng: pt.lng() }
+    return {
+      lat: pt.lat().toFixed( 3 ),
+      lng: pt.lng().toFixed( 3 )
+    }
   };
 
   moveMap = ({ lat, lng }, zoom) => {

@@ -12,7 +12,7 @@ store.add( 'dateRanges', [
   { text: 'Within a year',   val: [ moment(), moment().add( 1, 'year' ) ]}
 ])
 
-store.add( 'raceTypes', [
+store.add( 'types', [
   { text: 'Any',       val: '' },
   { text: 'Run',       val: 'run' },
   { text: 'Bike',      val: 'bike' },

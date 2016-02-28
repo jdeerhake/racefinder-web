@@ -66,7 +66,9 @@ class Event extends React.Component {
 
   formattedStartTime = () => {
     const time = moment.unix( this.props.startDate )
-    if( time.format( 'm' ) === '0' ) {
+    if( time.format( 'h:mm' ) === '12:00' ) {
+      return ''
+    } else if( time.format( 'm' ) === '0' ) {
       return time.format( 'ha' )
     } else {
       return time.format( 'h:mma' )
@@ -74,11 +76,14 @@ class Event extends React.Component {
   };
 
   render() {
-    let races = this.props.races.map(( race ) => {
+    const races = this.props.races.map(( race ) => {
       return <Race key={race.id} {...race} />
     })
 
-    let image = this.props.logoImage ?  <img src={ this.props.logoImage } /> : ''
+    const date = [ this.formattedDate() ]
+    if( this.formattedStartTime() ) {
+      date.push( this.formattedStartTime() )
+    }
 
     return (
       <li
@@ -91,8 +96,7 @@ class Event extends React.Component {
         <span className='index'>{ this.props.index }</span>
         <a href={ this.props.infoURL } target='_blank'><h3 className='name'>{ this.props.name }</h3></a>
         <span className='place'>{ this.props.location.city }, { this.props.location.state }</span>
-        <span className='date'>{ this.formattedDate() }, { this.formattedStartTime() }</span>
-        { image }
+        <span className='date'>{ date.join( ', ' ) }</span>
         <ul className='races'>
           { races }
         </ul>

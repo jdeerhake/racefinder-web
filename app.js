@@ -9,5 +9,5 @@ TapPlugin()
 
 ReactDOM.render(
   React.createElement( App ),
-  document.body
+  document.getElementById( 'app' )
 )

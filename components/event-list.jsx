@@ -53,7 +53,7 @@ class EventList extends React.Component {
                             .map( id => ReactDOM.findDOMNode( this.refs[id] ).offsetTop ))
 
     if( typeof top !== 'undefined' ) {
-      this.scrollTo( top )
+      this.scrollTo( top - 15 )
     }
   };
 
@@ -75,6 +75,10 @@ class EventList extends React.Component {
 
   renderPrev = () => {
     return <li className='prev' onClick={ this.focusPrev }>«</li>
+  };
+
+  closeShowNoResults = () => {
+    this.setState({ showNoResults: false })
   };
 
   render() {
