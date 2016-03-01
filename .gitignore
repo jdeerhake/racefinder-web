@@ -18,4 +18,4 @@ node_modules
 .sass-cache
 public/generated
 
-config/*.local.js*
+config/env.*.js*
