@@ -4,6 +4,7 @@ import _ from 'lodash'
 import RefreshIndicator from 'material-ui/lib/refresh-indicator'
 import Snackbar from 'material-ui/lib/snackbar'
 import EventList from './event-list.jsx'
+import HelpButton from './help-button.jsx'
 import EventActions from '../actions/event-actions'
 import RequestStore from '../stores/event-requester-store'
 import EventStore from '../stores/event-store'
@@ -86,6 +87,7 @@ class RacefinderApp extends React.Component {
           open={ this.showNoResults() }
           message='No results found in this area'
           onRequestClose= { _ } />
+        <HelpButton />
       </span>
     )
   }
