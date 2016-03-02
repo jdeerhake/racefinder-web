@@ -61,12 +61,16 @@ class Event extends React.Component {
     EventActions.deactivateAllEvents()
   };
 
+  moment = () => {
+    return moment.unix( this.props.startDate ).utc()
+  }
+
   formattedDate = () => {
-    return moment.unix( this.props.startDate ).utc().format( 'MMMM Do (ddd)' )
+    return this.moment().format( 'MMMM Do (ddd)' )
   };
 
   formattedStartTime = () => {
-    const time = moment.unix( this.props.startDate )
+    const time = this.moment()
     if( time.format( 'h:mm' ) === '12:00' ) {
       return ''
     } else if( time.format( 'm' ) === '0' ) {
