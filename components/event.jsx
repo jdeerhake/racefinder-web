@@ -62,7 +62,7 @@ class Event extends React.Component {
   };
 
   formattedDate = () => {
-    return moment.unix( this.props.startDate ).format( 'MMMM Do (ddd)' )
+    return moment.unix( this.props.startDate ).utc().format( 'MMMM Do (ddd)' )
   };
 
   formattedStartTime = () => {
