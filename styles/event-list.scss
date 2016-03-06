@@ -7,6 +7,7 @@
   left: 0;
   height: $layout-modal-modal-height;
   @include transition( all linear 0.2s );
+  z-index: 2002;
 
   &.has-active {
     display: block;
@@ -53,6 +54,10 @@
     width: $layout-sidebar-bar-width;
     overflow: auto;
     border: solid 5px transparent;
+
+    &.has-active {
+      bottom: auto;
+    }
 
     .event, .event.focus {
       float: none;

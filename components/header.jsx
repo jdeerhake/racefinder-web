@@ -22,7 +22,6 @@ class Header extends React.Component {
   }
 
   showFilter = () => {
-    console.log('click')
     this.setState({ filterOpen: true })
   };
 

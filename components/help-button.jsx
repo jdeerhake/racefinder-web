@@ -20,6 +20,12 @@ class HelpButton extends React.Component {
     })
   };
 
+  closeHelp = () => {
+    this.setState({
+      helpOpen: false
+    })
+  };
+
   render() {
     return (
       <div className='help-button'>
@@ -28,11 +34,13 @@ class HelpButton extends React.Component {
           backgroundColor={ styles.color.stylized }>
           <HelpIcon />
         </FloatingActionButton>
+
         <Popover
+          className='help-wrapper'
           style={{ zIndex: 3001, marginLeft: '10px' }}
-          useLayerForClickAway={ false }
           open={ this.state.helpOpen }
           anchorEl={ this.state.anchorEl }
+          onRequestClose={ this.closeHelp }
           anchorOrigin={{ horizontal: 'right', vertical: 'center' }}
           targetOrigin={{ horizontal: 'left', vertical: 'center' }}>
             <div className='help-content'>
