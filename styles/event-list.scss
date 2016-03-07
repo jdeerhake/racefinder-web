@@ -14,22 +14,36 @@
     bottom: 0;
   }
 
-  .next, .prev {
-    display: block;
+  .nav {
     position: absolute;
-    top: 50%;
-    font-size: 40px;
-    padding: 5px 10px;
-    margin-top: -30px;
-    color: $color-stylized;
-  }
+    display: block;
+    top: -50px;
+    left: 50%;
+    margin-left: -70px;
+    background-color: rgba( white, 0.8 );
+    text-align: center;
 
-  .prev {
-    left: 0;
-  }
+    .next, .prev, .page {
+      display: inline-block;
+      padding: 10px;
+      line-height: 1rem;
+      vertical-align: middle;
+    }
 
-  .next {
-    right: 0;
+    .next, .prev {
+      font-size: 3rem;
+      position: relative;
+      top: -3px;
+
+      &.enabled {
+        color: $color-stylized;
+      }
+    }
+
+    .page {
+      font-size: 1rem;
+    }
+
   }
 
   .event {
@@ -55,7 +69,8 @@
     overflow: auto;
     border: solid 5px transparent;
 
-    &.has-active {
+    &.has-active, &.has-selector {
+      padding-top: 0;
       bottom: auto;
     }
 
@@ -64,8 +79,8 @@
       display: list-item;
     }
 
-    .prev, .next {
-      display: none;
+    li.nav {
+      display: none
     }
   }
 

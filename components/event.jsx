@@ -1,6 +1,7 @@
 import React from 'react'
 import Race from './race.jsx'
 import EventActions from '../actions/event-actions'
+import CloseIcon from 'material-ui/lib/svg-icons/navigation/close'
 import moment from 'moment'
 
 import  '../styles/event.scss'
@@ -97,7 +98,9 @@ class Event extends React.Component {
         onMouseLeave={ this.handleMouseLeave }
         onClick= { this.handleClick }
       >
-        <i className='close icon icon-times-circle' onClick={ this.handleClose }></i>
+        <i className='close icon icon-times-circle' onClick={ this.handleClose }>
+          <CloseIcon style={{ width: '20px', height: '20px' }} />
+        </i>
         <span className='index'>{ this.props.index }</span>
         <a href={ this.props.infoURL } target='_blank'><h3 className='name'>{ this.props.name }</h3></a>
         <span className='place'>{ this.props.location.city }, { this.props.location.state }</span>

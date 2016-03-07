@@ -42,9 +42,10 @@ class EventList extends React.Component {
   };
 
   classList = () => {
+    const { activeEventIDs } = this.state
     return this.props.classes.concat([
       !this.state.events.length && 'empty',
-      !!this.state.activeEventIDs.length  && 'has-active'
+      !!activeEventIDs.length  && 'has-active'
     ].filter( Boolean )).join( ' ' )
   };
 
@@ -70,11 +71,43 @@ class EventList extends React.Component {
   };
 
   renderNext = () => {
-    return <li className='next' onClick={ this.focusNext }>»</li>
+    const enabled = this.state.focus < ( this.state.activeEventIDs.length - 1 )
+    const classes = [
+      'next',
+      enabled ? 'enabled' : 'disabled'
+    ]
+    return (
+      <span className={ classes.join( ' ' ) } onClick={ enabled && this.focusNext }>»</span>
+    )
   };
 
   renderPrev = () => {
-    return <li className='prev' onClick={ this.focusPrev }>«</li>
+    const enabled = this.state.focus > 0
+    const classes = [
+      'prev',
+      enabled ? 'enabled' : 'disabled'
+    ]
+    return (
+      <span className={ classes.join( ' ' ) } onClick={ enabled && this.focusPrev }>«</span>
+    )
+  };
+
+  renderPage = () => {
+    return (
+      <span className='page'>
+        { this.state.focus + 1 } / { this.state.activeEventIDs.length }
+      </span>
+    )
+  };
+
+  renderNav = () => {
+    return (
+      <li className='nav'>
+        { this.renderPrev() }
+        { this.renderPage() }
+        { this.renderNext() }
+      </li>
+    )
   };
 
   closeShowNoResults = () => {
@@ -96,8 +129,7 @@ class EventList extends React.Component {
     return (
       <ul ref='list' className={ this.classList() }>
         { events }
-        { this.state.focus > 0 && this.renderPrev() }
-        { this.state.focus < ( this.state.activeEventIDs.length - 1 ) && this.renderNext() }
+        { this.state.activeEventIDs.length > 1 && this.renderNav() }
       </ul>
     )
   }
