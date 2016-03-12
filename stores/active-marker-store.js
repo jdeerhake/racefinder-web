@@ -18,7 +18,8 @@ store.handle([
   'event_deactivate_all',
   'map_click',
   'map_change_bounds',
-  'map_change_zoom'
+  'map_change_zoom',
+  'filter_update_param'
 ], function() {
   return this.resetActive()
 })

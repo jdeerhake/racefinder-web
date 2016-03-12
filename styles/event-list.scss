@@ -68,6 +68,7 @@
     width: $layout-sidebar-bar-width;
     overflow: auto;
     border: solid 5px transparent;
+    z-index: 1;
 
     &.has-active, &.has-selector {
       padding-top: 0;

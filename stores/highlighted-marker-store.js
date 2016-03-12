@@ -16,7 +16,8 @@ store.handle([
 
 store.handle([
   'event_reset',
-  'map_change_zoom'
+  'map_change_zoom',
+  'filter_update_param'
 ], function() {
   return this.resetHighlighted()
 })
