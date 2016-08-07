@@ -4,7 +4,11 @@ import { events as api } from '../lib/racefinder-api'
 let Event = {
 
   sortWith( event ) {
-    return this.startDate - event.startDate
+    const lat = Math.round( (this.location.lat - event.location.lat) * 1000 )
+    const lng = Math.round( (this.location.lng - event.location.lng) * 1000 )
+    const date = this.startDate - event.startDate
+
+    return lat || lng || date
   }
 
 }
