@@ -1,4 +1,4 @@
-import _ from 'lodash'
+import mapValues from 'lodash/mapValues'
 import React from 'react'
 import TextField from 'material-ui/lib/text-field'
 import DropDownMenu from 'material-ui/lib/drop-down-menu'
@@ -7,17 +7,20 @@ import FilterOptionsStore from '../stores/filter-options-store'
 
 import '../styles/filter.scss'
 
-let controlStyles = {
+const controlStyles = {
   width: '100%',
   textAlign: 'left'
 }
 
 function addIndexAsPayload( val, i ) {
-  return _.extend( val, { payload: i })
+  return {
+    ...val,
+    payload: i
+  }
 }
 
 function getStateFromStore() {
-  return _.mapValues( FilterOptionsStore.getAll(), opts => opts.map( addIndexAsPayload ) )
+  return mapValues( FilterOptionsStore.getAll(), opts => opts.map( addIndexAsPayload ) )
 }
 
 class Filter extends React.Component {
@@ -50,34 +53,34 @@ class Filter extends React.Component {
     return (
       <TextField
         hintText='Search'
-        value={this.props.query}
-        onChange={this.createQueryChange}
-        style={{ width: 'auto', margin: '0 24px', display: 'block' }} />
+        value={ this.props.query }
+        onChange={ this.createQueryChange }
+        style={ { width: 'auto', margin: '0 24px', display: 'block' } } />
     )
   };
 
   raceTypeSelector = () => {
-    const items = this.state.types.map(opt => <MenuItem key={opt.val} value={opt.val} primaryText={opt.text} />)
+    const items = this.state.types.map(opt => <MenuItem key={ opt.val } value={ opt.val } primaryText={ opt.text } />)
 
     return (
       <DropDownMenu
-        value={this.props.type}
-        onChange={this.createRaceTypeChange}
-        style={controlStyles} >
-        {items}
+        value={ this.props.type }
+        onChange={ this.createRaceTypeChange }
+        style={ controlStyles } >
+        { items }
       </DropDownMenu>
     )
   };
 
   dateSelector = () => {
-    const items = this.state.dateRanges.map(opt => <MenuItem key={opt.val} value={opt.val} primaryText={opt.text} />)
+    const items = this.state.dateRanges.map(opt => <MenuItem key={ opt.val } value={ opt.val } primaryText={ opt.text } />)
 
     return (
       <DropDownMenu
-        value={this.props.dateRange}
-        onChange={this.createDateRangeChange}
-        style={controlStyles}>
-        {items}
+        value={ this.props.dateRange }
+        onChange={ this.createDateRangeChange }
+        style={ controlStyles }>
+        { items }
       </DropDownMenu>
     )
   };
@@ -86,13 +89,13 @@ class Filter extends React.Component {
     return (
       <div className='filter'>
         <fieldset>
-          {this.raceTypeSelector()}
+          { this.raceTypeSelector() }
         </fieldset>
         <fieldset>
-          {this.dateSelector()}
+          { this.dateSelector() }
         </fieldset>
         <fieldset>
-          {this.searchField()}
+          { this.searchField() }
         </fieldset>
       </div>
     )

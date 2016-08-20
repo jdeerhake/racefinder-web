@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom'
 import EventStore from '../stores/event-store'
 import ActiveEventStore from '../stores/active-event-store'
 import Event from './event.jsx'
-import _ from 'lodash'
+import values from 'lodash/values'
 
 import '../styles/event-list.scss'
 
@@ -11,7 +11,7 @@ function getStateFromStore() {
   return {
     focus: 0,
     activeEventIDs: ActiveEventStore.getActive(),
-    events: _.values( EventStore.getAll() )
+    events: values( EventStore.getAll() )
   }
 }
 
@@ -27,6 +27,10 @@ class EventList extends React.Component {
   };
 
   state = getStateFromStore();
+
+  componentWillMount() {
+    this._events = {}
+  }
 
   componentDidMount() {
     EventStore.addChangeListener( this.onEventChange )
@@ -50,8 +54,8 @@ class EventList extends React.Component {
   };
 
   scrollToActive = () => {
-    let top =  Math.min(...ActiveEventStore.getActive()
-                            .map( id => ReactDOM.findDOMNode( this.refs[id] ).offsetTop ))
+    const top =  Math.min(...ActiveEventStore.getActive()
+                            .map( id => ReactDOM.findDOMNode( this._events[id] ).offsetTop ))
 
     if( typeof top !== 'undefined' ) {
       this.scrollTo( top - 15 )
@@ -59,7 +63,7 @@ class EventList extends React.Component {
   };
 
   scrollTo = ( y ) => {
-    ReactDOM.findDOMNode( this.refs.list ).scrollTop = y
+    ReactDOM.findDOMNode( this._list ).scrollTop = y
   };
 
   focusNext = () => {
@@ -115,19 +119,19 @@ class EventList extends React.Component {
   };
 
   render() {
-    let events = this.state.events.sort(( a, b ) => a.sortWith( b )).map( event => {
+    const events = this.state.events.sort(( a, b ) => a.sortWith( b )).map( event => {
       const activeIndex = this.state.activeEventIDs.indexOf( event.id )
       return (
-        <Event ref={ event.id }
+        <Event ref={ r => this._events[event.id] = r }
                key={ event.id }
                focus={ activeIndex === this.state.focus }
                active={ activeIndex > -1 }
-               {...event} />
+               { ...event } />
       )
     })
 
     return (
-      <ul ref='list' className={ this.classList() }>
+      <ul ref={ r => this._list = r } className={ this.classList() }>
         { events }
         { this.state.activeEventIDs.length > 1 && this.renderNav() }
       </ul>

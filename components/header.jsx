@@ -32,14 +32,15 @@ class Header extends React.Component {
   renderFilterActions = () => {
     return [
       <FlatButton
+        key={ 0 }
         label='OK'
-        onTouchTap={this.closeFilter} />
+        onTouchTap={ this.closeFilter } />
     ]
   };
 
   renderFilterButton = () => {
     return (
-      <IconButton tooltip='Filter results' tooltipPosition='bottom-left' touch onClick={this.showFilter}>
+      <IconButton tooltip='Filter results' tooltipPosition='bottom-left' touch onClick={ this.showFilter }>
         <FilterIcon />
       </IconButton>
     )
@@ -50,17 +51,17 @@ class Header extends React.Component {
       <span>
         <AppBar
           title='RaceFinder'
-          showMenuIconButton={false}
-          iconElementRight={this.renderFilterButton()} />
+          showMenuIconButton={ false }
+          iconElementRight={ this.renderFilterButton() } />
         <Dialog
-          actions={this.renderFilterActions()}
+          actions={ this.renderFilterActions() }
           title='Filter Races'
-          modal={false}
-          open={this.state.filterOpen}>
+          modal={ false }
+          open={ this.state.filterOpen }>
           <Filter
             key='filter'
-            onChange={this.createUpdateFilters}
-            {...this.props.filters} />
+            onChange={ this.createUpdateFilters }
+            { ...this.props.filters } />
         </Dialog>
       </span>
     )

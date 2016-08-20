@@ -1,6 +1,8 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import _ from 'lodash'
+import values from 'lodash/values'
+import extend from 'lodash/extend'
+import debounce from 'lodash/debounce'
 import RefreshIndicator from 'material-ui/lib/refresh-indicator'
 import Snackbar from 'material-ui/lib/snackbar'
 import EventList from './event-list.jsx'
@@ -18,7 +20,7 @@ import '../styles/racefinder-app.scss'
 
 function getStateFromStore() {
   return {
-    events: _.values( EventStore.getAll() ),
+    events: values( EventStore.getAll() ),
     filters: RequestStore.getAll(),
     hasActiveRequest: !!RequestStatusStore.getActive().length
   }
@@ -32,7 +34,7 @@ import ThemeDecorator from 'material-ui/lib/styles/theme-decorator'
 @ThemeDecorator( RaceFinderTheme )
 class RacefinderApp extends React.Component {
 
-  state = _.extend({
+  state = extend({
     listWidth: 0,
     mapProps: {
       zoom: parseInt( params().zoom, 10 ) || DEFAULT_ZOOM,
@@ -50,7 +52,7 @@ class RacefinderApp extends React.Component {
     RequestStore.on( 'change', this.createSearchEvents )
     RequestStatusStore.on( 'change', this.updateStateFromStore )
 
-    const elWidth = ReactDOM.findDOMNode( this.refs.list ).clientWidth
+    const elWidth = ReactDOM.findDOMNode( this._list ).clientWidth
     this.setState({
       listWidth: elWidth === document.body.clientWidth ? 0 : elWidth
     })
@@ -64,7 +66,7 @@ class RacefinderApp extends React.Component {
     this.setState( getStateFromStore() )
   };
 
-  createSearchEvents = _.debounce(() => {
+  createSearchEvents = debounce(() => {
     EventActions.search( RequestStore.getAll() )
   }, 500 );
 
@@ -74,19 +76,19 @@ class RacefinderApp extends React.Component {
 
     return (
       <span>
-        <Header filters={this.state.filters} />
+        <Header filters={ this.state.filters } />
         <RefreshIndicator
-          status={this.state.hasActiveRequest ? 'loading' : 'hide'}
-          left={progressLeft}
-          top={document.body.clientHeight * 0.15}
-          size={progressSize}
-          loadingColor={styles.color.active} />
-        <Map listWidth={this.state.listWidth} {...this.state.mapProps} />
-        <EventList ref='list' />
+          status={ this.state.hasActiveRequest ? 'loading' : 'hide' }
+          left={ progressLeft }
+          top={ document.body.clientHeight * 0.15 }
+          size={ progressSize }
+          loadingColor={ styles.color.active } />
+        <Map listWidth={ this.state.listWidth } { ...this.state.mapProps } />
+        <EventList ref={ r => this._list = r } />
         <Snackbar
           open={ this.showNoResults() }
           message='No results found in this area'
-          onRequestClose= { _ } />
+          onRequestClose={ () => {} } />
         <HelpButton />
       </span>
     )

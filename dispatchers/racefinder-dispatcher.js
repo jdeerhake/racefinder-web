@@ -1,4 +1,4 @@
 import { Dispatcher } from 'flux'
-let dispatcher = new Dispatcher()
+const dispatcher = new Dispatcher()
 
 export default dispatcher

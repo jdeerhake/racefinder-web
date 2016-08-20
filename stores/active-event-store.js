@@ -2,7 +2,7 @@ import Dispatcher from '../dispatchers/racefinder-dispatcher.js'
 import Store from '../lib/store'
 import StatusStore from '../lib/status-store'
 
-let store = Store( Dispatcher, StatusStore( 'active' ) )
+const store = Store( Dispatcher, StatusStore( 'active' ) )
 
 store.handle( 'event_activate', function( payload ) {
   return this.replaceActive( payload.eventIDs )

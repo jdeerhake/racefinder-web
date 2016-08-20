@@ -1,5 +1,4 @@
 import React from 'react'
-import _ from 'lodash'
 import FloatingActionButton from 'material-ui/lib/floating-action-button'
 import Popover from 'material-ui/lib/popover/popover'
 import HelpIcon from 'material-ui/lib/svg-icons/action/help-outline'
@@ -37,15 +36,17 @@ class HelpButton extends React.Component {
 
         <Popover
           className='help-wrapper'
-          style={{ zIndex: 3001, marginLeft: '10px' }}
+          style={ { zIndex: 3001, marginLeft: '10px' } }
           open={ this.state.helpOpen }
           anchorEl={ this.state.anchorEl }
           onRequestClose={ this.closeHelp }
-          anchorOrigin={{ horizontal: 'right', vertical: 'center' }}
-          targetOrigin={{ horizontal: 'left', vertical: 'center' }}>
-            <div className='help-content'>
-              Please send a message to <a href='mailto:contact@racefinder.me'>contact@racefinder.me</a> for help or other inquiries.
-            </div>
+          anchorOrigin={ { horizontal: 'right', vertical: 'center' } }
+          targetOrigin={ { horizontal: 'left', vertical: 'center' } }>
+
+          <div className='help-content'>
+            Please send a message to <a href='mailto:contact@racefinder.me'>contact@racefinder.me</a> for help or other inquiries.
+          </div>
+
         </Popover>
       </div>
     )

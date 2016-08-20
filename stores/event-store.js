@@ -1,15 +1,15 @@
-import _ from 'lodash'
+import keyBy from 'lodash/keyBy'
 import Dispatcher from '../dispatchers/racefinder-dispatcher.js'
 import Store from '../lib/store'
 
-let store = Store( Dispatcher, {} )
+const store = Store( Dispatcher, {} )
 
 store.handle( 'event_add', function ( payload ) {
   return this.add( payload.event.id, payload.event )
 })
 
 store.handle( 'event_reset', function ( payload ) {
-  return this.replace( _.keyBy( payload.events, 'id' ) )
+  return this.replace( keyBy( payload.events, 'id' ) )
 })
 
 store.handle( 'event_remove', function( payload ) {

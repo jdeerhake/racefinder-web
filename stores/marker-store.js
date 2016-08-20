@@ -1,18 +1,24 @@
-import _ from 'lodash'
+import uniq from 'lodash/uniq'
+import partialRight from 'lodash/partialRight'
+import partial from 'lodash/partial'
+import pull from 'lodash/pull'
+import map from 'lodash/map'
 import EventStore from './event-store'
 import MapStore from './map-store'
 import Dispatcher from '../dispatchers/racefinder-dispatcher'
 import Marker from '../models/marker'
 import Store from '../lib/store'
 
-let store = Store( Dispatcher, {
+partial.placeholder = window
+
+const store = Store( Dispatcher, {
 
   getIDFromEvent: function( eventID ) {
     return this._byEvent[ eventID ].id
   },
 
   getIDsFromEvents: function( eventIDs ) {
-    return _.uniq( eventIDs.map( this.getIDFromEvent ) )
+    return uniq( eventIDs.map( this.getIDFromEvent ) )
   },
 
   addFromEvent: function( event, zoom ) {
@@ -34,7 +40,7 @@ let store = Store( Dispatcher, {
   remove: function( id ) {
     if( this.get( id ) ) {
       delete this._items[ id ]
-      Array( this._highlighted, this._active ).map( _.partialRight( _.pull, id ) )
+      Array( this._highlighted, this._active ).map( partialRight( pull, id ) )
       return true
     }
   },
@@ -75,7 +81,7 @@ store.handle([
   Dispatcher.waitFor([ EventStore.token ])
   var zoom = MapStore.get( 'zoom' )
   this.reset()
-  _.map( EventStore.getAll(), _.partial( this.addFromEvent, _, zoom ) )
+  map( EventStore.getAll(), partial( this.addFromEvent, window, zoom ) )
   return true
 })
 

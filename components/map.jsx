@@ -1,6 +1,8 @@
-import _ from 'lodash'
 import React from 'react'
 import ReactDOM from 'react-dom'
+import debounce from 'lodash/debounce'
+import values from 'lodash/values'
+import includes from 'lodash/includes'
 import MapActions from '../actions/map-actions'
 import MarkerStore from '../stores/marker-store'
 import HighlightedMarkerStore from '../stores/highlighted-marker-store'
@@ -11,7 +13,7 @@ import MapStore from '../stores/map-store'
 
 import '../styles/map.scss'
 
-let addMapEventListener = google.maps.event.addListener
+const addMapEventListener = google.maps.event.addListener
 
 function getStateFromStores() {
   return {
@@ -61,7 +63,7 @@ class Map extends React.Component {
   }
 
   createGMap = () => {
-    const el = ReactDOM.findDOMNode( this.refs.gmap )
+    const el = ReactDOM.findDOMNode( this._gmap )
     const gMap = new google.maps.Map( el, this.props )
     MapActions.createMap( gMap )
   };
@@ -92,11 +94,11 @@ class Map extends React.Component {
     addMapEventListener( gMap, 'tilesloaded', this.createMapStateChange )
   };
 
-  handleBoundsChanged = _.debounce(() => {
+  handleBoundsChanged = debounce(() => {
     MapActions.changeBounds( this.getBounds() )
   }, 50 );
 
-  handleCenterChanged = _.debounce(() => {
+  handleCenterChanged = debounce(() => {
     MapActions.changeCenter( this.getCenter() )
   }, 50 );
 
@@ -109,10 +111,10 @@ class Map extends React.Component {
   };
 
   getBounds = () => {
-    let bounds = this.state.gMap.getBounds()
-    let ne = bounds.getNorthEast()
-    let sw = bounds.getSouthWest()
-    let lngSpan = ne.lng() - sw.lng()
+    const bounds = this.state.gMap.getBounds()
+    const ne = bounds.getNorthEast()
+    const sw = bounds.getSouthWest()
+    const lngSpan = ne.lng() - sw.lng()
 
     return {
       n: ne.lat(),
@@ -123,7 +125,7 @@ class Map extends React.Component {
   };
 
   getCenter = () => {
-    let pt = this.state.gMap.getCenter()
+    const pt = this.state.gMap.getCenter()
     return {
       lat: pt.lat().toFixed( 3 ),
       lng: pt.lng().toFixed( 3 )
@@ -136,24 +138,24 @@ class Map extends React.Component {
   };
 
   listCoverageMultiplier = () => {
-    let totalWidth = ReactDOM.findDOMNode( this.refs.gmap ).clientWidth
+    const totalWidth = ReactDOM.findDOMNode( this._gmap ).clientWidth
     return this.props.listWidth / totalWidth
   };
 
   render() {
-    let gMap = this.state.gMap
-    let markers = _.values( this.state.markers ).map( marker => {
+    const gMap = this.state.gMap
+    const markers = values( this.state.markers ).map( marker => {
       return (<Marker
-                key={marker.id}
-                gMap={gMap}
-                active={ _.includes( this.state.active, marker.id ) }
-                highlighted={ _.includes( this.state.highlighted, marker.id ) }
-                {...marker} />)
+                key={ marker.id }
+                gMap={ gMap }
+                active={ includes( this.state.active, marker.id ) }
+                highlighted={ includes( this.state.highlighted, marker.id ) }
+                { ...marker } />)
     })
 
     return (
       <div id='map'>
-        <div ref='gmap' id='gmap'></div>
+        <div ref={ r => this._gmap = r } id='gmap' />
         <LocationSearch onSearch={ this.moveMap } />
         { markers }
       </div>)

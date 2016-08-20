@@ -1,7 +1,7 @@
 import Dispatcher from '../dispatchers/racefinder-dispatcher'
 import Store from '../lib/store'
 
-let store = Store( Dispatcher, {
+const store = Store( Dispatcher, {
 
   _items: {
     zoom: 12

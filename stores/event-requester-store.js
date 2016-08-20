@@ -1,4 +1,5 @@
-import _ from 'lodash'
+import find from 'lodash/find'
+import findIndex from 'lodash/findIndex'
 import { params, overrideParams } from '../lib/history'
 import Dispatcher from '../dispatchers/racefinder-dispatcher'
 import Store from '../lib/store'
@@ -7,7 +8,7 @@ import FilterOptsStore from './filter-options-store'
 const store = Store( Dispatcher, {} )
 const filters = FilterOptsStore.getAll()
 
-const selectedType = _.find( filters.types, { val: params().type }) || filters.types[0]
+const selectedType = find( filters.types, { val: params().type }) || filters.types[0]
 const selectedDates = filters.dateRanges[ params().dateRange ] || filters.dateRanges[2]
 const query = params().query || ''
 
@@ -37,7 +38,7 @@ store.handle( 'map_change_zoom', ({ zoom }) => {
 
 store.handle( 'filter_update_param', function({ key, val }) {
   if( key === 'dateRange' ) {
-    const index = _.findIndex( filters.dateRanges, { val })
+    const index = findIndex( filters.dateRanges, { val })
     overrideParams({ dateRange: index })
   } else {
     overrideParams({ [key]: val })

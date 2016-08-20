@@ -4,7 +4,7 @@ import Dispatcher from '../dispatchers/racefinder-dispatcher'
 import Store from '../lib/store'
 import StatusStore from '../lib/status-store'
 
-let store = Store( Dispatcher, StatusStore( 'highlighted' ) )
+const store = Store( Dispatcher, StatusStore( 'highlighted' ) )
 
 store.handle([
   'event_highlight',

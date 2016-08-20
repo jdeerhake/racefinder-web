@@ -1,6 +1,6 @@
 import Dispatcher from '../dispatchers/racefinder-dispatcher'
 
-let FilterActions = {
+const FilterActions = {
 
   updateParam: function( key, val ) {
     Dispatcher.dispatch({

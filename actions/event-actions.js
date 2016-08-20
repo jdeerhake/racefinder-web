@@ -4,11 +4,11 @@ import { abortRequest } from '../lib/racefinder-api'
 import Dispatcher from '../dispatchers/racefinder-dispatcher'
 import { v4 as uuid } from 'node-uuid'
 
-let EventActions = {
+const EventActions = {
 
   search( params ) {
     RequestStatusStore.getActive().map( abortRequest )
-    let id = uuid()
+    const id = uuid()
     Dispatcher.dispatch({
       type: 'request_replaced',
       id

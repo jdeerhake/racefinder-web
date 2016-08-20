@@ -19,8 +19,8 @@ class Marker extends React.Component {
   };
 
   componentWillMount() {
-    let latLng = new google.maps.LatLng( this.props.lat, this.props.lng )
-    let marker = new google.maps.Marker({ position : latLng })
+    const latLng = new google.maps.LatLng( this.props.lat, this.props.lng )
+    const marker = new google.maps.Marker({ position : latLng })
     marker.setMap( this.props.gMap )
     this.gMapListener = google.maps.event.addListener( marker, 'click', this.activateEvents )
 
@@ -35,8 +35,8 @@ class Marker extends React.Component {
   }
 
   componentWillReceiveProps( nextProps ) {
-    let currentIcon = this.iconForProps()
-    let newIcon = this.iconForProps( nextProps )
+    const currentIcon = this.iconForProps()
+    const newIcon = this.iconForProps( nextProps )
     if( newIcon !== currentIcon ) {
       this.state.gMarker.setIcon( newIcon )
     }

@@ -83,7 +83,7 @@ class Event extends React.Component {
 
   render() {
     const races = this.props.races.map(( race ) => {
-      return <Race key={race.id} {...race} />
+      return <Race key={ race.id } { ...race } />
     })
 
     const date = [ this.formattedDate() ]
@@ -96,10 +96,10 @@ class Event extends React.Component {
         className={ this.classList() }
         onMouseEnter={ this.handleMouseEnter }
         onMouseLeave={ this.handleMouseLeave }
-        onClick= { this.handleClick }
+        onClick={ this.handleClick }
       >
         <i className='close icon icon-times-circle' onClick={ this.handleClose }>
-          <CloseIcon style={{ width: '20px', height: '20px' }} />
+          <CloseIcon style={ { width: '20px', height: '20px' } } />
         </i>
         <span className='index'>{ this.props.index }</span>
         <a href={ this.props.infoURL } target='_blank'><h3 className='name'>{ this.props.name }</h3></a>

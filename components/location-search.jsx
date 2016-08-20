@@ -1,5 +1,4 @@
 import React from 'react'
-import _ from 'lodash'
 import TextField from 'material-ui/lib/text-field'
 import FloatingActionButton from 'material-ui/lib/floating-action-button'
 import MyLocationIcon from 'material-ui/lib/svg-icons/maps/my-location'
@@ -112,12 +111,12 @@ class LocationSearch extends React.Component {
     if( this.state.searching && this.state.activeRequest ) {
       return (
         <RefreshIndicator
-          size={40}
-          left={0}
-          top={0}
+          size={ 40 }
+          left={ 0 }
+          top={ 0 }
           loadingColor={ '#FFF' }
           status='loading'
-          style={ _.assign({ backgroundColor: color }, progressStyle ) } />
+          style={ { backgroundColor: color, ...progressStyle } } />
       )
     } else {
       return (
@@ -138,12 +137,12 @@ class LocationSearch extends React.Component {
     } else if( this.state.activeRequest ) {
       return (
         <RefreshIndicator
-          size={40}
-          left={0}
-          top={0}
+          size={ 40 }
+          left={ 0 }
+          top={ 0 }
           loadingColor={ '#FFF' }
           status='loading'
-          style={ _.assign({ backgroundColor: color }, progressStyle ) } />
+          style={ { backgroundColor: color, ...progressStyle } } />
       )
     } else {
       return (
@@ -159,10 +158,10 @@ class LocationSearch extends React.Component {
 
   render() {
     return (
-      <span className={`location-search ${this.state.searching && 'searching'}`}>
-        {this.renderSearchField()}
-        {this.renderSearchButton()}
-        {this.renderGeoButton()}
+      <span className={ `location-search ${ this.state.searching && 'searching' }` }>
+        { this.renderSearchField() }
+        { this.renderSearchButton() }
+        { this.renderGeoButton() }
       </span>
     )
   }

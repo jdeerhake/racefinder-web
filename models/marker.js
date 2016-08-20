@@ -1,7 +1,8 @@
-import _ from 'lodash'
 import sha1 from 'sha1'
+import bindAll from 'lodash/bindAll'
+import functions from 'lodash/functions'
 
-let Marker = {
+const Marker = {
 
   addEvent( eventID ) {
     if( this.events.indexOf( eventID ) === -1 ) {
@@ -16,19 +17,20 @@ let Marker = {
 }
 
 function factory( lat, lng, zoom ) {
-  let precision = Math.floor( zoom / 4 )
+  const precision = Math.floor( zoom / 4 )
   lat = parseFloat( lat ).toFixed( precision )
   lng = parseFloat( lng ).toFixed( precision )
 
-  let marker = _.extend( {}, Marker, {
+  const marker = {
+    ...Marker,
     lat,
     lng,
     zoom,
     id: sha1( '' + zoom + lat + lng ),
     events: []
-  })
+  }
 
-  _.bindAll( marker, _.functions( marker ) )
+  bindAll( marker, functions( marker ) )
 
   return marker
 }
