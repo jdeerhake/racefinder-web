@@ -1,40 +1,17 @@
-import Dispatcher from '../dispatchers/racefinder-dispatcher.js'
+import {
+  MAP_CHANGE_BOUNDS,
+  MAP_CHANGE_CENTER,
+  MAP_CHANGE_ZOOM,
+  MAP_CLICK,
+  MAP_CREATED
+} from './index'
 
-const MapActions = {
+export const changeBounds = bounds => ({ type: MAP_CHANGE_BOUNDS, bounds })
 
-  changeBounds( bounds ) {
-    Dispatcher.dispatch({
-      type: 'map_change_bounds',
-      bounds: bounds
-    })
-  },
+export const changeCenter = center => ({ type: MAP_CHANGE_CENTER, center })
 
-  changeCenter( center ) {
-    Dispatcher.dispatch({
-      type: 'map_change_center',
-      center: center
-    })
-  },
+export const changeZoom = zoom => ({ type: MAP_CHANGE_ZOOM, zoom })
 
-  changeZoom( zoom ) {
-    Dispatcher.dispatch({
-      type: 'map_change_zoom',
-      zoom: zoom
-    })
-  },
+export const click = () => ({ type: MAP_CLICK })
 
-  click() {
-    Dispatcher.dispatch({
-      type: 'map_click'
-    })
-  },
-
-  createMap( gMap ) {
-    Dispatcher.dispatch({
-      type: 'map_created',
-      gMap: gMap
-    })
-  }
-}
-
-export default MapActions
+export const createMap = gMap => ({ type: MAP_CREATED, gMap })

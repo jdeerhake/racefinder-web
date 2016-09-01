@@ -1,15 +1,5 @@
-import Dispatcher from '../dispatchers/racefinder-dispatcher'
+import {
+  FILTER_UPDATE_PARAM
+} from './index'
 
-const FilterActions = {
-
-  updateParam: function( key, val ) {
-    Dispatcher.dispatch({
-      type: 'filter_update_param',
-      key: key,
-      val: val
-    })
-  }
-
-}
-
-export default FilterActions
+export const updateParam = ( key, val ) => ({ type: FILTER_UPDATE_PARAM, key, val })
