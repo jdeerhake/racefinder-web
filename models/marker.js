@@ -1,14 +1,25 @@
 import sha1 from 'sha1'
-import bindAll from 'lodash/bindAll'
-import functions from 'lodash/functions'
 
-const Marker = {
+class Marker {
+
+  __constructor({ lat, lng, zoom }) {
+    const precision = Math.floor( zoom / 4 )
+    this.lat = parseFloat( lat ).toFixed( precision )
+    this.lng = parseFloat( lng ).toFixed( precision )
+    this.zoom = zoom
+    this.events = []
+    this.id = sha1( `${this.lat}-${this.lng}-${this.zoom}` )
+  }
 
   addEvent( eventID ) {
-    if( this.events.indexOf( eventID ) === -1 ) {
+    if( !this.hasEvent( eventID ) ) {
       this.events.push( eventID )
     }
-  },
+  }
+
+  hasEvent( eventID ) {
+    return this.events.indexOf( eventID ) > -1
+  }
 
   isEmpty() {
     return !!this.events.length
@@ -16,23 +27,5 @@ const Marker = {
 
 }
 
-function factory( lat, lng, zoom ) {
-  const precision = Math.floor( zoom / 4 )
-  lat = parseFloat( lat ).toFixed( precision )
-  lng = parseFloat( lng ).toFixed( precision )
 
-  const marker = {
-    ...Marker,
-    lat,
-    lng,
-    zoom,
-    id: sha1( '' + zoom + lat + lng ),
-    events: []
-  }
-
-  bindAll( marker, functions( marker ) )
-
-  return marker
-}
-
-export default factory
+export default Marker

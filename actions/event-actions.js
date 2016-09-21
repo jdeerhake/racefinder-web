@@ -1,12 +1,7 @@
 import Event from '../models/event'
-import RequestStatusStore from '../stores/request-status-store'
-import { abortRequest } from '../lib/racefinder-api'
 import { v4 as uuid } from 'node-uuid'
 
 import {
-  REQUEST_REPLACED,
-  REQUEST_RESPONSE_RECEIVED,
-  REQUEST_ERROR,
   EVENT_ADD,
   EVENT_RESET,
   EVENT_REMOVE,
@@ -14,18 +9,21 @@ import {
   EVENT_DEACTIVATE,
   EVENT_DEACTIVATE_ALL,
   EVENT_HIGHLIGHT,
-  EVENT_DEHIGHLIGHT
+  EVENT_DEHIGHLIGHT,
+  REQUEST_MADE,
+  REQUEST_SUCCESS,
+  REQUEST_ERROR,
 } from './index'
 
 export const search = params => dispatch => {
+  const requestType = 'EVENT_SEARCH'
   const id = uuid()
-  RequestStatusStore.getActive().map( abortRequest )
-  dispatch({ type: REQUEST_REPLACED, id })
+  dispatch({ type: REQUEST_MADE, requestType, id })
   Event.search( params, id ).then( events => {
     resetEvents( events )
-    dispatch({ type: REQUEST_RESPONSE_RECEIVED, id })
+    dispatch({ type: REQUEST_SUCCESS, requestType, id })
   }, error => {
-    dispatch({ type: REQUEST_ERROR, error, id })
+    dispatch({ type: REQUEST_ERROR, error, requestType, id })
   })
 }
 

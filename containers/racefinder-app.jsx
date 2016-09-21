@@ -1,89 +1,82 @@
-import React from 'react'
+import React, { Component, PropTypes } from 'react'
+import { bindActionCreators } from 'redux'
+import { connect } from 'react-redux'
 import ReactDOM from 'react-dom'
-import values from 'lodash/values'
-import extend from 'lodash/extend'
 import debounce from 'lodash/debounce'
 import RefreshIndicator from 'material-ui/lib/refresh-indicator'
 import Snackbar from 'material-ui/lib/snackbar'
 import EventList from '../components/event-list.jsx'
 import HelpButton from '../components/help-button.jsx'
-import EventActions from '../actions/event-actions'
-import RequestStore from '../stores/event-requester-store'
-import EventStore from '../stores/event-store'
-import RequestStatusStore from '../stores/request-status-store'
 import Map from '../components/map.jsx'
 import Header from '../components/header.jsx'
-import { params } from '../lib/history'
 import styles from '../lib/styles'
 
+import * as EventActions from '../actions/event-actions'
+import * as MapActions from '../actions/map-actions'
+import * as FilterActions from '../actions/filter-actions'
+import * as LayoutActions from '../actions/layout-actions'
+
 import '../styles/racefinder-app.scss'
-
-function getStateFromStore() {
-  return {
-    events: values( EventStore.getAll() ),
-    filters: RequestStore.getAll(),
-    hasActiveRequest: !!RequestStatusStore.getActive().length
-  }
-}
-
-const DEFAULT_ZOOM = 10
 
 import RaceFinderTheme from '../lib/theme'
 import ThemeDecorator from 'material-ui/lib/styles/theme-decorator'
 
-@ThemeDecorator( RaceFinderTheme )
-class RacefinderApp extends React.Component {
+const { object, arrayOf, number } = PropTypes
 
-  state = extend({
-    listWidth: 0,
-    mapProps: {
-      zoom: parseInt( params().zoom, 10 ) || DEFAULT_ZOOM,
-      center: {
-        lat: parseFloat( params().lat ) || 34.018418,
-        lng: parseFloat( params().lng ) || -118.107009
-      },
-      styles: require( '../lib/map-styles' )
-    }
-  }, getStateFromStore() );
+@ThemeDecorator( RaceFinderTheme )
+class RacefinderApp extends Component {
+
+  propTypes = {
+    EventActions: object,
+    FilterActions: object,
+    LayoutActions: object,
+    MapActions: object,
+    activeEvents: arrayOf( number ),
+    events: object,
+    filter: object,
+    highlightedEvents: arrayOf( number ),
+    layout: object,
+    map: object,
+    requests: object
+  };
 
   componentDidMount() {
-    RequestStore.on( 'change', this.updateStateFromStore )
-    EventStore.on( 'change', this.updateStateFromStore )
-    RequestStore.on( 'change', this.createSearchEvents )
-    RequestStatusStore.on( 'change', this.updateStateFromStore )
-
+    const { setListWidth } = this.props.LayoutActions
     const elWidth = ReactDOM.findDOMNode( this._list ).clientWidth
-    this.setState({
+    setListWidth({
       listWidth: elWidth === document.body.clientWidth ? 0 : elWidth
     })
   }
 
-  showNoResults = () => {
-    return !this.state.hasActiveRequest && this.state.events.length === 0
-  }
-
-  updateStateFromStore = () => {
-    this.setState( getStateFromStore() )
+  hasActiveRequest = () => {
+    const { requests } = this.props
+    return !!requests.EVENT_SEARCH
   };
 
+  showNoResults = () => {
+    return !this.hasActiveRequest() && this.state.events.length === 0
+  }
+
   createSearchEvents = debounce(() => {
-    EventActions.search( RequestStore.getAll() )
+    const { EventActions, filter } = this.props
+    EventActions.search( filter )
   }, 500 );
 
   render() {
+    const { filter, layout, map } = this.props
     const progressSize = 50
-    const progressLeft = (document.body.clientWidth - this.state.listWidth - progressSize) / 2
+    const progressLeft = (document.body.clientWidth - layout.listWidth - progressSize) / 2
 
     return (
       <span>
-        <Header filters={ this.state.filters } />
+        <Header filters={ filter } />
         <RefreshIndicator
-          status={ this.state.hasActiveRequest ? 'loading' : 'hide' }
+          status={ this.hasActiveRequest() ? 'loading' : 'hide' }
           left={ progressLeft }
           top={ document.body.clientHeight * 0.15 }
           size={ progressSize }
           loadingColor={ styles.color.active } />
-        <Map listWidth={ this.state.listWidth } { ...this.state.mapProps } />
+        <Map listWidth={ layout.listWidth } { ...this.state.mapProps } />
         <EventList ref={ r => this._list = r } />
         <Snackbar
           open={ this.showNoResults() }
@@ -96,4 +89,15 @@ class RacefinderApp extends React.Component {
 
 }
 
-export default RacefinderApp
+
+export default connect(
+  state => ({
+    ...state
+  }),
+  dispatch => ({
+    EventActions: bindActionCreators(EventActions, dispatch),
+    FilterActions: bindActionCreators(FilterActions, dispatch),
+    LayoutActions: bindActionCreators(LayoutActions, dispatch),
+    MapActions: bindActionCreators(MapActions, dispatch)
+  })
+)(RacefinderApp)

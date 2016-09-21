@@ -4,9 +4,6 @@ import debounce from 'lodash/debounce'
 import values from 'lodash/values'
 import includes from 'lodash/includes'
 import MapActions from '../actions/map-actions'
-import MarkerStore from '../stores/marker-store'
-import HighlightedMarkerStore from '../stores/highlighted-marker-store'
-import ActiveMarkerStore from '../stores/active-marker-store'
 import Marker from './marker.jsx'
 import LocationSearch from './location-search.jsx'
 import MapStore from '../stores/map-store'
@@ -15,23 +12,18 @@ import '../styles/map.scss'
 
 const addMapEventListener = google.maps.event.addListener
 
-function getStateFromStores() {
-  return {
-    markers: MarkerStore.getAll(),
-    active: ActiveMarkerStore.getActive(),
-    highlighted: HighlightedMarkerStore.getHighlighted()
-  }
-}
-
-const { object, bool, number } = React.PropTypes
+const { object, bool, number, arrayOf, string } = React.PropTypes
 
 class Map extends React.Component {
 
   static propTypes = {
+    active: arrayOf( string ),
     center: object,
     disableDefaultUI: bool,
+    highlighted: arrayOf( string ),
     listWidth: number,
     mapTypeID: number,
+    markers: object,
     zoom: number,
     zoomControl: bool,
     zoomControlOptions: object
@@ -47,12 +39,7 @@ class Map extends React.Component {
     }
   };
 
-  state = getStateFromStores();
-
   componentDidMount() {
-    [ MarkerStore, HighlightedMarkerStore, ActiveMarkerStore ]
-      .forEach( store => store.addChangeListener( this.onMarkerChange ) )
-    MapStore.addChangeListener( this.onMapChange )
     this.createGMap()
   }
 

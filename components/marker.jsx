@@ -1,16 +1,18 @@
-import React from 'react'
+import React, { Component, PropTypes } from 'react'
 import EventActions from '../actions/event-actions'
 import MarkerIcons from '../lib/marker-styles'
 
-class Marker extends React.Component {
+const { bool, arrayOf, string, object } = PropTypes
+
+class Marker extends Component {
 
   static propTypes = {
-    active: React.PropTypes.bool,
-    events: React.PropTypes.arrayOf( React.PropTypes.string ),
-    gMap: React.PropTypes.object.isRequired,
-    highlighted: React.PropTypes.bool,
-    lat: React.PropTypes.string.isRequired,
-    lng: React.PropTypes.string.isRequired
+    active: bool,
+    events: arrayOf( string ),
+    gMap: object,
+    highlighted: bool,
+    lat: string,
+    lng: string
   };
 
   state = {
