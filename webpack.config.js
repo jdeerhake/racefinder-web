@@ -5,11 +5,20 @@ const isProduction = process.env.NODE_ENV === 'production'
 
 const config = {
 
-  entry: './app.js',
+  entry: {
+    //app: resolve( './app.js' ),
+    mapbox: resolve( './mapbox.jsx' )
+  },
 
   output: {
     path: resolve( './public/generated' ),
-    filename: 'bundle.js'
+    filename: '[name].js'
+  },
+
+  resolve: {
+    alias: {
+      'webworkify': 'webworkify-webpack'
+    }
   },
 
   module: {
@@ -19,7 +28,12 @@ const config = {
       { test: /\.scss$/,       loader: 'style!css!sass' +
         '?includePaths[]=' + resolve( './styles' ) +
         '&includePaths[]=' + resolve( './node_modules/compass-mixins/lib' )
-      }
+      },
+      { test: /\.js$/, include: resolve( 'node_modules/mapbox-gl-shaders/index.js' ), loader: 'transform/cacheable?brfs' }
+    ],
+
+    postLoaders: [
+      { include: /node_modules\/mapbox-gl-shaders/, loader: 'transform', query: 'brfs' }
     ]
   },
 
