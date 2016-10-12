@@ -1,13 +1,20 @@
+require( 'dotenv' ).config()
+
 const resolve = require( 'path' ).resolve.bind( null, __dirname )
 const webpack = require( 'webpack' )
+const _ = require( 'lodash' )
 const StatsPlugin = require( 'stats-webpack-plugin' )
 const isProduction = process.env.NODE_ENV === 'production'
+
+const env = _.pick( process.env, [
+  'NODE_ENV',
+  'MAPBOX_API_KEY'
+])
 
 const config = {
 
   entry: {
-    //app: resolve( './app.js' ),
-    mapbox: resolve( './mapbox.jsx' )
+    app: resolve( './app.jsx' )
   },
 
   output: {
@@ -17,7 +24,8 @@ const config = {
 
   resolve: {
     alias: {
-      'webworkify': 'webworkify-webpack'
+      'webworkify': 'webworkify-webpack',
+      'config': ''
     }
   },
 
@@ -25,15 +33,24 @@ const config = {
     loaders: [
       { test: /\.json$/,       loader: 'json' },
       { test: /\.jsx?$/,       loader: 'babel', exclude: /node_modules/ },
-      { test: /\.scss$/,       loader: 'style!css!sass' +
-        '?includePaths[]=' + resolve( './styles' ) +
-        '&includePaths[]=' + resolve( './node_modules/compass-mixins/lib' )
+      {
+        test: /\.scss$/,       loader: 'style!css!sass' +
+          '?includePaths[]=' + resolve( './styles' ) +
+          '&includePaths[]=' + resolve( './node_modules/compass-mixins/lib' )
       },
-      { test: /\.js$/, include: resolve( 'node_modules/mapbox-gl-shaders/index.js' ), loader: 'transform/cacheable?brfs' }
+      {
+        test: /\.js$/,
+        loader: 'transform/cacheable?brfs',
+        include: resolve( 'node_modules/mapbox-gl-shaders/index.js' ),
+      }
     ],
 
     postLoaders: [
-      { include: /node_modules\/mapbox-gl-shaders/, loader: 'transform', query: 'brfs' }
+      {
+        query: 'brfs',
+        loader: 'transform',
+        include: /node_modules\/mapbox-gl-shaders/
+      }
     ]
   },
 
@@ -44,7 +61,10 @@ const config = {
       chunks: false,
       modules: false,
       assets: true
-    })
+    }),
+    new webpack.DefinePlugin({
+      'process.env': JSON.stringify( env )
+    }),
   ]
 }
 
@@ -53,9 +73,6 @@ if( isProduction ) {
     new webpack.optimize.UglifyJsPlugin({
       compressor: { warnings: false },
       sourceMap: false
-    }),
-    new webpack.DefinePlugin({
-      'process.env': { NODE_ENV: JSON.stringify('production') }
     }),
     new webpack.optimize.DedupePlugin(),
     new webpack.optimize.OccurenceOrderPlugin()

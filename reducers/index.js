@@ -1,8 +1,10 @@
 import { combineReducers } from 'redux'
-import layout from './layout'
+import { routerReducer } from 'react-router-redux'
+import { createViewportReducer } from 'redux-map-gl'
 
 const rootReducer = combineReducers({
-  layout
+  routing: routerReducer,
+  map: createViewportReducer()
 })
 
 export default rootReducer
