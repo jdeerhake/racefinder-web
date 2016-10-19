@@ -8,7 +8,8 @@ const isProduction = process.env.NODE_ENV === 'production'
 
 const env = _.pick( process.env, [
   'NODE_ENV',
-  'MAPBOX_API_KEY'
+  'MAPBOX_API_KEY',
+  'MAPBOX_MAP_URL'
 ])
 
 const config = {
@@ -62,21 +63,26 @@ const config = {
       modules: false,
       assets: true
     }),
+
     new webpack.DefinePlugin({
       'process.env': JSON.stringify( env )
-    }),
+    })
   ]
 }
 
 if( isProduction ) {
+
   config.plugins.push(
     new webpack.optimize.UglifyJsPlugin({
       compressor: { warnings: false },
       sourceMap: false
     }),
+
     new webpack.optimize.DedupePlugin(),
+
     new webpack.optimize.OccurenceOrderPlugin()
   )
+
 }
 
 module.exports = config

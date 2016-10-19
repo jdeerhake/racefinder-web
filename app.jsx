@@ -9,12 +9,13 @@ import Landing from './containers/landing.jsx'
 import Map from './containers/map.jsx'
 
 const store = configureStore()
-const history = syncHistoryWithStore(browserHistory, store)
+const history = syncHistoryWithStore( browserHistory, store )
 
 ReactDOM.render(
   <Provider store={ store }>
     <Router history={ history }>
       { /* <Route path='/' component={ Landing } /> */ }
+      <Route path='/map/:citySlug' component={ Map } />
       <Route path='*' component={ Map } />
     </Router>
   </Provider>,

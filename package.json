@@ -19,6 +19,7 @@
     "compass-mixins": "^0.12.7",
     "css-loader": "^0.25.0",
     "dotenv": "^2.0.0",
+    "immutable": "^3.8.1",
     "json-loader": "^0.5.4",
     "lodash": "^4.3.0",
     "material-ui": "^0.16.0",
@@ -26,6 +27,7 @@
     "node-sass": "^3.4.2",
     "node-uuid": "^1.4.3",
     "promise": "^7.0.4",
+    "promised-location": "^1.0.1",
     "react": "^15.3.2",
     "react-dom": "^15.3.2",
     "react-map-gl": "^1.6.1",
@@ -49,6 +51,7 @@
     "babel-eslint": "^7.0.0",
     "eslint": "^3.3.1",
     "eslint-plugin-react": "^6.1.2",
+    "node-static": "^0.7.9",
     "redux-logger": "^2.7.0"
   },
   "repository": {
