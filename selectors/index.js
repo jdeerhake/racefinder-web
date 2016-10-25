@@ -9,6 +9,10 @@ export const getEvents = state => state.events || []
 
 export const getMapViewport = state => state.map.viewport.toJS()
 
+export const getMapBounds = createSelector(
+  [getMapViewport],
+  ({ bounds }) => bounds || {}
+)
 
 export const getMarkers = createSelector(
   [getEvents, getMapViewport],

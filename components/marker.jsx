@@ -19,7 +19,7 @@ export default class Marker extends Component {
       <path
         d={ ROUND_PIN }
         style={ {
-          ...ACTIVE_ICON,
+          ...INACTIVE_ICON,
           transform
         } } />
     )

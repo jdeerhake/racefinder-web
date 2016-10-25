@@ -1,7 +1,7 @@
 import { PropTypes } from 'react'
 import flatten from 'lodash/flatten'
 import round from 'lodash/round'
-import sha1 from 'sha1'
+import md5 from 'md5'
 
 const { string, number, arrayOf, shape } = PropTypes
 
@@ -19,7 +19,7 @@ export const fromEventAndZoom = ({ id: eventID, location }, zoom ) => {
   const lng = round( location.lng, precision )
 
   return {
-    id: sha1( `${lat}${lng}${zoom}` ),
+    id: md5( `${lat}${lng}${zoom}` ),
     eventIDs: [ eventID ],
     lat, lng
   }

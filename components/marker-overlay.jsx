@@ -40,7 +40,9 @@ export default class MarkerOverlay extends Component {
     const { markers } = this.props
     return (
       <g>
-        { markers.map( this.renderMarker.bind( this, opt ) ) }
+        { markers
+              .sort(( a, b ) => b.lat - a.lat )
+              .map( this.renderMarker.bind( this, opt ) ) }
       </g>
     )
   };

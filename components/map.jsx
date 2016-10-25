@@ -32,7 +32,7 @@ export default class Map extends Component {
   getBounds = () => {
     if( this.mapGL ) {
       const bounds = this.mapGL._getMap().getBounds()
-      return {
+      return{
         n: bounds.getNorth(),
         s: bounds.getSouth(),
         e: bounds.getEast(),
