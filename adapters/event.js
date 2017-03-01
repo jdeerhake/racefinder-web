@@ -38,7 +38,7 @@ export const index = ({
 }, id ) => api.search({
   start_date: startDate && startDate.format( DATE_FORMAT ),
   end_date: endDate && endDate.format( DATE_FORMAT ),
-  types: [ type ],
+  'types[]': type,
   query,
   n, s, e, w
 }, id ).then( ev => ev.map( fromJSON ) )

@@ -26,7 +26,7 @@ const config = {
 
   resolve: {
     alias: {
-      'webworkify': 'webworkify-webpack',
+      'webworkify': 'webworkify-webpack-dropin',
       'config': ''
     }
   },
@@ -35,24 +35,19 @@ const config = {
     loaders: [
       { test: /\.json$/,       loader: 'json' },
       { test: /\.jsx?$/,       loader: 'babel', exclude: /node_modules/ },
-      {
-        test: /\.scss$/,       loader: 'style!css!sass' +
-          '?includePaths[]=' + resolve( './styles' ) +
-          '&includePaths[]=' + resolve( './node_modules/compass-mixins/lib' ) +
-          '!jsontosass?path=' + resolve( './lib/colors.json' )
-      },
-      {
-        test: /\.js$/,
-        loader: 'transform/cacheable?brfs',
-        include: resolve( 'node_modules/mapbox-gl-shaders/index.js' ),
-      }
+      // {
+      //   test: /\.scss$/,       loader: 'style!css!sass' +
+      //     '?includePaths[]=' + resolve( './styles' ) +
+      //     '&includePaths[]=' + resolve( './node_modules/compass-mixins/lib' ) +
+      //     '!jsontosass?path=' + resolve( './lib/colors.json' )
+      // }
     ],
 
     postLoaders: [
       {
         query: 'brfs',
-        loader: 'transform',
-        include: /node_modules\/mapbox-gl-shaders/
+        loader: 'transform-loader',
+        include: /node_modules\/mapbox-gl/
       }
     ]
   },
@@ -69,7 +64,11 @@ const config = {
     new webpack.DefinePlugin({
       'process.env': JSON.stringify( env )
     })
-  ]
+  ],
+
+  node: {
+    fs: 'empty',
+  }
 }
 
 if( isProduction ) {

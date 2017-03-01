@@ -12,10 +12,6 @@ const { object, arrayOf } = React.PropTypes
 
 class MapContainer extends Component {
 
-  static contextTypes = {
-    router: object
-  }
-
   static propTypes = {
     actions: object,
     events: arrayOf( validEvent ),
@@ -48,10 +44,7 @@ class MapContainer extends Component {
 export default connect(
   ( state, ownProps ) => ({
     ...state,
-    params: {
-      ...ownProps.location.query,
-      ...ownProps.params
-    },
+    params: ownProps.params,
     mapState: getMapViewport( state ),
     markers: getMarkers( state )
   }),

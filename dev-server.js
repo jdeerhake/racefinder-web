@@ -1,7 +1,9 @@
+require( 'dotenv' ).config()
+
 var http = require( 'http' )
 var nodeStatic = require( 'node-static' )
 var fileServer = new nodeStatic.Server( './public' )
-var PORT = 3000
+var PORT = process.env.DEV_SERVER_PORT
 
 http.createServer(function( request, response ) {
 

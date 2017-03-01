@@ -47,3 +47,10 @@ export const fetchEvents = debounce(( dispatch, getState ) => {
     dispatch({ type: EVENTS_REPLACE, events })
   })
 }, 100)
+
+
+// Filters
+
+export const filterChange = ( filterChanges ) => {
+
+}
