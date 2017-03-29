@@ -11,6 +11,7 @@ const { object, func } = React.PropTypes
 class Header extends Component {
 
   static propTypes = {
+    filterOptions: object,
     filters: object,
     onFilterChange: func
   };
@@ -63,6 +64,7 @@ class Header extends Component {
           <FilterDialog
             key='filter'
             onChange={ this.createUpdateFilters }
+            { ...this.props.filterOptions }
             { ...this.props.filters } />
         </Dialog>
       </span>

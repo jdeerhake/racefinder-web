@@ -1,9 +1,9 @@
-import React, { Component, cloneElement } from 'react'
-import SVGOverlay from 'react-map-gl/dist/overlays/svg.react'
+import React, { Component, PropTypes } from 'react'
+import { SVGOverlay } from 'react-map-gl'
 import Marker from './marker.jsx'
 import { validate as validMarker } from '../adapters/marker'
 
-const { number, bool, element, oneOfType, arrayOf } = React.PropTypes
+const { number, bool, element, oneOfType, arrayOf } = PropTypes
 
 
 export default class MarkerOverlay extends Component {

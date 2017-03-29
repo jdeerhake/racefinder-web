@@ -1,13 +1,32 @@
 import * as Actions from '../actions/index'
 
-const initialState = {}
+const initialState = {
+  viewport: {
+    isDragging: false,
+    startDragLngLat: null,
+    zoom: 12,
+    latitude: 34.015,
+    longitude: -118.482
+  },
+  boundsGetter: () => ({})
+}
 
 const actions = {
 
   [Actions.MAP_CHANGE_VIEWPORT]( state, { viewport }) {
     return {
       ...state,
-      viewport: state.viewport.merge( viewport )
+      viewport: {
+        ...state.viewport,
+        ...viewport
+      }
+    }
+  },
+
+  [Actions.MAP_INIT]( state, { boundsGetter }) {
+    return {
+      ...state,
+      boundsGetter
     }
   }
 

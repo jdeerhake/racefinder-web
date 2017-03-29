@@ -7,6 +7,8 @@ import Header from '../components/header.jsx'
 import RacefinderTheme from '../lib/theme'
 import * as Actions from '../actions'
 
+import '../styles/global.scss'
+
 const { object } = React.PropTypes
 
 class SearchContainer extends Component {

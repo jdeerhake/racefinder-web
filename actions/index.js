@@ -1,27 +1,14 @@
 import debounce from 'lodash/debounce'
-import isEqual from 'lodash/isEqual'
-import throttle from 'lodash/throttle'
 import { replace } from 'react-router-redux'
 import { index as searchEvents } from '../adapters/event'
 import { getMapBounds } from '../selectors/index'
 export const MAP_CHANGE_VIEWPORT = 'MAP_CHANGE_VIEWPORT'
+export const MAP_INIT = 'MAP_INIT'
 export const EVENTS_REPLACE = 'EVENTS_REPLACE'
 
 // Map
 
-const areBoundsChanged = throttle(( getState, bounds ) => (
-  !isEqual( getMapBounds( getState() ), bounds )
-), 50 )
-
 export const mapChangeViewport = viewport => ( dispatch, getState ) => {
-  if( areBoundsChanged( getState, viewport.bounds ) ) {
-    mapChangeBounds( viewport, dispatch, getState )
-  }
-
-  dispatch({ type: MAP_CHANGE_VIEWPORT, viewport })
-}
-
-const mapChangeBounds = ( viewport, dispatch, getState ) => {
   dispatch(replace({
     pathname: '/map',
     query: {
@@ -31,9 +18,12 @@ const mapChangeBounds = ( viewport, dispatch, getState ) => {
     }
   }))
 
+  dispatch({ type: MAP_CHANGE_VIEWPORT, viewport })
+
   fetchEvents( dispatch, getState )
 }
 
+export const mapInit = ({ boundsGetter }) => ({ type: MAP_INIT, boundsGetter })
 
 // Events
 

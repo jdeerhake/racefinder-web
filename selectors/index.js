@@ -7,12 +7,9 @@ import {
 
 export const getEvents = state => state.events || []
 
-export const getMapViewport = state => state.map.viewport.toJS()
+export const getMapViewport = state => state.map.viewport
 
-export const getMapBounds = createSelector(
-  [getMapViewport],
-  ({ bounds }) => bounds || {}
-)
+export const getMapBounds = state => state.map.boundsGetter() || {}
 
 export const getMarkers = createSelector(
   [getEvents, getMapViewport],

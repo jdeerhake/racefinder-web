@@ -8,6 +8,8 @@ import getDefaultLocation from '../lib/default-location'
 import { validate as validEvent } from '../adapters/event'
 import { validate as validMarker } from '../adapters/marker'
 
+import '../styles/map.scss'
+
 const { object, arrayOf } = React.PropTypes
 
 class MapContainer extends Component {
@@ -26,15 +28,16 @@ class MapContainer extends Component {
   }
 
   render() {
-    const { mapState, markers, actions: { mapChangeViewport } } = this.props
+    const { mapState, markers, actions: { mapChangeViewport, mapInit } } = this.props
     const { clientWidth: width, clientHeight: height } = document.body
     return (
       <Map
         markers={ markers }
         mapState={ mapState }
         width={ width }
-        height={ height }
-        onChangeViewport={ mapChangeViewport } />
+        height={ height - 64 }
+        onChangeViewport={ mapChangeViewport }
+        onInit={ mapInit } />
     )
 
   }

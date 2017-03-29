@@ -2,7 +2,9 @@ import React, { Component } from 'react'
 import MapGL from 'react-map-gl'
 import MarkerOverlay from './marker-overlay.jsx'
 
-const { MAPBOX_API_KEY, MAPBOX_MAP_URL } = process.env
+// webpack define plugin is dumb, so no destrucuring
+const MAPBOX_API_KEY = process.env.MAPBOX_API_KEY
+const MAPBOX_MAP_URL = process.env.MAPBOX_MAP_URL
 
 const { object, number, func, arrayOf } = React.PropTypes
 
@@ -14,19 +16,27 @@ export default class Map extends Component {
     mapState: object,
     markers: arrayOf( object ),
     onChangeViewport: func,
+    onInit: func,
     params: object,
     width: number
   }
 
+  static defaultProps = {
+    onInit: () => {}
+  }
+
   componentDidMount() {
+    const { onInit } = this.props
+    onInit({ boundsGetter: this.getBounds })
     // Trigger an initial change to get bounds
-    const map = this.mapGL._getMap()
-    this.mapGL._callOnChangeViewport( map.transform )
+    // const map = this.mapGL._getMap()
+    // this.handleViewportChange(map);
+    // this.mapGL._callOnChangeViewport( map.transform )
   }
 
   handleViewportChange = ( params ) => {
     const { onChangeViewport } = this.props
-    onChangeViewport({ ...params, bounds: this.getBounds() })
+    onChangeViewport({ ...params })
   };
 
   getBounds = () => {

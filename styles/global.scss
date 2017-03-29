@@ -1,0 +1,30 @@
+@import 'includes';
+@import 'ress';
+
+html, body, #app {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+
+  font-family: 'Roboto', sans-serif;
+  color: $color-font;
+  font-size: 16px;
+  line-height: 1.3;
+}
+
+a {
+  color: $color-link;
+  text-decoration: none;
+}
+
+h3 {
+  color: $color-link;
+  font-weight: bold;
+  font-size: 1rem;
+}
+
+fieldset {
+  border: none;
+}
