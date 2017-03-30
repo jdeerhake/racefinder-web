@@ -11,18 +11,13 @@ const { object, func } = React.PropTypes
 class Header extends Component {
 
   static propTypes = {
-    filterOptions: object,
-    filters: object,
+    filter: object,
     onFilterChange: func
   };
 
   state = {
     filterOpen: false
   };
-
-  createUpdateFilters( newFilter ) {
-    this.props.onFilterChange( newFilter )
-  }
 
   showFilter = () => {
     this.setState({ filterOpen: true })
@@ -50,6 +45,8 @@ class Header extends Component {
   };
 
   render() {
+    const { filter: { options, selected }, onFilterChange } = this.props
+
     return (
       <span>
         <AppBar
@@ -62,10 +59,9 @@ class Header extends Component {
           modal={ false }
           open={ this.state.filterOpen }>
           <FilterDialog
-            key='filter'
-            onChange={ this.createUpdateFilters }
-            { ...this.props.filterOptions }
-            { ...this.props.filters } />
+            onChange={ onFilterChange }
+            options={ options }
+            selected={ selected } />
         </Dialog>
       </span>
     )

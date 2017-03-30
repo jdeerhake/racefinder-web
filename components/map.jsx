@@ -28,10 +28,6 @@ export default class Map extends Component {
   componentDidMount() {
     const { onInit } = this.props
     onInit({ boundsGetter: this.getBounds })
-    // Trigger an initial change to get bounds
-    // const map = this.mapGL._getMap()
-    // this.handleViewportChange(map);
-    // this.mapGL._callOnChangeViewport( map.transform )
   }
 
   handleViewportChange = ( params ) => {

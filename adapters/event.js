@@ -3,9 +3,10 @@ import { PropTypes } from 'react'
 import { events as api } from '../lib/racefinder-api'
 import { validate as validLocation, fromJSON as locationFromJSON } from './location'
 import { validate as validRace, fromJSON as raceFromJSON } from './race'
+import { ALL_RACE_TYPES } from './filter-options'
+import { URL_DATE } from '../lib/date-formats'
 
 const { string, shape, arrayOf, object } = PropTypes
-const DATE_FORMAT = 'YYYY-MM-DD'
 
 export const validate = shape({
   id: string.isRequired,
@@ -30,15 +31,15 @@ export const fromJSON = js => ({
 })
 
 export const index = ({
-  startDate = moment(),
-  endDate = moment().add( 3, 'months' ),
-  type,
+  startDate,
+  endDate,
+  raceType,
   query,
   n, s, e, w
 }, id ) => api.search({
-  start_date: startDate && startDate.format( DATE_FORMAT ),
-  end_date: endDate && endDate.format( DATE_FORMAT ),
-  'types[]': type,
+  start_date: startDate && startDate.format( URL_DATE ),
+  end_date: endDate && endDate.format( URL_DATE ),
+  'types[]': raceType || ALL_RACE_TYPES,
   query,
   n, s, e, w
 }, id ).then( ev => ev.map( fromJSON ) )

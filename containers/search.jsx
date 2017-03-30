@@ -9,7 +9,7 @@ import * as Actions from '../actions'
 
 import '../styles/global.scss'
 
-const { object } = React.PropTypes
+const { object, shape } = React.PropTypes
 
 class SearchContainer extends Component {
 
@@ -19,18 +19,22 @@ class SearchContainer extends Component {
 
   static propTypes = {
     actions: object,
+    filter: shape({
+      options: object,
+      selected: object
+    }),
     params: object
   }
 
   render() {
-    const { params, actions } = this.props
+    const { params, actions, filter } = this.props
 
     return (
       <MuiThemeProvider muiTheme={ RacefinderTheme }>
         <div>
           <Header
             onFilterChange={ actions.filterChange }
-            filters={ params.filters } />
+            filter={ filter } />
           <MapContainer params={ params } />
         </div>
       </MuiThemeProvider>
