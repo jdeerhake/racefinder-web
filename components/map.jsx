@@ -1,6 +1,8 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import MapGL from 'react-map-gl'
 import MarkerOverlay from './marker-overlay.jsx'
+import pick from 'lodash/pick'
+import debounce from 'lodash/debounce'
 
 // webpack define plugin is dumb, so no destrucuring
 const MAPBOX_API_KEY = process.env.MAPBOX_API_KEY
@@ -8,15 +10,18 @@ const MAPBOX_MAP_URL = process.env.MAPBOX_MAP_URL
 
 const { object, number, func, arrayOf } = React.PropTypes
 
-export default class Map extends Component {
+const MOVE_PARAMS = [ 'latitude', 'longitude', 'zoom' ]
+
+export default class Map extends PureComponent {
 
   static propTypes = {
     actions: object,
     height: number,
-    mapState: object,
+    initialState: object,
     markers: arrayOf( object ),
-    onChangeViewport: func,
     onInit: func,
+    onMarkerClick: func,
+    onMove: func,
     params: object,
     width: number
   }
@@ -25,14 +30,47 @@ export default class Map extends Component {
     onInit: () => {}
   }
 
+  constructor( props ) {
+    super( props )
+    this.state = {
+      viewport: {
+        ...props.initialState,
+        isDragging: false,
+        startDragLngLat: null
+      }
+    }
+  }
+
   componentDidMount() {
     const { onInit } = this.props
     onInit({ boundsGetter: this.getBounds })
   }
 
+  componentWillReceiveProps( nextProps ) {
+    console.log('recv', nextProps)
+    if( nextProps.initialState !== this.props.initialState ) {
+      this.setState({ viewport: {
+        ...this.state.viewport,
+        ...nextProps.initialState
+      } } )
+    }
+  }
+
+  isMoved = ( newView, oldView ) => {
+    return MOVE_PARAMS.some( p => newView[ p ] !== oldView[ p ] )
+  }
+
+  triggerMove = debounce( () => {
+    const { viewport } = this.state
+    const { onMove } = this.props
+    onMove({ ...pick( viewport, MOVE_PARAMS ) })
+  }, 100 );
+
   handleViewportChange = ( params ) => {
-    const { onChangeViewport } = this.props
-    onChangeViewport({ ...params })
+    if( this.isMoved( params, this.state.viewport ) ) {
+      this.triggerMove()
+    }
+    this.setState({ viewport: params })
   };
 
   getBounds = () => {
@@ -48,22 +86,25 @@ export default class Map extends Component {
   }
 
   render() {
-    const { mapState, width, height, markers } = this.props
+    const { width, height, markers, onMarkerClick } = this.props
+    const { viewport } = this.state
 
     return (
       <MapGL
-        { ...mapState }
+        { ...viewport }
         ref={ map => this.mapGL = map }
         width={ width }
         height={ height }
         mapStyle={ MAPBOX_MAP_URL }
+        onMouseClick={ () => {} }
         onChangeViewport={ this.handleViewportChange }
         mapboxApiAccessToken={ MAPBOX_API_KEY }>
         <MarkerOverlay
-          { ...mapState }
+          { ...viewport }
           height={ height }
           width={ width }
-          markers={ markers } />
+          markers={ markers }
+          onMarkerClick={ onMarkerClick } />
       </MapGL>
     )
 

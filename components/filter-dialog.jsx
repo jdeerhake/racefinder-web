@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from 'react'
+import React, { PureComponent, PropTypes } from 'react'
 import TextField from 'material-ui/TextField'
 import DropDownMenu from 'material-ui/DropDownMenu'
 import MenuItem from 'material-ui/MenuItem'
@@ -12,7 +12,7 @@ const controlStyles = {
 
 const { func, object } = PropTypes
 
-class FilterDialog extends Component {
+class FilterDialog extends PureComponent {
 
   static propTypes = {
     onChange: func.isRequired,

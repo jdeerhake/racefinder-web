@@ -12,20 +12,24 @@ export const validate = shape({
   lng: number.isRequired
 })
 
-
-export const fromEventAndZoom = ({ id: eventID, location }, zoom ) => {
+export const fromEventAndZoom = ( event, zoom ) => {
   const precision = Math.floor( zoom / 4 )
-  const lat = round( location.lat, precision )
-  const lng = round( location.lng, precision )
+  const lat = round( event.location.lat, precision )
+  const lng = round( event.location.lng, precision )
 
   return {
     id: md5( `${lat}${lng}${zoom}` ),
-    eventIDs: [ eventID ],
-    lat, lng
+    eventIDs: [ event.id ],
+    active: event.active,
+    highlighted: event.highlighted,
+    lat,
+    lng
   }
 }
 
 export const merge = ( ...markers ) => ({
+  ...markers[0],
   eventIDs: flatten( markers.map( m => m.eventIDs ) ),
-  ...markers[0]
+  highlighted: markers.some( m => m.highlighted ),
+  active: markers.some( m => m.active )
 })

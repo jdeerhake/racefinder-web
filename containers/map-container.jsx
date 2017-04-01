@@ -1,42 +1,47 @@
-import React, { Component } from 'react'
+import React, { PureComponent, PropTypes } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import Map from '../components/map.jsx'
 import * as Actions from '../actions'
-import { getMapViewport, getMarkers } from '../selectors/index'
+import { getMarkers, getEventsWithStatus } from '../selectors/index'
 import getDefaultLocation from '../lib/default-location'
 import { validate as validEvent } from '../adapters/event'
 import { validate as validMarker } from '../adapters/marker'
 
 import '../styles/map.scss'
 
-const { object, arrayOf } = React.PropTypes
+const { object, arrayOf } = PropTypes
 
-class MapContainer extends Component {
+class MapContainer extends PureComponent {
 
   static propTypes = {
     actions: object,
     events: arrayOf( validEvent ),
-    mapState: object,
+    map: object,
     markers: arrayOf( validMarker ),
     params: object
   }
 
   componentDidMount() {
-    const { params, actions: { mapChangeViewport } } = this.props
-    getDefaultLocation( params ).then( loc => mapChangeViewport( loc ))
+    const { params, actions: { mapInitialState } } = this.props
+    getDefaultLocation( params ).then( loc => mapInitialState( loc ))
   }
 
+  activateMarkerEvents = ({ eventIDs }) => {
+    this.props.actions.activateEvents({ eventIDs })
+  };
+
   render() {
-    const { mapState, markers, actions: { mapChangeViewport, mapInit } } = this.props
+    const { map: { initialViewport }, markers, actions: { mapMove, mapInit } } = this.props
     const { clientWidth: width, clientHeight: height } = document.body
     return (
       <Map
         markers={ markers }
-        mapState={ mapState }
+        initialState={ initialViewport }
         width={ width }
         height={ height - 64 }
-        onChangeViewport={ mapChangeViewport }
+        onMove={ mapMove }
+        onMarkerClick={ this.activateMarkerEvents }
         onInit={ mapInit } />
     )
 
@@ -47,8 +52,8 @@ class MapContainer extends Component {
 export default connect(
   ( state, ownProps ) => ({
     ...state,
+    events: getEventsWithStatus( state ),
     params: ownProps.params,
-    mapState: getMapViewport( state ),
     markers: getMarkers( state )
   }),
   dispatch => ({

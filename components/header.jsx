@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import AppBar from 'material-ui/AppBar'
 import Dialog from 'material-ui/Dialog'
 import FlatButton from 'material-ui/FlatButton'
@@ -8,7 +8,7 @@ import FilterDialog from './filter-dialog.jsx'
 
 const { object, func } = React.PropTypes
 
-class Header extends Component {
+class Header extends PureComponent {
 
   static propTypes = {
     filter: object,

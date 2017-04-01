@@ -1,18 +1,18 @@
-import React, { Component, PropTypes } from 'react'
+import React, { PureComponent, PropTypes } from 'react'
 import { SVGOverlay } from 'react-map-gl'
 import Marker from './marker.jsx'
 import { validate as validMarker } from '../adapters/marker'
 
-const { number, bool, element, oneOfType, arrayOf } = PropTypes
+const { number, bool, arrayOf, func } = PropTypes
 
 
-export default class MarkerOverlay extends Component {
+export default class MarkerOverlay extends PureComponent {
 
   static propTypes = {
-    children: oneOfType([ element, arrayOf( element ) ]),
     height: number.isRequired,
     isDragging: bool.isRequired,
     markers: arrayOf( validMarker ),
+    onMarkerClick: func,
     width: number.isRequired,
     zoom: number.isRequired
   };
@@ -28,9 +28,11 @@ export default class MarkerOverlay extends Component {
   }
 
   renderMarker = ( opt, marker ) => {
+    const { onMarkerClick } = this.props
     const transform = `${this.translate( opt, marker )} ${this.scale()}`
     return (
       <Marker key={ marker.id }
+        onClick={ onMarkerClick }
         marker={ marker }
         transform={ transform } />
     )
