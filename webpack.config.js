@@ -79,8 +79,12 @@ if( isProduction ) {
   config.plugins.push(
 
     new webpack.optimize.UglifyJsPlugin({
-      compressor: { warnings: false },
-      sourceMap: true
+      sourceMap: true,
+      compress: {
+        warnings: false,
+        // TODO: mapbox-gl and uglify not playing nice, can be removed after upgrades
+        comparisons: false
+      }
     })
 
   )
