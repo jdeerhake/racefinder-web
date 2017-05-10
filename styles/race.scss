@@ -1,10 +1,6 @@
 @import 'includes';
 
 .race {
-  list-style-type: disc;
-  list-style-position: inside;
-  position: relative;
-
   .name {
     font-weight: normal;
     font-size: 0.8rem;
@@ -12,9 +8,10 @@
 
   .inactive & .name {
     white-space: nowrap;
-    display: block;
+    display: inline-block;
     text-overflow: ellipsis;
     overflow: hidden;
+    max-width: 100%;
   }
 
 }

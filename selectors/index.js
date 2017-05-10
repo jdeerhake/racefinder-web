@@ -13,19 +13,25 @@ export const getEventsStatus = state => state.eventsStatus
 export const getEventsWithStatus = createSelector(
   [ getEvents, getEventsStatus ],
   ( events, { highlighted, active }) => {
-    const newEvents = {
-      ...events,
-      ...highlighted.reduce(( out, id ) => {
-        out[ id ] = { ...events[ id ], highlighted: true }
-        return out
-      }, {}),
-      ...active.reduce(( out, id ) => {
-        out[ id ] = { ...events[ id ], active: true }
-        return out
-      }, {})
-    }
+    const newEvents = { ...events }
 
-    return values( newEvents )
+    highlighted.forEach( id => {
+      newEvents[ id ] = {
+        ...newEvents[ id ],
+        highlighted: true
+      }
+    }, {})
+
+    active.forEach( id => {
+      newEvents[ id ] = {
+        ...newEvents[ id ],
+        active: true
+      }
+    }, {})
+
+    return values( newEvents ).sort(( a, b ) => {
+      return a.location.lat - b.location.lat || a.location.lng - b.location.lng
+    })
   }
 )
 

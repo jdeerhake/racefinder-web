@@ -24,7 +24,7 @@ export default class MarkerOverlay extends PureComponent {
 
   scale = () => {
     const { zoom } = this.props
-    return `scale( ${ (zoom / 10) * .2 } )`
+    return `scale( ${ (zoom / 14) * .3 } )`
   }
 
   renderMarker = ( opt, marker ) => {

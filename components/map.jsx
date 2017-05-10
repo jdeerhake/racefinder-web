@@ -3,6 +3,7 @@ import MapGL from 'react-map-gl'
 import MarkerOverlay from './marker-overlay.jsx'
 import pick from 'lodash/pick'
 import debounce from 'lodash/debounce'
+import inRange from 'lodash/inRange'
 
 // webpack define plugin is dumb, so no destrucuring
 const MAPBOX_API_KEY = process.env.MAPBOX_API_KEY
@@ -11,6 +12,7 @@ const MAPBOX_MAP_URL = process.env.MAPBOX_MAP_URL
 const { object, number, func, arrayOf } = React.PropTypes
 
 const MOVE_PARAMS = [ 'latitude', 'longitude', 'zoom' ]
+const MOVE_SENSITIVITY = 0.01
 
 export default class Map extends PureComponent {
 
@@ -47,7 +49,6 @@ export default class Map extends PureComponent {
   }
 
   componentWillReceiveProps( nextProps ) {
-    console.log('recv', nextProps)
     if( nextProps.initialState !== this.props.initialState ) {
       this.setState({ viewport: {
         ...this.state.viewport,
@@ -57,7 +58,8 @@ export default class Map extends PureComponent {
   }
 
   isMoved = ( newView, oldView ) => {
-    return MOVE_PARAMS.some( p => newView[ p ] !== oldView[ p ] )
+    return MOVE_PARAMS.some( p => newView[ p ] !== oldView[ p ] ) &&
+      !MOVE_PARAMS.every( p => inRange( newView[ p ], oldView[ p ] - MOVE_SENSITIVITY, oldView[ p ] + MOVE_SENSITIVITY ))
   }
 
   triggerMove = debounce( () => {
@@ -85,6 +87,7 @@ export default class Map extends PureComponent {
     }
   }
 
+
   render() {
     const { width, height, markers, onMarkerClick } = this.props
     const { viewport } = this.state
@@ -96,7 +99,6 @@ export default class Map extends PureComponent {
         width={ width }
         height={ height }
         mapStyle={ MAPBOX_MAP_URL }
-        onMouseClick={ () => {} }
         onChangeViewport={ this.handleViewportChange }
         mapboxApiAccessToken={ MAPBOX_API_KEY }>
         <MarkerOverlay

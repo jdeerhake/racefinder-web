@@ -1,3 +1,5 @@
+import map from 'lodash/map'
+import intersection from 'lodash/intersection'
 import * as Actions from '../actions/index'
 
 const initialState = {
@@ -21,7 +23,16 @@ const actions = {
     }
   },
 
-  [Actions.MAP_CHANGE_VIEWPORT]() {
+  [Actions.EVENTS_REPLACE]( state, { events }) {
+    const ids = map( events, 'id' )
+
+    return {
+      highlighted: intersection( state.highlighted, ...ids ),
+      active: intersection( state.active, ...ids )
+    }
+  },
+
+  [Actions.MAP_MOVE]() {
     return {
       ...initialState
     }

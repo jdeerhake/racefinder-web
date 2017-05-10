@@ -1,0 +1,29 @@
+@import 'includes';
+
+.focus-selector {
+  display: block;
+
+  .next, .prev, .page {
+    display: inline-block;
+    padding: 8px 15px;
+    line-height: 1rem;
+    vertical-align: middle;
+  }
+
+  .next, .prev {
+    font-size: 2rem;
+    position: relative;
+    top: -3px;
+    color: $color-link;
+
+    &:not(.enabled) {
+      color: mix($color-link, #ccc);
+    }
+  }
+
+  .page {
+    color: $color-font;
+    font-size: 1rem;
+  }
+
+}

@@ -49,7 +49,7 @@ class SearchContainer extends PureComponent {
           <MapContainer params={ params } />
           <EventList
             activateEvent={ this.activateEvent }
-            deactiveEvent={ actions.deactivateAllEvents }
+            deactivateAllEvents={ actions.deactivateAllEvents }
             highlightEvent={ this.highlightEvent }
             events={ events } />
         </div>

@@ -54,7 +54,7 @@ export const fetchEvents = debounce(( dispatch, getState ) => {
 
 export const activateEvents = ({ eventIDs }) => ({ type: EVENTS_ACTIVATE, eventIDs })
 
-export const deactiveAllEvents = () => activateEvents({ eventIDs: [] })
+export const deactivateAllEvents = () => activateEvents({ eventIDs: [] })
 
 export const highlightEvents = ({ eventIDs }) => ({ type: EVENTS_HIGHLIGHT, eventIDs })
 

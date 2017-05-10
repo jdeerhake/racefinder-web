@@ -2,18 +2,17 @@ import React, { PureComponent, PropTypes } from 'react'
 import { validate as validEvent } from '../adapters/event'
 import { EVENT_DATE, EVENT_DATE_TIME, EVENT_DATE_TIME_MINS } from '../lib/date-formats'
 import Race from './race.jsx'
-import CloseIcon from 'material-ui/svg-icons/navigation/close'
 
 import '../styles/event.scss'
 
-const { func } = PropTypes
+const { func, bool } = PropTypes
 
 export default class Event extends PureComponent {
 
   static propTypes = {
     event: validEvent,
-    onClick: func,
-    onClose: func
+    hasFocus: bool,
+    onClick: func
   }
 
   formattedStartTime = () => {
@@ -31,7 +30,7 @@ export default class Event extends PureComponent {
     const { active } = this.props.event
     return [
       'event',
-      active && 'active focus'
+      active ? 'active' : 'inactive'
     ].filter( Boolean ).join( ' ' )
   }
 
@@ -40,22 +39,14 @@ export default class Event extends PureComponent {
     onClick( event )
   }
 
-  handleClose = () => {
-    const { event, onClose } = this.props
-    onClose( event )
-  }
-
   render() {
-    const { event, onClose } = this.props
+    const { event } = this.props
     const races = event.races.map(( race ) => {
       return <Race key={ race.id } race={ race } />
     })
 
     return (
-      <li className={ this.getClasses() } onClick={ this.handleClick }>
-        <i className='close icon icon-times-circle' onClick={ onClose }>
-          <CloseIcon style={ { width: '20px', height: '20px' } } />
-        </i>
+      <li className={ this.getClasses() } onClick={ this.handleClick } ref={ el => this._el = el }>
         <a href={ event.infoURL } target='_blank'>
           <h3 className='name'>{ event.name }</h3>
         </a>
