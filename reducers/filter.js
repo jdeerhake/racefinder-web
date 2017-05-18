@@ -21,6 +21,16 @@ const actions = {
         ...filterFromQs( payload.query )
       }
     }
+  },
+
+  [Actions.MAP_INITIAL_STATE]( state, { filters }) {
+    return {
+      ...state,
+      selected: {
+        ...state.selected,
+        ...filters
+      }
+    }
   }
 
 }

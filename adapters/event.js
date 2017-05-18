@@ -4,7 +4,7 @@ import { events as api } from '../lib/racefinder-api'
 import { validate as validLocation, fromJSON as locationFromJSON } from './location'
 import { validate as validRace, fromJSON as raceFromJSON } from './race'
 import { ALL_RACE_TYPES } from './filter-options'
-import { URL_DATE } from '../lib/date-formats'
+import { EVENT_DATE, EVENT_DATE_TIME, EVENT_DATE_TIME_MINS, URL_DATE } from '../lib/date-formats'
 
 const { string, shape, arrayOf, object } = PropTypes
 
@@ -27,7 +27,8 @@ export const fromJSON = js => ({
   name: js.name,
   races: ( js.races || [] ).map( raceFromJSON ),
   registrationURL: js.registrationURL,
-  startDate: moment.unix( js.startDate ).utc()
+  startDate: moment.unix( js.startDate ).utc(),
+  formattedStartTime: formattedStartTime( js )
 })
 
 export const index = ({
@@ -43,3 +44,15 @@ export const index = ({
   query,
   n, s, e, w
 }, id ).then( ev => ev.map( fromJSON ) )
+
+
+function formattedStartTime( js ) {
+  const startDate = moment.unix( js.startDate ).utc()
+  if( startDate.hour() === 0 ) {
+    return startDate.format( EVENT_DATE )
+  } else if( startDate.minute() === 0 ) {
+    return startDate.format( EVENT_DATE_TIME )
+  } else {
+    return startDate.format( EVENT_DATE_TIME_MINS )
+  }
+}

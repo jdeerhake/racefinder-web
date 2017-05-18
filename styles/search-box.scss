@@ -1,0 +1,16 @@
+@import 'includes';
+
+.search-box {
+
+  .race-type-selector {
+    margin-top: 10px;
+  }
+
+  .search-button {
+    width: 60%;
+    display: block !important;
+    margin: 20px auto 0;
+    position: relative;
+    bottom: -25px;
+  }
+}

@@ -1,0 +1,37 @@
+[
+  {
+    "id": 1,
+    "name": "Marathons",
+    "slug": "marathons",
+    "filters": {
+      "raceType": "run",
+      "query": "marathon"
+    }
+  },
+  {
+    "id": 2,
+    "name": "Half-Marathons",
+    "slug": "half-marathons",
+    "filters": {
+      "raceType": "run",
+      "query": "half marathon"
+    }
+  },
+  {
+    "id": 3,
+    "name": "5Ks",
+    "slug": "5ks",
+    "filters": {
+      "raceType": "run",
+      "query": "5k"
+    }
+  },
+  {
+    "id": 4,
+    "name": "Triathlons",
+    "slug": "triathlons",
+    "filters": {
+      "raceType": "triathlon"
+    }
+  }
+]

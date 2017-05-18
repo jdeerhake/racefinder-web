@@ -7,10 +7,11 @@ import { getMarkers, getEventsWithStatus } from '../selectors/index'
 import getDefaultLocation from '../lib/default-location'
 import { validate as validEvent } from '../adapters/event'
 import { validate as validMarker } from '../adapters/marker'
+import { showBySlug as getFilterPreset } from '../adapters/filter-preset'
 
 import '../styles/map.scss'
 
-const { object, arrayOf } = PropTypes
+const { object, arrayOf, shape, string } = PropTypes
 
 class MapContainer extends PureComponent {
 
@@ -19,12 +20,23 @@ class MapContainer extends PureComponent {
     events: arrayOf( validEvent ),
     map: object,
     markers: arrayOf( validMarker ),
-    params: object
+    params: shape({
+      marketSlug: string,
+      filterPresetSlug: string,
+      lat: string,
+      lng: string,
+      zoom: string
+      // + filters
+    })
   }
 
   componentDidMount() {
     const { params, actions: { mapInitialState } } = this.props
-    getDefaultLocation( params ).then( loc => mapInitialState( loc ))
+    const { filters } = getFilterPreset( params.filterPresetSlug ) || {}
+    getDefaultLocation( params ).then( viewport => mapInitialState({
+      viewport,
+      filters
+    }))
   }
 
   activateMarkerEvents = ({ eventIDs }) => {

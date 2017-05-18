@@ -11,6 +11,8 @@ injectTapEventPlugin()
 import Landing from './containers/landing.jsx'
 import Search from './containers/search.jsx'
 
+import './styles/global.scss'
+
 const store = configureStore()
 const history = syncHistoryWithStore( browserHistory, store )
 
@@ -19,9 +21,10 @@ const history = syncHistoryWithStore( browserHistory, store )
 ReactDOM.render(
   <Provider store={ store }>
     <Router history={ history }>
-      { /* <Route path='/' component={ Landing } /> */ }
-      <Route path='/map/:citySlug' component={ Search } />
-      <Route path='*' component={ Search } />
+      <Route path='/map/:marketSlug/:filterPresetSlug' component={ Search } />
+      <Route path='/map' component={ Search } />
+      <Route path='/' component={ Landing } />
+      <Route path='*' component={ Landing } />
     </Router>
   </Provider>,
   document.getElementById( 'app' )

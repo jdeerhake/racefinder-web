@@ -22,7 +22,11 @@ const actions = {
   [Actions.MAP_INITIAL_STATE]( state, { viewport }) {
     return {
       ...state,
-      initialViewport: viewport
+      initialViewport: { ...viewport },
+      viewport: {
+        zoom: viewport.zoom,
+        ...state.viewport
+      }
     }
   },
 

@@ -1,7 +1,7 @@
 import debounce from 'lodash/debounce'
 import { replace } from 'react-router-redux'
 import { index as searchEvents } from '../adapters/event'
-import { getMapBounds } from '../selectors/index'
+import { getMapBounds, getSelectedFilters } from '../selectors/index'
 import { toQueryString as filterToQs } from '../adapters/filter'
 
 // Map
@@ -10,27 +10,35 @@ export const MAP_MOVE = 'MAP_MOVE'
 export const MAP_INIT = 'MAP_INIT'
 export const MAP_INITIAL_STATE = 'MAP_INITIAL_STATE'
 
-export const mapMove = viewport => ( dispatch, getState ) => {
-  const location = getState().routing.locationBeforeTransitions
-
+export const mapMove = ( viewport ) => ( dispatch, getState ) => {
   dispatch({ type: MAP_MOVE, viewport })
 
-  dispatch(replace({
-    pathname: '/map',
-    query: {
-      ...location.query,
-      lat: viewport.latitude.toFixed( 3 ),
-      lng: viewport.longitude.toFixed( 3 ),
-      zoom: viewport.zoom.toFixed( 0 )
-    }
-  }))
+  replaceURL( {
+    lat: viewport.latitude.toFixed( 3 ),
+    lng: viewport.longitude.toFixed( 3 ),
+    zoom: viewport.zoom.toFixed( 0 ),
+    ...filterToQs( getSelectedFilters( getState() ) )
+  }, '/map' )( dispatch, getState )
 
-  fetchEvents( dispatch, getState )
+  fetchMapEvents( dispatch, getState )
 }
 
-export const mapInitialState = ( viewport ) => ( dispatch, getState ) => {
-  dispatch({ type: MAP_INITIAL_STATE, viewport })
-  mapMove( viewport )( dispatch, getState )
+export const mapInitialState = ({ viewport, filters }) => ( dispatch, getState ) => {
+  dispatch({ type: MAP_INITIAL_STATE, viewport, filters })
+  const { latitude: lat, longitude: lng } = viewport
+
+  const bounds = {
+    n: lat + .7,
+    s: lat - .7,
+    e: lng + .9,
+    w: lng - .9
+  }
+
+  fetchEventsWithFilters({
+    ...getSelectedFilters( getState() ),
+    ...bounds,
+    ...filters
+  })( dispatch, getState )
 }
 
 export const mapInit = ({ boundsGetter }) => ({ type: MAP_INIT, boundsGetter })
@@ -42,15 +50,18 @@ export const EVENTS_REPLACE = 'EVENTS_REPLACE'
 export const EVENTS_ACTIVATE = 'EVENTS_ACTIVATE'
 export const EVENTS_HIGHLIGHT = 'EVENTS_HIGHLIGHT'
 
-export const fetchEvents = debounce(( dispatch, getState ) => {
-  dispatch({ type: EVENTS_REQUEST })
-  searchEvents({
+export const fetchMapEvents = debounce(( dispatch, getState ) => {
+  fetchEventsWithFilters({
     ...getMapBounds( getState() ),
-    ...getState().filter.selected
-  }).then( events => {
-    dispatch({ type: EVENTS_REPLACE, events })
-  })
+    ...getSelectedFilters( getState() )
+  })( dispatch )
 }, 500 )
+
+export const fetchEventsWithFilters = ( params ) => ( dispatch ) => {
+  dispatch({ type: EVENTS_REQUEST })
+  searchEvents( params )
+    .then( events => dispatch({ type: EVENTS_REPLACE, events }) )
+}
 
 export const activateEvents = ({ eventIDs }) => ({ type: EVENTS_ACTIVATE, eventIDs })
 
@@ -61,15 +72,20 @@ export const highlightEvents = ({ eventIDs }) => ({ type: EVENTS_HIGHLIGHT, even
 // Filters
 
 export const filterChange = ({ ...filters }) => ( dispatch, getState ) => {
+  replaceURL( filterToQs( filters ) )
+  fetchMapEvents( dispatch, getState )
+}
+
+// URL
+
+const replaceURL = ( query, path ) => ( dispatch, getState ) => {
   const location = getState().routing.locationBeforeTransitions
 
-  fetchEvents( dispatch, getState )
-
   dispatch(replace({
-    pathname: location.pathname,
+    pathname: path || location.pathname,
     query: {
       ...location.query,
-      ...filterToQs( filters )
+      ...query
     }
   }))
 }

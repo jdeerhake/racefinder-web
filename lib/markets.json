@@ -1,352 +1,452 @@
-{
-  "new-york-ny": {
+[
+  {
+    "slug": "new-york-ny",
+    "id": 1,
     "name": "New York",
-    "coords": {
+    "location": {
       "lat": 40.6643,
       "lng": -73.9385
     }
   },
-  "los-angeles-ca": {
+  {
+    "slug": "los-angeles-ca",
+    "id": 2,
     "name": "Los Angeles",
-    "coords": {
+    "location": {
       "lat": 34.0194,
-      "lng": -118.4108
+      "lng": -118.2108
     }
   },
-  "chicago-il": {
+  {
+    "slug": "chicago-il",
+    "id": 3,
     "name": "Chicago",
-    "coords": {
+    "location": {
       "lat": 41.8376,
       "lng": -87.6818
     }
   },
-  "houston-tx": {
+  {
+    "slug": "houston-tx",
+    "id": 4,
     "name": "Houston",
-    "coords": {
+    "location": {
       "lat": 29.7805,
       "lng": -95.3863
     }
   },
-  "philadelphia-pa": {
+  {
+    "slug": "philadelphia-pa",
+    "id": 5,
     "name": "Philadelphia",
-    "coords": {
+    "location": {
       "lat": 40.0094,
       "lng": -75.1333
     }
   },
-  "phoenix-az": {
+  {
+    "slug": "phoenix-az",
+    "id": 6,
     "name": "Phoenix",
-    "coords": {
+    "location": {
       "lat": 33.5722,
-      "lng": -112.0880
+      "lng": -112.088
     }
   },
-  "san-antonio-tx": {
+  {
+    "slug": "san-antonio-tx",
+    "id": 7,
     "name": "San Antonio",
-    "coords": {
+    "location": {
       "lat": 29.4724,
       "lng": -98.5251
     }
   },
-  "san-diego-ca": {
+  {
+    "slug": "san-diego-ca",
+    "id": 8,
     "name": "San Diego",
-    "coords": {
+    "location": {
       "lat": 32.8153,
-      "lng": -117.1350
+      "lng": -117.135
     }
   },
-  "dallas-tx": {
+  {
+    "slug": "dallas-tx",
+    "id": 9,
     "name": "Dallas",
-    "coords": {
+    "location": {
       "lat": 32.7757,
       "lng": -96.7967
     }
   },
-  "san-jose-ca": {
+  {
+    "slug": "san-jose-ca",
+    "id": 10,
     "name": "San Jose",
-    "coords": {
+    "location": {
       "lat": 37.2969,
       "lng": -121.8193
     }
   },
-  "austin-tx": {
+  {
+    "slug": "austin-tx",
+    "id": 11,
     "name": "Austin",
-    "coords": {
+    "location": {
       "lat": 30.3072,
-      "lng": -97.7560
+      "lng": -97.756
     }
   },
-  "jacksonville-ca": {
+  {
+    "slug": "jacksonville-ca",
+    "id": 12,
     "name": "Jacksonville",
-    "coords": {
-      "lat": 30.3370,
+    "location": {
+      "lat": 30.337,
       "lng": -81.6613
     }
   },
-  "san-francisco-ca": {
+  {
+    "slug": "san-francisco-ca",
+    "id": 13,
     "name": "San Francisco",
-    "coords": {
+    "location": {
       "lat": 37.7751,
       "lng": -122.4193
     }
   },
-  "indianapolis-in": {
+  {
+    "slug": "indianapolis-in",
+    "id": 14,
     "name": "Indianapolis",
-    "coords": {
+    "location": {
       "lat": 39.7767,
       "lng": -86.1459
     }
   },
-  "columbus-oh": {
+  {
+    "slug": "columbus-oh",
+    "id": 15,
     "name": "Columbus",
-    "coords": {
+    "location": {
       "lat": 39.9848,
-      "lng": -82.9850
+      "lng": -82.985
     }
   },
-  "fort-worth-tx": {
+  {
+    "slug": "fort-worth-tx",
+    "id": 16,
     "name": "Fort Worth",
-    "coords": {
+    "location": {
       "lat": 32.7795,
       "lng": -97.3463
     }
   },
-  "chorlotte-nc": {
+  {
+    "slug": "chorlotte-nc",
+    "id": 17,
     "name": "Charlotte",
-    "coords": {
+    "location": {
       "lat": 35.2087,
       "lng": -80.8307
     }
   },
-  "seattle-wa": {
+  {
+    "slug": "seattle-wa",
+    "id": 18,
     "name": "Seattle",
-    "coords": {
+    "location": {
       "lat": 47.6205,
       "lng": -122.3509
     }
   },
-  "denver-co": {
+  {
+    "slug": "denver-co",
+    "id": 19,
     "name": "Denver",
-    "coords": {
+    "location": {
       "lat": 39.7618,
       "lng": -104.8806
     }
   },
-  "el-paso-tx": {
+  {
+    "slug": "el-paso-tx",
+    "id": 20,
     "name": "El Paso",
-    "coords": {
+    "location": {
       "lat": 31.8484,
-      "lng": -106.4270
+      "lng": -106.427
     }
   },
-  "detroit-mi": {
+  {
+    "slug": "detroit-mi",
+    "id": 21,
     "name": "Detroit",
-    "coords": {
-      "lat": 42.3830,
+    "location": {
+      "lat": 42.383,
       "lng": -83.1022
     }
   },
-  "washington-dc": {
+  {
+    "slug": "washington-dc",
+    "id": 22,
     "name": "Washington",
-    "coords": {
+    "location": {
       "lat": 38.9041,
       "lng": -77.0171
     }
   },
-  "boston-ma": {
+  {
+    "slug": "boston-ma",
+    "id": 23,
     "name": "Boston",
-    "coords": {
-      "lat": 42.3320,
+    "location": {
+      "lat": 42.332,
       "lng": -71.0202
     }
   },
-  "memphis-tn": {
+  {
+    "slug": "memphis-tn",
+    "id": 24,
     "name": "Memphis",
-    "coords": {
+    "location": {
       "lat": 35.1035,
       "lng": -89.9785
     }
   },
-  "nashville-tn": {
+  {
+    "slug": "nashville-tn",
+    "id": 25,
     "name": "Nashville",
-    "coords": {
+    "location": {
       "lat": 36.1718,
-      "lng": -86.7850
+      "lng": -86.785
     }
   },
-  "portland-or": {
+  {
+    "slug": "portland-or",
+    "id": 26,
     "name": "Portland",
-    "coords": {
-      "lat": 45.5370,
-      "lng": -122.6500
+    "location": {
+      "lat": 45.537,
+      "lng": -122.65
     }
   },
-  "oklahoma-city-ok": {
+  {
+    "slug": "oklahoma-city-ok",
+    "id": 27,
     "name": "Oklahoma City",
-    "coords": {
+    "location": {
       "lat": 35.4671,
       "lng": -97.5137
     }
   },
-  "las-vegas-nv": {
+  {
+    "slug": "las-vegas-nv",
+    "id": 28,
     "name": "Las Vegas",
-    "coords": {
+    "location": {
       "lat": 36.2277,
-      "lng": -115.2640
+      "lng": -115.264
     }
   },
-  "baltimore-md": {
+  {
+    "slug": "baltimore-md",
+    "id": 29,
     "name": "Baltimore",
-    "coords": {
+    "location": {
       "lat": 39.3002,
       "lng": -76.6105
     }
   },
-  "louisville-ky": {
+  {
+    "slug": "louisville-ky",
+    "id": 30,
     "name": "Louisville",
-    "coords": {
+    "location": {
       "lat": 38.1781,
       "lng": -85.6667
     }
   },
-  "milwaukee-wi": {
+  {
+    "slug": "milwaukee-wi",
+    "id": 31,
     "name": "Milwaukee",
-    "coords": {
+    "location": {
       "lat": 43.0633,
       "lng": -87.9667
     }
   },
-  "albuqurque-nm": {
+  {
+    "slug": "albuqurque-nm",
+    "id": 32,
     "name": "Albuquerque",
-    "coords": {
+    "location": {
       "lat": 35.1056,
       "lng": -106.6474
     }
   },
-  "tucson-az": {
+  {
+    "slug": "tucson-az",
+    "id": 33,
     "name": "Tucson",
-    "coords": {
+    "location": {
       "lat": 32.1543,
       "lng": -110.8711
     }
   },
-  "fresno-ca": {
+  {
+    "slug": "fresno-ca",
+    "id": 34,
     "name": "Fresno",
-    "coords": {
+    "location": {
       "lat": 36.7827,
       "lng": -119.7945
     }
   },
-  "sacramento-ca": {
+  {
+    "slug": "sacramento-ca",
+    "id": 35,
     "name": "Sacramento",
-    "coords": {
+    "location": {
       "lat": 38.5666,
       "lng": -121.4686
     }
   },
-  "kansas-city-mo": {
+  {
+    "slug": "kansas-city-mo",
+    "id": 36,
     "name": "Kansas City",
-    "coords": {
+    "location": {
       "lat": 39.1252,
       "lng": -94.5511
     }
   },
-  "long-beach-ca": {
+  {
+    "slug": "long-beach-ca",
+    "id": 37,
     "name": "Long Beach",
-    "coords": {
+    "location": {
       "lat": 33.8091,
       "lng": -118.1553
     }
   },
-  "mesa-az": {
+  {
+    "slug": "mesa-az",
+    "id": 38,
     "name": "Mesa",
-    "coords": {
+    "location": {
       "lat": 33.4019,
       "lng": -111.7174
     }
   },
-  "atlanta-ga": {
+  {
+    "slug": "atlanta-ga",
+    "id": 39,
     "name": "Atlanta",
-    "coords": {
+    "location": {
       "lat": 33.7629,
       "lng": -84.4227
     }
   },
-  "colorado-springs-co": {
+  {
+    "slug": "colorado-springs-co",
+    "id": 40,
     "name": "Colorado Springs",
-    "coords": {
+    "location": {
       "lat": 38.8673,
       "lng": -104.7607
     }
   },
-  "virginia-beach-va": {
+  {
+    "slug": "virginia-beach-va",
+    "id": 41,
     "name": "Virginia Beach",
-    "coords": {
+    "location": {
       "lat": 36.7793,
-      "lng": -76.0240
+      "lng": -76.024
     }
   },
-  "raleigh-nc": {
+  {
+    "slug": "raleigh-nc",
+    "id": 42,
     "name": "Raleigh",
-    "coords": {
+    "location": {
       "lat": 35.8302,
       "lng": -78.6414
     }
   },
-  "omaha-ne": {
+  {
+    "slug": "omaha-ne",
+    "id": 43,
     "name": "Omaha",
-    "coords": {
+    "location": {
       "lat": 41.2647,
       "lng": -96.0419
     }
   },
-  "miami-fl": {
+  {
+    "slug": "miami-fl",
+    "id": 44,
     "name": "Miami",
-    "coords": {
+    "location": {
       "lat": 25.7752,
       "lng": -80.2086
     }
   },
-  "oakland-ca": {
+  {
+    "slug": "oakland-ca",
+    "id": 45,
     "name": "Oakland",
-    "coords": {
+    "location": {
       "lat": 37.7699,
       "lng": -122.2256
     }
   },
-  "minneapolis-mn": {
+  {
+    "slug": "minneapolis-mn",
+    "id": 46,
     "name": "Minneapolis",
-    "coords": {
+    "location": {
       "lat": 44.9633,
       "lng": -93.2683
     }
   },
-  "tulsa-ok": {
+  {
+    "slug": "tulsa-ok",
+    "id": 47,
     "name": "Tulsa",
-    "coords": {
+    "location": {
       "lat": 36.1279,
       "lng": -95.9023
     }
   },
-  "wichita-ks": {
+  {
+    "slug": "wichita-ks",
+    "id": 48,
     "name": "Wichita",
-    "coords": {
+    "location": {
       "lat": 37.6907,
       "lng": -97.3427
     }
   },
-  "new-orleans-la": {
+  {
+    "slug": "new-orleans-la",
+    "id": 49,
     "name": "New Orleans",
-    "coords": {
+    "location": {
       "lat": 30.0686,
-      "lng": -89.9390
+      "lng": -89.939
     }
   },
-  "arlington-tx": {
+  {
+    "slug": "arlington-tx",
+    "id": 50,
     "name": "Arlington",
-    "coords": {
+    "location": {
       "lat": 32.7007,
       "lng": -97.1247
     }
   }
-}
+]

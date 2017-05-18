@@ -3,8 +3,8 @@ import { PropTypes } from 'react'
 const { number, string, shape } = PropTypes
 
 export const validate = shape({
-  lat: number,
-  lng: number,
+  lat: number.isRequired,
+  lng: number.isRequired,
   city: string,
   state: string
 })

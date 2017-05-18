@@ -9,8 +9,6 @@ import RacefinderTheme from '../lib/theme'
 import * as Actions from '../actions'
 import { getEventsWithStatus } from '../selectors/index'
 
-import '../styles/global.scss'
-
 const { object, shape, arrayOf } = React.PropTypes
 
 class SearchContainer extends PureComponent {

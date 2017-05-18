@@ -1,6 +1,5 @@
 import React, { PureComponent, PropTypes } from 'react'
 import { validate as validEvent } from '../adapters/event'
-import { EVENT_DATE, EVENT_DATE_TIME, EVENT_DATE_TIME_MINS } from '../lib/date-formats'
 import Race from './race.jsx'
 
 import '../styles/event.scss'
@@ -14,17 +13,6 @@ export default class Event extends PureComponent {
     hasFocus: bool,
     onClick: func
   }
-
-  formattedStartTime = () => {
-    const { startDate } = this.props.event
-    if( startDate.hour() === 0 ) {
-      return startDate.format( EVENT_DATE )
-    } else if( startDate.minute() === 0 ) {
-      return startDate.format( EVENT_DATE_TIME )
-    } else {
-      return startDate.format( EVENT_DATE_TIME_MINS )
-    }
-  };
 
   getClasses = () => {
     const { active } = this.props.event
@@ -51,7 +39,7 @@ export default class Event extends PureComponent {
           <h3 className='name'>{ event.name }</h3>
         </a>
         <span className='place'>{ event.location.city }, { event.location.state }</span>
-        <span className='date'>{ this.formattedStartTime() }</span>
+        <span className='date'>{ event.formattedStartTime }</span>
         <ul className='races'>
           { races }
         </ul>

@@ -9,7 +9,8 @@ const envVarWhitelist = [
   'NODE_ENV',
   'MAPBOX_API_KEY',
   'MAPBOX_MAP_URL',
-  'RACEFINDER_API'
+  'RACEFINDER_API',
+  'GEONAMES_USERNAME'
 ]
 
 const config = {
