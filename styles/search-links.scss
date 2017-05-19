@@ -1,0 +1,62 @@
+@import 'includes';
+
+.search-links {
+  margin: 20px 0;
+
+  .overflow-container {
+    max-height: 195px;
+    transition: all 0.5s linear;
+    overflow: hidden;
+
+    &.with-more {
+      max-height: 800px;
+    }
+  }
+
+  ul {
+    list-style-type: none;
+    display: block;
+    margin: 0;
+    text-align: justify;
+  }
+
+  li {
+    display: inline;
+    line-height: 1.5;
+    font-weight: 300;
+
+    em {
+      font-style: normal;
+      font-weight: 500;
+    }
+
+    &:not(:last-child):after {
+      content: ' • ';
+      font-weight: 800;
+      color: $color-link;
+    }
+  }
+
+  .show-more {
+    display: block;
+    cursor: pointer;
+    text-align: right;
+  }
+
+  @media ( min-width: 600px ) {
+
+    ul {
+      columns: 250px;
+    }
+
+    li {
+      display: block;
+
+      &:after {
+        display: none;
+      }
+    }
+
+  }
+
+}

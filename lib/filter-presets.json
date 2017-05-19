@@ -31,7 +31,8 @@
     "name": "Triathlons",
     "slug": "triathlons",
     "filters": {
-      "raceType": "triathlon"
+      "raceType": "triathlon",
+      "query": ""
     }
   }
 ]

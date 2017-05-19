@@ -3,20 +3,31 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import * as Actions from '../actions'
 import SearchBox from '../components/search-box.jsx'
+import SearchLinks from '../components/search-links.jsx'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import RacefinderTheme from '../lib/theme'
+import { index as getMarkets } from '../adapters/market'
+import { index as getFilterPresets } from '../adapters/filter-preset'
+import shuffle from 'lodash/shuffle'
 
 import '../styles/landing-container.scss'
 
-import { index as getFilterPresets } from '../adapters/filter-preset'
 
-const { object, arrayOf, shape, string } = PropTypes
+const { object } = PropTypes
 
+const markets = getMarkets()
+const filterPresets = getFilterPresets()
+
+const shuffledMarkets = filterPresets.map( () => shuffle( markets ) )
 
 class LandingContainer extends PureComponent {
 
   static propTypes = {
     actions: object
+  }
+
+  renderSearchLinks = ( filterPreset, i ) => {
+    return <SearchLinks key={ filterPreset.id } filterPreset={ filterPreset } markets={ shuffledMarkets[ i ] } />
   }
 
   render() {
@@ -30,6 +41,10 @@ class LandingContainer extends PureComponent {
             <SearchBox
               filterPresets={ getFilterPresets() }
               onSearch={ startSearch } />
+          </div>
+          <div className='popular-links'>
+            <h2>Popular Searches</h2>
+            { filterPresets.map( this.renderSearchLinks ) }
           </div>
         </div>
       </MuiThemeProvider>

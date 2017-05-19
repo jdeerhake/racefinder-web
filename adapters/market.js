@@ -19,12 +19,12 @@ export const fromJSON = js => ({
   slug: js.slug
 })
 
+const allMarkets = marketsJSON.map( fromJSON )
+const byId = keyBy( allMarkets, 'id' )
+const bySlug = keyBy( allMarkets, 'slug' )
+
 export const index = () => allMarkets
 
 export const show = ( marketID ) => byId[ marketID ]
 
 export const showBySlug = ( marketSlug ) => bySlug[ marketSlug ]
-
-const allMarkets = marketsJSON.map( fromJSON )
-const byId = keyBy( allMarkets, 'id' )
-const bySlug = keyBy( allMarkets, 'slug' )

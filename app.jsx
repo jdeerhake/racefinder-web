@@ -8,8 +8,8 @@ import configureStore from './lib/configure-store'
 import injectTapEventPlugin from 'react-tap-event-plugin'
 injectTapEventPlugin()
 
-import Landing from './containers/landing.jsx'
-import Search from './containers/search.jsx'
+import Landing from './containers/landing-container.jsx'
+import Search from './containers/search-container.jsx'
 
 import './styles/global.scss'
 

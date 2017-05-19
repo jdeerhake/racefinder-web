@@ -13,4 +13,10 @@
     position: relative;
     bottom: -25px;
   }
+
+   @media ( min-width: 800px ) {
+    .search-button {
+      bottom: -75px;
+    }
+   }
 }
