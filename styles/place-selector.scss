@@ -19,6 +19,13 @@
     z-index: 100;
   }
 
+  .searching-message .progress {
+    float: left;
+    position: relative;
+    top: -7px;
+    margin-right: 12px;
+  }
+
   &.is-searching {
     top: -170px;
   }

@@ -8,7 +8,7 @@ import colors from '../lib/colors'
 
 import '../styles/search-box.scss'
 
-const { arrayOf, func, string } = PropTypes
+const { arrayOf, func } = PropTypes
 
 export default class SearchBox extends PureComponent {
 
@@ -19,7 +19,10 @@ export default class SearchBox extends PureComponent {
 
   constructor( props ) {
     super( props )
-    this.state.selectedFilterPreset = props.filterPresets[0]
+    this.state = {
+      ...this.state,
+      selectedFilterPreset: props.filterPresets[0]
+    }
   }
 
   state = {

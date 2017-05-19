@@ -5,6 +5,13 @@ import { paths, ACTIVE_ICON, HIGHLIGHTED_ICON, INACTIVE_ICON } from '../lib/mark
 const { ROUND_PIN } = paths
 const { string, func } = React.PropTypes
 
+const CLICK_AREA_STYLE = {
+  stroke: 'transparent',
+  strokeWidth: '20px',
+  cursor: 'pointer',
+  pointerEvents: 'all'
+}
+
 export default class Marker extends PureComponent {
 
   static propTypes = {
@@ -40,13 +47,20 @@ export default class Marker extends PureComponent {
   }
 
   render() {
+    const { transform } = this.props
+
     return (
-      <path
-        onMouseDown={ ( ev ) => ev.stopPropagation() }
-        onMouseUp={ ( ev ) => ev.stopPropagation() }
-        onClick={ this.handleClick }
-        d={ ROUND_PIN }
-        style={ this.getStyle() } />
+      <g>
+        <path
+          d={ ROUND_PIN }
+          onMouseDown={ ( ev ) => ev.stopPropagation() }
+          onMouseUp={ ( ev ) => ev.stopPropagation() }
+          onClick={ this.handleClick }
+          style={ { transform, ...CLICK_AREA_STYLE } } />
+        <path
+          d={ ROUND_PIN }
+          style={ this.getStyle() } />
+      </g>
     )
   }
 }
