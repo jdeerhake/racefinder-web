@@ -13,7 +13,8 @@ const { arrayOf, func, string } = PropTypes
 export default class SearchBox extends PureComponent {
 
   static propTypes = {
-    filterPresets: arrayOf( validFilterPreset )
+    filterPresets: arrayOf( validFilterPreset ),
+    onSearch: func
   }
 
   constructor( props ) {
@@ -32,23 +33,13 @@ export default class SearchBox extends PureComponent {
     this.setState({ selectedFilterPreset: val })
   };
 
-  updateSearch = ({ target: { value }}) => {
-    this.setState({
-      search: value,
-      isSearching: true
-    })
-  };
-
-  handlePlaceSelect = ( place ) => {
-    this.setState({
-      search: `${ place.name }, ${ place.stateAbbr }`,
-      selectedPlace: place,
-      isSearching: false
-    })
+  handlePlaceSelect = ( selectedPlace ) => {
+    this.setState({ selectedPlace})
   };
 
   startSearch = () => {
-    console.log('click')
+    const { selectedPlace: { location }, selectedFilterPreset: { filters } } = this.state
+    this.props.onSearch({ location, filters })
   };
 
   renderFilterPresets = () => {
@@ -58,7 +49,7 @@ export default class SearchBox extends PureComponent {
   };
 
   render() {
-    const { search, selectedFilterPreset, isSearching } = this.state
+    const { selectedFilterPreset } = this.state
 
     return (
       <form className='search-box' onSubmit={ this.startSearch }>
@@ -72,9 +63,6 @@ export default class SearchBox extends PureComponent {
           { this.renderFilterPresets() }
         </SelectField>
         <PlaceSelector
-          search={ search }
-          listOpen={ isSearching }
-          onSearchChange={ this.updateSearch }
           onSelect={ this.handlePlaceSelect } />
         <RaisedButton label='Search'
           className='search-button'

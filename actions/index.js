@@ -1,5 +1,5 @@
 import debounce from 'lodash/debounce'
-import { replace } from 'react-router-redux'
+import { replace, push } from 'react-router-redux'
 import { index as searchEvents } from '../adapters/event'
 import { getMapBounds, getSelectedFilters } from '../selectors/index'
 import { toQueryString as filterToQs } from '../adapters/filter'
@@ -77,6 +77,18 @@ export const filterChange = ({ ...filters }) => ( dispatch, getState ) => {
 }
 
 // URL
+
+export const startSearch = ({ location, filters }) => ( dispatch ) => {
+  dispatch(push({
+    pathname: '/map',
+    query: {
+      lat: location.lat,
+      lng: location.lng,
+      zoom: 9,
+      ...filterToQs( filters )
+    }
+  }))
+}
 
 const replaceURL = ( query, path ) => ( dispatch, getState ) => {
   const location = getState().routing.locationBeforeTransitions

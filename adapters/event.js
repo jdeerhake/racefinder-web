@@ -43,7 +43,7 @@ export const index = ({
   'types[]': raceType || ALL_RACE_TYPES,
   query,
   n, s, e, w
-}, id ).then( ev => ev.map( fromJSON ) )
+}, id ).then( resp => resp.events.map( fromJSON ) )
 
 
 function formattedStartTime( js ) {

@@ -20,12 +20,16 @@ class LandingContainer extends PureComponent {
   }
 
   render() {
+    const { actions: { startSearch } } = this.props
+
     return (
       <MuiThemeProvider muiTheme={ RacefinderTheme }>
         <div className='landing-container'>
           <div className='search-header'>
             <h1>RaceFinder</h1>
-            <SearchBox filterPresets={ getFilterPresets() } />
+            <SearchBox
+              filterPresets={ getFilterPresets() }
+              onSearch={ startSearch } />
           </div>
         </div>
       </MuiThemeProvider>

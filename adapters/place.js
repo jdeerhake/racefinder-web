@@ -8,7 +8,7 @@ export const validate = shape({
   id: string.isRequired,
   type: string,
   name: string,
-  stateAbr: string,
+  stateAbbr: string,
   state: string,
   postalCode: string,
   population: number,

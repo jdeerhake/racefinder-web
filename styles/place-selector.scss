@@ -3,10 +3,24 @@
 .place-selector {
   display: block;
   position: relative;
+  top: 0;
+  transition: all 0.3s linear;
 
   em {
     font-style: normal;
     font-weight: 900;
+  }
+
+  input {
+    transition: all 0.5s linear;
+  }
+
+  input:focus {
+    z-index: 100;
+  }
+
+  &.is-searching {
+    top: -170px;
   }
 
   .place-search-list {
@@ -14,9 +28,23 @@
     background-color: $color-neutral;
     top: 100%;
     left: 0;
-    width: 80%;
+    width: 100%;
     box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 6px, rgba(0, 0, 0, 0.12) 0px 1px 4px;
     z-index: 100;
   }
+
+  > div:not(.overlay) {
+    z-index: 100;
+  }
+
+  .overlay {
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    z-index: 99;
+    background: rgba( 0, 0, 0, 0.8 );
+   }
 
 }
