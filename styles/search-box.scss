@@ -2,21 +2,35 @@
 
 .search-box {
 
-  .race-type-selector {
+  .race-selector-wrap {
     margin-top: 10px;
   }
 
   .search-button {
     width: 60%;
+    max-width: 500px;
     display: block !important;
     margin: 20px auto 0;
     position: relative;
     bottom: -25px;
   }
 
-   @media ( min-width: 800px ) {
+  @media ( min-width: 800px ) {
     .search-button {
-      bottom: -75px;
+      bottom: -45px;
     }
-   }
+
+    .wrapper {
+      display: flex;
+    }
+
+    .race-selector-wrap {
+      flex: 1;
+      margin: 0 20px 0 0;
+    }
+
+    .place-select-wrap {
+      flex: 1;
+    }
+  }
 }

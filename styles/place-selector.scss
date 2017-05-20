@@ -54,4 +54,16 @@
     background: rgba( 0, 0, 0, 0.8 );
    }
 
+  @media ( min-width: 800px ) {
+
+    &.is-searching {
+      top: 0;
+    }
+
+    .overlay {
+      display: none;
+    }
+
+  }
+
 }
