@@ -36,9 +36,7 @@ export default class Map extends PureComponent {
     super( props )
     this.state = {
       viewport: {
-        ...props.initialState,
-        isDragging: false,
-        startDragLngLat: null
+        ...props.initialState
       }
     }
   }
@@ -77,7 +75,7 @@ export default class Map extends PureComponent {
 
   getBounds = () => {
     if( this.mapGL ) {
-      const bounds = this.mapGL._getMap().getBounds()
+      const bounds = this.mapGL._map._map.getBounds()
       return{
         n: bounds.getNorth(),
         s: bounds.getSouth(),

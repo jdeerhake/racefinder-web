@@ -72,7 +72,7 @@ export const highlightEvents = ({ eventIDs }) => ({ type: EVENTS_HIGHLIGHT, even
 // Filters
 
 export const filterChange = ({ ...filters }) => ( dispatch, getState ) => {
-  replaceURL( filterToQs( filters ) )
+  replaceURL( filterToQs( filters ) )( dispatch, getState )
   fetchMapEvents( dispatch, getState )
 }
 

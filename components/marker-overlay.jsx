@@ -10,11 +10,15 @@ export default class MarkerOverlay extends PureComponent {
 
   static propTypes = {
     height: number.isRequired,
-    isDragging: bool.isRequired,
+    isDragging: bool,
     markers: arrayOf( validMarker ),
     onMarkerClick: func,
     width: number.isRequired,
     zoom: number.isRequired
+  };
+
+  static defaultProps = {
+    isDragging: true
   };
 
   translate = ( opt, { lat, lng }) => {
