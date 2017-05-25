@@ -34,5 +34,14 @@
       "raceType": "triathlon",
       "query": ""
     }
+  },
+  {
+    "id": 5,
+    "name": "Cycling",
+    "slug": "cycling",
+    "filters": {
+      "raceType": "bike",
+      "query": ""
+    }
   }
 ]
