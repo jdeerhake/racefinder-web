@@ -24,6 +24,7 @@ class SearchContainer extends PureComponent {
       options: object,
       selected: object
     }),
+    history: object,
     params: object
   };
 
@@ -35,6 +36,10 @@ class SearchContainer extends PureComponent {
     this.props.actions.highlightEvents({ eventIDs: [ id ] })
   };
 
+  goHome = () => {
+    this.context.router.push('/')
+  }
+
   render() {
     const { params, actions, filter, events } = this.props
 
@@ -43,6 +48,7 @@ class SearchContainer extends PureComponent {
         <div>
           <Header
             onFilterChange={ actions.filterChange }
+            onTitleClick={ this.goHome }
             filter={ filter } />
           <MapContainer params={ params } />
           <EventList

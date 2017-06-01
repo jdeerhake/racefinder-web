@@ -12,7 +12,8 @@ class Header extends PureComponent {
 
   static propTypes = {
     filter: object,
-    onFilterChange: func
+    onFilterChange: func,
+    onTitleClick: func
   };
 
   state = {
@@ -45,12 +46,13 @@ class Header extends PureComponent {
   };
 
   render() {
-    const { filter: { options, selected }, onFilterChange } = this.props
+    const { filter: { options, selected }, onFilterChange, onTitleClick } = this.props
 
     return (
       <span>
         <AppBar
           title='RaceFinder'
+          onTitleTouchTap={ onTitleClick }
           showMenuIconButton={ false }
           iconElementRight={ this.renderFilterButton() } />
         <Dialog
