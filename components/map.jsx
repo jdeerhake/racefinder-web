@@ -97,7 +97,7 @@ export default class Map extends PureComponent {
         width={ width }
         height={ height }
         mapStyle={ MAPBOX_MAP_URL }
-        onChangeViewport={ this.handleViewportChange }
+        onViewportChange={ this.handleViewportChange }
         mapboxApiAccessToken={ MAPBOX_API_KEY }>
         <MarkerOverlay
           { ...viewport }
