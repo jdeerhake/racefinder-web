@@ -8,26 +8,26 @@
   <meta name='apple-mobile-web-app-title' content='RaceFinder'>
   <meta name='application-name' content='RaceFinder'>
   <meta name='msapplication-TileColor' content='#2b5797'>
-  <meta name='msapplication-TileImage' content='/mstile-144x144.png'>
+  <meta name='msapplication-TileImage' content='{{ cdnBase }}/mstile-144x144.png'>
   <meta name='theme-color' content='#1695a3'>
   <meta name='google-site-verification' content='c9gTTalaaWU1TaWRZyavu5ytY43K6_5u_ItrwagnyvU' />
 
-  <link rel='apple-touch-icon' sizes='57x57' href='/favicons/apple-touch-icon-57x57.png'>
-  <link rel='apple-touch-icon' sizes='60x60' href='/favicons/apple-touch-icon-60x60.png'>
-  <link rel='apple-touch-icon' sizes='72x72' href='/favicons/apple-touch-icon-72x72.png'>
-  <link rel='apple-touch-icon' sizes='76x76' href='/favicons/apple-touch-icon-76x76.png'>
-  <link rel='apple-touch-icon' sizes='114x114' href='/favicons/apple-touch-icon-114x114.png'>
-  <link rel='apple-touch-icon' sizes='120x120' href='/favicons/apple-touch-icon-120x120.png'>
-  <link rel='apple-touch-icon' sizes='144x144' href='/favicons/apple-touch-icon-144x144.png'>
-  <link rel='apple-touch-icon' sizes='152x152' href='/favicons/apple-touch-icon-152x152.png'>
-  <link rel='apple-touch-icon' sizes='180x180' href='/favicons/apple-touch-icon-180x180.png'>
-  <link rel='icon' type='image/png' href='/favicons/favicon-32x32.png' sizes='32x32'>
-  <link rel='icon' type='image/png' href='/favicons/favicon-194x194.png' sizes='194x194'>
-  <link rel='icon' type='image/png' href='/favicons/favicon-96x96.png' sizes='96x96'>
-  <link rel='icon' type='image/png' href='/favicons/android-chrome-192x192.png' sizes='192x192'>
-  <link rel='icon' type='image/png' href='/favicons/favicon-16x16.png' sizes='16x16'>
-  <link rel='manifest' href='/manifest.json'>
-  <link rel='mask-icon' href='/favicons/safari-pinned-tab.svg' color='#1695a3'>
+  <link rel='apple-touch-icon' sizes='57x57' href='{{ cdnBase }}/favicons/apple-touch-icon-57x57.png'>
+  <link rel='apple-touch-icon' sizes='60x60' href='{{ cdnBase }}/favicons/apple-touch-icon-60x60.png'>
+  <link rel='apple-touch-icon' sizes='72x72' href='{{ cdnBase }}/favicons/apple-touch-icon-72x72.png'>
+  <link rel='apple-touch-icon' sizes='76x76' href='{{ cdnBase }}/favicons/apple-touch-icon-76x76.png'>
+  <link rel='apple-touch-icon' sizes='114x114' href='{{ cdnBase }}/favicons/apple-touch-icon-114x114.png'>
+  <link rel='apple-touch-icon' sizes='120x120' href='{{ cdnBase }}/favicons/apple-touch-icon-120x120.png'>
+  <link rel='apple-touch-icon' sizes='144x144' href='{{ cdnBase }}/favicons/apple-touch-icon-144x144.png'>
+  <link rel='apple-touch-icon' sizes='152x152' href='{{ cdnBase }}/favicons/apple-touch-icon-152x152.png'>
+  <link rel='apple-touch-icon' sizes='180x180' href='{{ cdnBase }}/favicons/apple-touch-icon-180x180.png'>
+  <link rel='icon' type='image/png' href='{{ cdnBase }}/favicons/favicon-32x32.png' sizes='32x32'>
+  <link rel='icon' type='image/png' href='{{ cdnBase }}/favicons/favicon-194x194.png' sizes='194x194'>
+  <link rel='icon' type='image/png' href='{{ cdnBase }}/favicons/favicon-96x96.png' sizes='96x96'>
+  <link rel='icon' type='image/png' href='{{ cdnBase }}/favicons/android-chrome-192x192.png' sizes='192x192'>
+  <link rel='icon' type='image/png' href='{{ cdnBase }}/favicons/favicon-16x16.png' sizes='16x16'>
+  <link rel='manifest' href='{{ cdnBase }}/manifest.json'>
+  <link rel='mask-icon' href='{{ cdnBase }}/favicons/safari-pinned-tab.svg' color='#1695a3'>
 
   <meta property='og:title' content='RaceFinder'>
   <meta property='og:site_name' content='RaceFinder'>
@@ -47,7 +47,7 @@
 </head>
 <body>
   <div id='app'></div>
-  <script src='{{ cdnUrl }}/generated/app.js?v={{ jsHash }}'></script>
+  <script src='{{ cdnURLWithHash '/generated/app.js' }}'></script>
 
   {{#if isProduction }}
     <script>
