@@ -16,6 +16,8 @@ const MOVE_SENSITIVITY = 0.01
 
 export default class Map extends PureComponent {
 
+  static foo = 'bar'
+
   static propTypes = {
     actions: object,
     height: number,

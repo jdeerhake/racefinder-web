@@ -6,7 +6,8 @@
   "scripts": {
     "dev-server": "node dev-server.js",
     "watch": "webpack -w",
-    "build": "webpack"
+    "generate-index": "node ./scripts/generate-index",
+    "build": "webpack && node ./scripts/generate-index"
   },
   "author": "John M Deerhake <jdeerhake@gmail.com>",
   "license": "MIT",
@@ -22,6 +23,7 @@
     "dotenv": "^4.0.0",
     "es6-promise-debounce": "^1.0.1",
     "global": "^4.3.1",
+    "handlebars": "^4.0.10",
     "immutable": "^3.8.1",
     "lodash": "^4.3.0",
     "material-ui": "^0.17.0",
