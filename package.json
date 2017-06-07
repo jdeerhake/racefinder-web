@@ -7,7 +7,7 @@
     "dev-server": "node dev-server.js",
     "watch": "webpack -w",
     "generate-static": "node ./scripts/generate-static",
-    "build": "webpack && node ./scripts/generate-static"
+    "build": "webpack"
   },
   "author": "John M Deerhake <jdeerhake@gmail.com>",
   "license": "MIT",
