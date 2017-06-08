@@ -17,7 +17,7 @@ const actions = {
     return {
       ...state,
       selected: {
-        ...state.selected,
+        ...initialState.selected,
         ...filterFromQs( payload.query )
       }
     }
@@ -27,7 +27,7 @@ const actions = {
     return {
       ...state,
       selected: {
-        ...state.selected,
+        ...initialState.selected,
         ...filters
       }
     }

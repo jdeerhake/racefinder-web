@@ -4,6 +4,8 @@ import { index as searchEvents } from '../adapters/event'
 import { getMapBounds, getSelectedFilters } from '../selectors/index'
 import { toQueryString as filterToQs } from '../adapters/filter'
 
+const DEFAULT_VIEWPORT_SIZE = { lat: 1.5, lng: 2 }
+
 // Map
 
 export const MAP_MOVE = 'MAP_MOVE'
@@ -26,12 +28,14 @@ export const mapMove = ( viewport ) => ( dispatch, getState ) => {
 export const mapInitialState = ({ viewport, filters }) => ( dispatch, getState ) => {
   dispatch({ type: MAP_INITIAL_STATE, viewport, filters })
   const { latitude: lat, longitude: lng } = viewport
+  const latSpread = DEFAULT_VIEWPORT_SIZE.lat / 2
+  const lngSpread = DEFAULT_VIEWPORT_SIZE.lng / 2
 
   const bounds = {
-    n: lat + .7,
-    s: lat - .7,
-    e: lng + .9,
-    w: lng - .9
+    n: lat + latSpread,
+    s: lat - latSpread,
+    e: lng + lngSpread,
+    w: lng - lngSpread
   }
 
   fetchEventsWithFilters({

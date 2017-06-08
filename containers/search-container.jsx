@@ -38,7 +38,7 @@ class SearchContainer extends PureComponent {
   };
 
   goHome = () => {
-    this.context.router.push('/')
+    this.context.router.push( '/' )
   }
 
   render() {
