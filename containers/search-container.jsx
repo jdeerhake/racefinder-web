@@ -5,6 +5,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import MapContainer from './map-container.jsx'
 import Header from '../components/header.jsx'
 import EventList from '../components/event-list.jsx'
+import HelpButton from '../components/help-button.jsx'
 import RacefinderTheme from '../lib/theme'
 import * as Actions from '../actions'
 import { getEventsWithStatus } from '../selectors/index'
@@ -56,6 +57,7 @@ class SearchContainer extends PureComponent {
             deactivateAllEvents={ actions.deactivateAllEvents }
             highlightEvent={ this.highlightEvent }
             events={ events } />
+          <HelpButton />
         </div>
       </MuiThemeProvider>
     )

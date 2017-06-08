@@ -1,0 +1,18 @@
+@import 'includes';
+
+.help-button {
+  position: absolute;
+  left: 20px;
+  bottom: 20px;
+  z-index: 1999;
+}
+
+.help-content {
+  font-size: 0.9rem;
+  padding: 10px;
+  z-index: 2001;
+}
+
+.help-wrapper {
+  max-width: 95%;
+}
