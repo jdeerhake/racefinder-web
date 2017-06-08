@@ -9,9 +9,9 @@ export const DATE_RANGES = [
 ]
 
 export const RACE_TYPES = [
-  { text: 'Any',       val: '' },
-  { text: 'Run',       val: 'run' },
-  { text: 'Bike',      val: 'bike' },
+  { text: 'Any', val: '' },
+  { text: 'Run', val: 'run' },
+  { text: 'Cycling', val: 'bike' },
   { text: 'Triathlon', val: 'triathlon' },
   { text: 'Adventure/Obstacle', val: 'adventure' },
   { text: 'Swimming & water sports', val: 'swim' }

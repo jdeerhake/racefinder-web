@@ -10,7 +10,7 @@
   },
   {
     "id": 2,
-    "name": "Half-Marathons",
+    "name": "Half marathons",
     "slug": "half-marathons",
     "filters": {
       "raceType": "run",
@@ -37,10 +37,46 @@
   },
   {
     "id": 5,
-    "name": "Cycling",
-    "slug": "cycling",
+    "name": "Century rides",
+    "slug": "century-rides",
     "filters": {
       "raceType": "bike",
+      "query": "century"
+    }
+  },
+  {
+    "id": 6,
+    "name": "Open water swims",
+    "slug": "open-water-swims",
+    "filters": {
+      "raceType": "swim",
+      "query": "open"
+    }
+  },
+  {
+    "id": 7,
+    "name": "Paddleboard races",
+    "slug": "paddleboard-races",
+    "filters": {
+      "raceType": "swim",
+      "query": "SUP"
+    }
+  },
+  {
+    "id": 8,
+    "name": "10Ks",
+    "slug": "10ks",
+    "filters": {
+      "raceType": "run",
+      "query": "10k"
+    }
+  },
+  {
+    "id": 9,
+    "name": "Obstacle races",
+    "slug": "obstacle-races",
+    "filters": {
+      "raceType": "adventure",
       "query": ""
     }
   }

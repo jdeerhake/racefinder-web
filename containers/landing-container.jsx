@@ -16,7 +16,7 @@ import '../styles/landing-container.scss'
 const { object } = PropTypes
 
 const markets = getMarkets()
-const filterPresets = getFilterPresets()
+const filterPresets = shuffle( getFilterPresets() )
 
 const shuffledMarkets = filterPresets.map( () => shuffle( markets ) )
 
@@ -38,9 +38,7 @@ class LandingContainer extends PureComponent {
         <div className='landing-container'>
           <div className='search-header'>
             <h1>RaceFinder</h1>
-            <SearchBox
-              filterPresets={ getFilterPresets() }
-              onSearch={ startSearch } />
+            <SearchBox onSearch={ startSearch } />
           </div>
           <div className='popular-links'>
             <h2>Popular Searches</h2>

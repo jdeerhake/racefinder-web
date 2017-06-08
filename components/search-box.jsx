@@ -4,30 +4,21 @@ import MenuItem from 'material-ui/MenuItem'
 import RaisedButton from 'material-ui/RaisedButton'
 import PlaceSelector from './place-selector.jsx'
 import Snackbar from 'material-ui/Snackbar'
-import { validate as validFilterPreset } from '../adapters/filter-preset'
 import colors from '../lib/colors'
+import { RACE_TYPES } from '../adapters/filter-options'
 
 import '../styles/search-box.scss'
 
-const { arrayOf, func } = PropTypes
+const { func } = PropTypes
 
 export default class SearchBox extends PureComponent {
 
   static propTypes = {
-    filterPresets: arrayOf( validFilterPreset ),
     onSearch: func
   }
 
-  constructor( props ) {
-    super( props )
-    this.state = {
-      ...this.state,
-      selectedFilterPreset: props.filterPresets[0]
-    }
-  }
-
   state = {
-    selectedFilterPreset: false,
+    selectedRaceType: '',
     search: '',
     selectedPlace: false,
     isSearching: false,
@@ -38,8 +29,8 @@ export default class SearchBox extends PureComponent {
     this.setState({ errorMessage: '' })
   }
 
-  handleFilterPresetChange = ( ev, i, val ) => {
-    this.setState({ selectedFilterPreset: val })
+  handleRaceTypeChange = ( ev, i, val ) => {
+    this.setState({ selectedRaceType: val })
   };
 
   handlePlaceSelect = ( selectedPlace ) => {
@@ -51,18 +42,19 @@ export default class SearchBox extends PureComponent {
       return this.setState({ errorMessage: 'Please select a valid location to search' })
     }
 
-    const { selectedPlace: { location }, selectedFilterPreset: { filters } } = this.state
-    this.props.onSearch({ location, filters })
+    const { selectedPlace: { location }, selectedRaceType } = this.state
+    this.props.onSearch({ location, filters: { raceType: selectedRaceType }})
   };
 
-  renderFilterPresets = () => {
-    return this.props.filterPresets.map(fp => (
-      <MenuItem key={ fp.id } value={ fp } primaryText={ fp.name } />
+  renderRaceTypes = () => {
+    return RACE_TYPES.filter( t => t.val ).map( r => (
+      <MenuItem key={ r.val } value={ r.val } primaryText={ r.text } />
     ) )
   };
 
   render() {
-    const { selectedFilterPreset, errorMessage } = this.state
+    const { selectedRaceType, errorMessage } = this.state
+    const textColor = { color: colors[ 'color-neutral' ] }
 
     return (
       <form className='search-box' onSubmit={ this.startSearch }>
@@ -71,11 +63,13 @@ export default class SearchBox extends PureComponent {
             <SelectField
               className='race-type-selector'
               floatingLabelText=''
-              value={ selectedFilterPreset }
-              onChange={ this.handleFilterPresetChange }
+              hintText='Race Type'
+              hintStyle={ { fontStyle: 'italic', ...textColor } }
+              value={ selectedRaceType }
+              onChange={ this.handleRaceTypeChange }
               labelStyle={ { color: colors[ 'color-neutral' ] } }
               fullWidth >
-              { this.renderFilterPresets() }
+              { this.renderRaceTypes() }
             </SelectField>
           </div>
           <div className='place-select-wrap'>
