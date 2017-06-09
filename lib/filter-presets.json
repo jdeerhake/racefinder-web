@@ -79,5 +79,14 @@
       "raceType": "adventure",
       "query": ""
     }
+  },
+  {
+    "id": 10,
+    "name": "Trail races",
+    "slug": "trail-races",
+    "filters": {
+      "raceType": "run",
+      "query": "trail"
+    }
   }
 ]
