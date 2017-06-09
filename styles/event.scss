@@ -1,5 +1,5 @@
 @import 'includes';
-$opacity: 0.85;
+$opacity: 0.95;
 
 .event {
   position: relative;
@@ -90,7 +90,6 @@ $opacity: 0.85;
 }
 
 @include layout(sidebar) {
-  $opacity: 0.95;
 
   .event {
     height: auto;

@@ -4,7 +4,11 @@
   position: absolute;
   left: 20px;
   bottom: 20px;
-  z-index: 1999;
+  z-index: 999;
+
+  button {
+    opacity: 0.8;
+  }
 }
 
 .help-content {
