@@ -6,10 +6,12 @@ import MapContainer from './map-container.jsx'
 import Header from '../components/header.jsx'
 import EventList from '../components/event-list.jsx'
 import HelpButton from '../components/help-button.jsx'
+import MetaInfo from '../components/meta-info.jsx'
 import RacefinderTheme from '../lib/theme'
 import * as Actions from '../actions'
-import { getEventsWithStatus, getFilters } from '../selectors/index'
+import { getEventsWithStatus, getFilters, getFilterPreset, getSelectedMarket } from '../selectors/index'
 import { validate as validFilter } from '../adapters/filter'
+import { validate as validMarket } from '../adapters/market'
 
 const { object, arrayOf } = React.PropTypes
 
@@ -22,9 +24,11 @@ class SearchContainer extends PureComponent {
   static propTypes = {
     actions: object,
     events: arrayOf( object ),
+    filterPreset: object,
     history: object,
     params: object,
     selectedFilter: validFilter,
+    selectedMarket: validMarket
   };
 
   activateEvent = ({ id }) => {
@@ -40,11 +44,14 @@ class SearchContainer extends PureComponent {
   }
 
   render() {
-    const { params, actions, selectedFilter, events } = this.props
+    const { params, actions, selectedFilter, events, filterPreset, selectedMarket } = this.props
 
     return (
       <MuiThemeProvider muiTheme={ RacefinderTheme }>
         <div>
+          <MetaInfo
+            market={ selectedMarket }
+            filterPreset={ filterPreset } />
           <Header
             onFilterChange={ actions.filterChange }
             onTitleClick={ this.goHome }
@@ -74,6 +81,8 @@ export default connect(
       ...state,
       events: getEventsWithStatus( state ),
       selectedFilter: getFilters( state ),
+      filterPreset: getFilterPreset( state ),
+      selectedMarket: getSelectedMarket( state ),
       params
     }
   },

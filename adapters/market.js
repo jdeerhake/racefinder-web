@@ -19,6 +19,15 @@ export const fromJSON = js => ({
   slug: js.slug
 })
 
+export const fromPathName = path => {
+  // I have to do my own URL parsing because redux router is stupid and won't store params in state
+  const [ base, marketSlug, filterPresetSlug ] = path.replace(/^\/|\/$/g, '').split( '/' )
+
+  if( base === 'map' && marketSlug in bySlug ) {
+    return bySlug[ marketSlug ]
+  }
+}
+
 const allMarkets = marketsJSON.map( fromJSON )
 const byId = keyBy( allMarkets, 'id' )
 const bySlug = keyBy( allMarkets, 'slug' )

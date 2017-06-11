@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import * as Actions from '../actions'
 import SearchBox from '../components/search-box.jsx'
 import SearchLinks from '../components/search-links.jsx'
+import MetaInfo from '../components/meta-info.jsx'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import RacefinderTheme from '../lib/theme'
 import { index as getMarkets } from '../adapters/market'
@@ -36,6 +37,7 @@ class LandingContainer extends PureComponent {
     return (
       <MuiThemeProvider muiTheme={ RacefinderTheme }>
         <div className='landing-container'>
+          <MetaInfo />
           <div className='search-header'>
             <h1>RaceFinder</h1>
             <SearchBox onSearch={ startSearch } />

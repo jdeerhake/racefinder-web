@@ -2,6 +2,7 @@ import { createSelector } from 'reselect'
 import values from 'lodash/values'
 import { fromEventAndZoom as createMarker, merge } from '../adapters/marker'
 import { fromPathName as filterPresetFromPath } from '../adapters/filter-preset'
+import { fromPathName as marketFromPath } from '../adapters/market'
 import {
   fromQueryString as filtersFromQs,
   fromDefaults as filterDefaults
@@ -64,14 +65,19 @@ export const getMarkers = createSelector(
 
 const getLocation = state => state.routing.locationBeforeTransitions
 
-const getFilterPreset = createSelector(
+export const getFilterPreset = createSelector(
   [ getLocation ],
-  ({ pathname }) => filterPresetFromPath( pathname ) || {}
+  ({ pathname }) => filterPresetFromPath( pathname )
+)
+
+export const getSelectedMarket = createSelector(
+  [ getLocation ],
+  ({ pathname }) => marketFromPath( pathname )
 )
 
 const getFilterPresetFilters = createSelector(
   [ getFilterPreset ],
-  ( fp ) => fp.filters || {}
+  ( fp ) => fp ? fp.filters : {}
 )
 
 const getQsFilters = createSelector(
