@@ -1,4 +1,5 @@
-import React, { PureComponent, PropTypes } from 'react'
+import React, { PureComponent } from 'react'
+import { func } from 'prop-types'
 import SelectField from 'material-ui/SelectField'
 import MenuItem from 'material-ui/MenuItem'
 import RaisedButton from 'material-ui/RaisedButton'
@@ -8,8 +9,6 @@ import colors from '../lib/colors'
 import { RACE_TYPES } from '../adapters/filter-options'
 
 import '../styles/search-box.scss'
-
-const { func } = PropTypes
 
 export default class SearchBox extends PureComponent {
 

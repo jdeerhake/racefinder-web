@@ -1,12 +1,11 @@
 import moment from 'moment'
-import { PropTypes } from 'react'
+import { string, shape, arrayOf, object } from 'prop-types'
 import { events as api } from '../lib/racefinder-api'
 import { validate as validLocation, fromJSON as locationFromJSON } from './location'
 import { validate as validRace, fromJSON as raceFromJSON } from './race'
 import { ALL_RACE_TYPES } from './filter-options'
 import { EVENT_DATE, EVENT_DATE_TIME, EVENT_DATE_TIME_MINS, URL_DATE } from '../lib/date-formats'
 
-const { string, shape, arrayOf, object } = PropTypes
 
 export const validate = shape({
   id: string.isRequired,

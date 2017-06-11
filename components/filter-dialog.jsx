@@ -1,4 +1,5 @@
-import React, { PureComponent, PropTypes } from 'react'
+import React, { PureComponent } from 'react'
+import { func } from 'prop-types'
 import TextField from 'material-ui/TextField'
 import DropDownMenu from 'material-ui/DropDownMenu'
 import MenuItem from 'material-ui/MenuItem'
@@ -10,8 +11,6 @@ const controlStyles = {
   width: '100%',
   textAlign: 'left'
 }
-
-const { func } = PropTypes
 
 class FilterDialog extends PureComponent {
 

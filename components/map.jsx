@@ -1,4 +1,5 @@
 import React, { PureComponent } from 'react'
+import {  object, number, func, arrayOf } from 'prop-types'
 import MapGL from 'react-map-gl'
 import MarkerOverlay from './marker-overlay.jsx'
 import pick from 'lodash/pick'
@@ -8,8 +9,6 @@ import inRange from 'lodash/inRange'
 // webpack define plugin is dumb, so no destrucuring
 const MAPBOX_API_KEY = process.env.MAPBOX_API_KEY
 const MAPBOX_MAP_URL = process.env.MAPBOX_MAP_URL
-
-const { object, number, func, arrayOf } = React.PropTypes
 
 const MOVE_PARAMS = [ 'latitude', 'longitude', 'zoom' ]
 const MOVE_SENSITIVITY = 0.01

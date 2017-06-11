@@ -1,4 +1,5 @@
 import React, { PureComponent } from 'react'
+import { object, arrayOf } from 'prop-types'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
@@ -12,8 +13,6 @@ import * as Actions from '../actions'
 import { getEventsWithStatus, getFilters, getFilterPreset, getSelectedMarket } from '../selectors/index'
 import { validate as validFilter } from '../adapters/filter'
 import { validate as validMarket } from '../adapters/market'
-
-const { object, arrayOf } = React.PropTypes
 
 class SearchContainer extends PureComponent {
 

@@ -1,9 +1,9 @@
 import React, { PureComponent } from 'react'
+import { string, func } from 'prop-types'
 import { validate as validMarker } from '../adapters/marker'
 import { paths, ACTIVE_ICON, HIGHLIGHTED_ICON, INACTIVE_ICON } from '../lib/marker-styles'
 
 const { ROUND_PIN } = paths
-const { string, func } = React.PropTypes
 
 const CLICK_AREA_STYLE = {
   stroke: 'transparent',

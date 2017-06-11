@@ -1,9 +1,8 @@
-import React, { PureComponent, PropTypes } from 'react'
+import React, { PureComponent } from 'react'
+import { arrayOf, func, string } from 'prop-types'
 import cx from 'classnames'
 
 import '../styles/focus-selector.scss'
-
-const { arrayOf, func, string } = PropTypes
 
 export default class FocusSelector extends PureComponent {
 

@@ -1,9 +1,7 @@
-import { PropTypes } from 'react'
+import { string, shape, number } from 'prop-types'
 import { validate as validLocation, fromJSON as locationFromJSON } from './location'
 import keyBy from 'lodash/keyBy'
 import marketsJSON from '../lib/markets.json'
-
-const { string, shape, number } = PropTypes
 
 export const validate = shape({
   id: number.isRequired,

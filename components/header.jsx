@@ -1,4 +1,5 @@
 import React, { PureComponent } from 'react'
+import { func } from 'prop-types'
 import { Link } from 'react-router'
 import AppBar from 'material-ui/AppBar'
 import Dialog from 'material-ui/Dialog'
@@ -7,8 +8,6 @@ import IconButton from 'material-ui/IconButton'
 import FilterIcon from 'material-ui/svg-icons/content/filter-list'
 import FilterDialog from './filter-dialog.jsx'
 import { validate as validFilter } from '../adapters/filter'
-
-const { func } = React.PropTypes
 
 class Header extends PureComponent {
 

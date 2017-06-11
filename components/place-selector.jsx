@@ -1,4 +1,5 @@
-import React, { PureComponent, PropTypes } from 'react'
+import React, { PureComponent } from 'react'
+import { func } from 'prop-types'
 import TextField from 'material-ui/TextField'
 import { List, ListItem } from 'material-ui/List'
 import CircularProgress from 'material-ui/CircularProgress'
@@ -9,8 +10,6 @@ import debounce from 'es6-promise-debounce'
 import colors from '../lib/colors'
 
 import '../styles/place-selector.scss'
-
-const { func } = PropTypes
 
 const searchAPI = debounce( searchPlaces, 500 )
 const MIN_QUERY_SIZE = 3

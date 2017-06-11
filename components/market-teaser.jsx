@@ -1,11 +1,11 @@
-import React, { PureComponent, PropTypes } from 'react'
+import React, { PureComponent } from 'react'
+import { arrayOf } from 'prop-types'
 import { Link } from 'react-router'
 import { validate as validMarket } from '../adapters/market'
 import { validate as validFilterPreset, index as getFilterPresets } from '../adapters/filter-preset'
 
 import '../styles/market-teaser.scss'
 
-const { arrayOf } = PropTypes
 
 export default class MetaInfo extends PureComponent {
 

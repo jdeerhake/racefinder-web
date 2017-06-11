@@ -1,9 +1,8 @@
-import { PropTypes } from 'react'
+import { string, number, arrayOf, shape } from 'prop-types'
 import flatten from 'lodash/flatten'
 import round from 'lodash/round'
 import md5 from 'md5'
 
-const { string, number, arrayOf, shape } = PropTypes
 
 export const validate = shape({
   id: string.isRequired,

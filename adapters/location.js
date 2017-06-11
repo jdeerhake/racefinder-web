@@ -1,6 +1,4 @@
-import { PropTypes } from 'react'
-
-const { number, string, shape } = PropTypes
+import { number, string, shape } from 'prop-types'
 
 export const validate = shape({
   lat: number.isRequired,

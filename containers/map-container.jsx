@@ -1,4 +1,5 @@
-import React, { PureComponent, PropTypes } from 'react'
+import React, { PureComponent } from 'react'
+import { object, arrayOf, shape, string } from 'prop-types'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import Map from '../components/map.jsx'
@@ -10,8 +11,6 @@ import { validate as validMarker } from '../adapters/marker'
 import { showBySlug as getFilterPreset } from '../adapters/filter-preset'
 
 import '../styles/map.scss'
-
-const { object, arrayOf, shape, string } = PropTypes
 
 class MapContainer extends PureComponent {
 

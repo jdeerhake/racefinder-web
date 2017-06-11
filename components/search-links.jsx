@@ -1,12 +1,11 @@
-import React, { PureComponent, PropTypes } from 'react'
+import React, { PureComponent } from 'react'
+import { arrayOf } from 'prop-types'
 import cx from 'classnames'
 import { validate as validMarket } from '../adapters/market'
 import { validate as validFilterPreset } from '../adapters/filter-preset'
 import { Link } from 'react-router'
 
 import '../styles/search-links.scss'
-
-const { arrayOf } = PropTypes
 
 export default class Event extends PureComponent {
 

@@ -1,4 +1,4 @@
-import React, { PureComponent, PropTypes } from 'react'
+import React, { PureComponent } from 'react'
 import { validate as validRace } from '../adapters/race'
 
 import '../styles/race.scss'

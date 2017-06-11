@@ -1,10 +1,9 @@
-import React, { PureComponent, PropTypes } from 'react'
+import React, { PureComponent } from 'react'
+import { bool, func } from 'prop-types'
 import { validate as validEvent } from '../adapters/event'
 import Race from './race.jsx'
 
 import '../styles/event.scss'
-
-const { func, bool } = PropTypes
 
 export default class Event extends PureComponent {
 

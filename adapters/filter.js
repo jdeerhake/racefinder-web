@@ -1,9 +1,7 @@
+import { string, shape, object } from 'prop-types'
 import moment from 'moment'
 import transform from 'lodash/transform'
-import { PropTypes } from 'react'
 import { URL_DATE } from '../lib/date-formats'
-
-const { string, shape, object } = PropTypes
 
 export const validate = shape({
   startDate: object,

@@ -1,6 +1,4 @@
-import { PropTypes } from 'react'
-
-const { string, shape } = PropTypes
+import { string, shape } from 'prop-types'
 
 export const validate = shape({
   id: string,

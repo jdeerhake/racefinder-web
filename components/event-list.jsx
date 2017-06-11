@@ -1,4 +1,5 @@
-import React, { PureComponent, PropTypes } from 'react'
+import React, { PureComponent } from 'react'
+import { arrayOf, func } from 'prop-types'
 import Event from './event.jsx'
 import MarketTeaser from './market-teaser.jsx'
 import FocusSelector from './focus-selector.jsx'
@@ -9,8 +10,6 @@ import last from 'lodash/last'
 import filter from 'lodash/filter'
 
 import '../styles/event-list.scss'
-
-const { arrayOf, func } = PropTypes
 
 export default class EventList extends PureComponent {
 

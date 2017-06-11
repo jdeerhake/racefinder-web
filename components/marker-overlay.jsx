@@ -1,9 +1,8 @@
-import React, { PureComponent, PropTypes } from 'react'
+import React, { PureComponent } from 'react'
+import { number, bool, arrayOf, func } from 'prop-types'
 import { SVGOverlay } from 'react-map-gl'
 import Marker from './marker.jsx'
 import { validate as validMarker } from '../adapters/marker'
-
-const { number, bool, arrayOf, func } = PropTypes
 
 
 export default class MarkerOverlay extends PureComponent {

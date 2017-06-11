@@ -1,8 +1,7 @@
+import { string, shape, number } from 'prop-types'
 import { places as api } from '../lib/racefinder-api'
-import { PropTypes } from 'react'
 import { validate as validLocation, fromJSON as locationFromJSON } from './location'
 
-const { string, shape, number } = PropTypes
 
 export const validate = shape({
   id: string.isRequired,

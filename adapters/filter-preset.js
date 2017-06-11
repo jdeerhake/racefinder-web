@@ -1,8 +1,6 @@
-import { PropTypes } from 'react'
+import {  string, number, object, shape } from 'prop-types'
 import keyBy from 'lodash/keyBy'
 import filterPresetJSON from '../lib/filter-presets.json'
-
-const { string, number, object, shape } = PropTypes
 
 export const validate = shape({
   id: number.isRequired,

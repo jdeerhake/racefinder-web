@@ -1,4 +1,5 @@
-import React, { PureComponent, PropTypes } from 'react'
+import React, { PureComponent } from 'react'
+import { object } from 'prop-types'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import * as Actions from '../actions'
@@ -12,9 +13,6 @@ import { index as getFilterPresets } from '../adapters/filter-preset'
 import shuffle from 'lodash/shuffle'
 
 import '../styles/landing-container.scss'
-
-
-const { object } = PropTypes
 
 const markets = getMarkets()
 const filterPresets = shuffle( getFilterPresets() )
