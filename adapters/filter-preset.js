@@ -18,6 +18,15 @@ export const fromJSON = js => ({
   filters: js.filters
 })
 
+export const fromPathName = path => {
+  // I have to do my own URL parsing because redux router is stupid and won't store params in state
+  const [ base, marketSlug, filterPresetSlug ] = path.replace(/^\/|\/$/g, '').split( '/' )
+
+  if( base === 'map' && filterPresetSlug in bySlug ) {
+    return bySlug[ filterPresetSlug ]
+  }
+}
+
 export const index = () => allPresets
 
 export const show = ( presetID ) => byId[ presetID ]

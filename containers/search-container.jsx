@@ -9,8 +9,9 @@ import HelpButton from '../components/help-button.jsx'
 import RacefinderTheme from '../lib/theme'
 import * as Actions from '../actions'
 import { getEventsWithStatus } from '../selectors/index'
+import { validate as validFilter, fromQueryString as filterFromQs } from '../adapters/filter'
 
-const { object, shape, arrayOf } = React.PropTypes
+const { object, arrayOf } = React.PropTypes
 
 class SearchContainer extends PureComponent {
 
@@ -21,12 +22,9 @@ class SearchContainer extends PureComponent {
   static propTypes = {
     actions: object,
     events: arrayOf( object ),
-    filter: shape({
-      options: object,
-      selected: object
-    }),
     history: object,
-    params: object
+    params: object,
+    selectedFilter: validFilter,
   };
 
   activateEvent = ({ id }) => {
@@ -42,7 +40,7 @@ class SearchContainer extends PureComponent {
   }
 
   render() {
-    const { params, actions, filter, events } = this.props
+    const { params, actions, selectedFilter, events } = this.props
 
     return (
       <MuiThemeProvider muiTheme={ RacefinderTheme }>
@@ -50,7 +48,7 @@ class SearchContainer extends PureComponent {
           <Header
             onFilterChange={ actions.filterChange }
             onTitleClick={ this.goHome }
-            filter={ filter } />
+            selectedFilter={ selectedFilter } />
           <MapContainer params={ params } />
           <EventList
             activateEvent={ this.activateEvent }
@@ -66,14 +64,19 @@ class SearchContainer extends PureComponent {
 }
 
 export default connect(
-  ( state, ownProps ) => ({
-    ...state,
-    events: getEventsWithStatus( state ),
-    params: {
+  ( state, ownProps ) => {
+    const params = {
       ...ownProps.location.query,
       ...ownProps.params
     }
-  }),
+
+    return {
+      ...state,
+      events: getEventsWithStatus( state ),
+      selectedFilter: filterFromQs( params ),
+      params
+    }
+  },
   dispatch => ({
     actions: bindActionCreators( Actions, dispatch )
   })

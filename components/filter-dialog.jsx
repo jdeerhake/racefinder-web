@@ -3,6 +3,7 @@ import TextField from 'material-ui/TextField'
 import DropDownMenu from 'material-ui/DropDownMenu'
 import MenuItem from 'material-ui/MenuItem'
 import { validate as validFilter } from '../adapters/filter'
+import { fromDefaults as getFilterOptions } from '../adapters/filter-options'
 import { URL_DATE } from '../lib/date-formats'
 
 const controlStyles = {
@@ -10,13 +11,12 @@ const controlStyles = {
   textAlign: 'left'
 }
 
-const { func, object } = PropTypes
+const { func } = PropTypes
 
 class FilterDialog extends PureComponent {
 
   static propTypes = {
     onChange: func.isRequired,
-    options: object,
     selected: validFilter
   };
 
@@ -28,7 +28,7 @@ class FilterDialog extends PureComponent {
   };
 
   raceTypeChange = ( ev, index ) => {
-    const raceType = this.props.options.raceTypes[index].val
+    const raceType = getFilterOptions().raceTypes[index].val
     this.props.onChange({
       ...this.props.selected,
       raceType
@@ -36,7 +36,7 @@ class FilterDialog extends PureComponent {
   };
 
   dateRangeChange = ( ev, index ) => {
-    const newVal = this.props.options.dateRanges[index].val
+    const newVal = getFilterOptions().dateRanges[index].val
     this.props.onChange({
       ...this.props.selected,
       startDate: newVal[0],
@@ -51,15 +51,15 @@ class FilterDialog extends PureComponent {
   dateRangeID = range => `${range[0].format( URL_DATE )}...${range[1].format( URL_DATE )}`
 
   selectedDateRange = () => {
-    const { options: { dateRanges }, selected: { startDate, endDate } } = this.props
+    const { selected: { startDate, endDate } } = this.props
     const rangeID = this.dateRangeID([ startDate, endDate ])
 
-    return dateRanges.find( dr => this.dateRangeID( dr.val ) === rangeID ) ||
+    return getFilterOptions().dateRanges.find( dr => this.dateRangeID( dr.val ) === rangeID ) ||
            { text: 'Custom', val: [ startDate, endDate ] }
   }
 
   renderRaceTypeSelector = () => {
-    const items = this.props.options.raceTypes.map( this.renderMenuItem )
+    const items = getFilterOptions().raceTypes.map( this.renderMenuItem )
     return (
       <DropDownMenu
         value={ this.props.selected.raceType }
@@ -71,7 +71,7 @@ class FilterDialog extends PureComponent {
   };
 
   renderDateSelector = () => {
-    const items = this.props.options.dateRanges.map( this.renderMenuItem )
+    const items = getFilterOptions().dateRanges.map( this.renderMenuItem )
     const range = this.selectedDateRange().val
     return (
       <DropDownMenu

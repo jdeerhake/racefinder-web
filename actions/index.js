@@ -1,7 +1,7 @@
 import debounce from 'lodash/debounce'
 import { replace, push } from 'react-router-redux'
 import { index as searchEvents } from '../adapters/event'
-import { getMapBounds, getSelectedFilters } from '../selectors/index'
+import { getMapBounds, getFilters } from '../selectors/index'
 import { toQueryString as filterToQs } from '../adapters/filter'
 
 const DEFAULT_VIEWPORT_SIZE = { lat: 1.5, lng: 2 }
@@ -19,14 +19,14 @@ export const mapMove = ( viewport ) => ( dispatch, getState ) => {
     lat: viewport.latitude.toFixed( 3 ),
     lng: viewport.longitude.toFixed( 3 ),
     zoom: viewport.zoom.toFixed( 0 ),
-    ...filterToQs( getSelectedFilters( getState() ) )
+    ...filterToQs( getFilters( getState() ) )
   }, '/map' )( dispatch, getState )
 
   fetchMapEvents( dispatch, getState )
 }
 
-export const mapInitialState = ({ viewport, filters }) => ( dispatch, getState ) => {
-  dispatch({ type: MAP_INITIAL_STATE, viewport, filters })
+export const mapInitialState = ({ viewport }) => ( dispatch, getState ) => {
+  dispatch({ type: MAP_INITIAL_STATE, viewport })
   const { latitude: lat, longitude: lng } = viewport
   const latSpread = DEFAULT_VIEWPORT_SIZE.lat / 2
   const lngSpread = DEFAULT_VIEWPORT_SIZE.lng / 2
@@ -39,9 +39,8 @@ export const mapInitialState = ({ viewport, filters }) => ( dispatch, getState )
   }
 
   fetchEventsWithFilters({
-    ...getSelectedFilters( getState() ),
     ...bounds,
-    ...filters
+    ...getFilters( getState() )
   })( dispatch, getState )
 }
 
@@ -57,7 +56,7 @@ export const EVENTS_HIGHLIGHT = 'EVENTS_HIGHLIGHT'
 export const fetchMapEvents = debounce(( dispatch, getState ) => {
   fetchEventsWithFilters({
     ...getMapBounds( getState() ),
-    ...getSelectedFilters( getState() )
+    ...getFilters( getState() )
   })( dispatch )
 }, 500 )
 

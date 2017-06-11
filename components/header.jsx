@@ -5,15 +5,16 @@ import FlatButton from 'material-ui/FlatButton'
 import IconButton from 'material-ui/IconButton'
 import FilterIcon from 'material-ui/svg-icons/content/filter-list'
 import FilterDialog from './filter-dialog.jsx'
+import { validate as validFilter } from '../adapters/filter'
 
-const { object, func } = React.PropTypes
+const { func } = React.PropTypes
 
 class Header extends PureComponent {
 
   static propTypes = {
-    filter: object,
     onFilterChange: func,
-    onTitleClick: func
+    onTitleClick: func,
+    selectedFilter: validFilter
   };
 
   state = {
@@ -46,7 +47,7 @@ class Header extends PureComponent {
   };
 
   render() {
-    const { filter: { options, selected }, onFilterChange, onTitleClick } = this.props
+    const { selectedFilter, onFilterChange, onTitleClick } = this.props
 
     return (
       <span>
@@ -62,8 +63,7 @@ class Header extends PureComponent {
           open={ this.state.filterOpen }>
           <FilterDialog
             onChange={ onFilterChange }
-            options={ options }
-            selected={ selected } />
+            selected={ selectedFilter } />
         </Dialog>
       </span>
     )

@@ -1,6 +1,11 @@
 import { createSelector } from 'reselect'
 import values from 'lodash/values'
 import { fromEventAndZoom as createMarker, merge } from '../adapters/marker'
+import { fromPathName as filterPresetFromPath } from '../adapters/filter-preset'
+import {
+  fromQueryString as filtersFromQs,
+  fromDefaults as filterDefaults
+} from '../adapters/filter'
 
 export const getEvents = state => state.events
 
@@ -11,13 +16,6 @@ export const getInitialViewport = state => state.map.initialViewport
 export const getMapBounds = state => state.map.boundsGetter()
 
 export const getEventsStatus = state => state.eventsStatus
-
-export const getFilters = state => state.filter
-
-export const getSelectedFilters = createSelector(
-  [ getFilters ],
-  filters => filters.selected
-)
 
 export const getMapZoom = createSelector(
   [ getMapViewport, getInitialViewport ],
@@ -62,4 +60,30 @@ export const getMarkers = createSelector(
     markers[ marker.id ] = existing ? merge( marker, existing ) : marker
     return markers
   }, {}) )
+)
+
+const getLocation = state => state.routing.locationBeforeTransitions
+
+const getFilterPreset = createSelector(
+  [ getLocation ],
+  ({ pathname }) => filterPresetFromPath( pathname ) || {}
+)
+
+const getFilterPresetFilters = createSelector(
+  [ getFilterPreset ],
+  ( fp ) => fp.filters || {}
+)
+
+const getQsFilters = createSelector(
+  [ getLocation ],
+  ({ query }) => filtersFromQs( query )
+)
+
+export const getFilters = createSelector(
+  [ getQsFilters, getFilterPresetFilters, filterDefaults ],
+  ( qsFilters, presetFilters, defaultFilters ) => ({
+    ...defaultFilters,
+    ...presetFilters,
+    ...qsFilters
+  })
 )
