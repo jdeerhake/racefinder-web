@@ -31,6 +31,13 @@ class SearchContainer extends PureComponent {
     selectedMarket: validMarket
   };
 
+  componentWillReceiveProps( nextProps ) {
+    const { filterPreset, actions: { fetchEvents } } = this.props
+    if( nextProps.filterPreset && nextProps.filterPreset !== filterPreset ) {
+      return fetchEvents()
+    }
+  }
+
   activateEvent = ({ id }) => {
     this.props.actions.activateEvents({ eventIDs: [ id ] })
   };
@@ -38,10 +45,6 @@ class SearchContainer extends PureComponent {
   highlightEvent = ({ id }) => {
     this.props.actions.highlightEvents({ eventIDs: [ id ] })
   };
-
-  goHome = () => {
-    this.context.router.push( '/' )
-  }
 
   render() {
     const { params, actions, selectedFilter, events, filterPreset, selectedMarket } = this.props
@@ -54,13 +57,13 @@ class SearchContainer extends PureComponent {
             filterPreset={ filterPreset } />
           <Header
             onFilterChange={ actions.filterChange }
-            onTitleClick={ this.goHome }
             selectedFilter={ selectedFilter } />
           <MapContainer params={ params } />
           <EventList
             activateEvent={ this.activateEvent }
             deactivateAllEvents={ actions.deactivateAllEvents }
             highlightEvent={ this.highlightEvent }
+            marketTeaser={ selectedMarket }
             events={ events } />
           <HelpButton />
         </div>

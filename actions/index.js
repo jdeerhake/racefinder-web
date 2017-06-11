@@ -53,11 +53,15 @@ export const EVENTS_REPLACE = 'EVENTS_REPLACE'
 export const EVENTS_ACTIVATE = 'EVENTS_ACTIVATE'
 export const EVENTS_HIGHLIGHT = 'EVENTS_HIGHLIGHT'
 
-export const fetchMapEvents = debounce(( dispatch, getState ) => {
+export const fetchEvents = () => ( dispatch, getState ) => {
   fetchEventsWithFilters({
     ...getMapBounds( getState() ),
     ...getFilters( getState() )
   })( dispatch )
+}
+
+export const fetchMapEvents = debounce(( dispatch, getState ) => {
+  fetchEvents()( dispatch, getState )
 }, 500 )
 
 export const fetchEventsWithFilters = ( params ) => ( dispatch ) => {

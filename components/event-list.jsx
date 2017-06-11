@@ -1,8 +1,10 @@
 import React, { PureComponent, PropTypes } from 'react'
 import Event from './event.jsx'
+import MarketTeaser from './market-teaser.jsx'
 import FocusSelector from './focus-selector.jsx'
 import CloseIcon from 'material-ui/svg-icons/navigation/close'
 import { validate as validEvent } from '../adapters/event'
+import { validate as validMarket } from '../adapters/market'
 import last from 'lodash/last'
 import filter from 'lodash/filter'
 
@@ -17,7 +19,8 @@ export default class EventList extends PureComponent {
     deactivateAllEvents: func,
     deactivateEvent: func,
     events: arrayOf( validEvent ),
-    highlightEvent: func
+    highlightEvent: func,
+    marketTeaser: validMarket
   }
 
   componentWillUpdate(nextProps) {
@@ -79,8 +82,8 @@ export default class EventList extends PureComponent {
   };
 
   render() {
-    window.evs = this._eventEls = {}
-    const { activateEvent, deactivateEvent } = this.props
+    this._eventEls = {}
+    const { activateEvent, deactivateEvent, marketTeaser } = this.props
     const focusPosition =  { left: `-${this.focusIndex() * 100}%` }
     const events = this.props.events.map( event => (
       <Event key={ event.id }
@@ -94,6 +97,7 @@ export default class EventList extends PureComponent {
       <ul className={ this.getClassName() } style={ focusPosition } ref={ el => this._listEl = el }>
         { this.renderNav() }
         { events }
+        { marketTeaser && <MarketTeaser market={ marketTeaser } /> }
       </ul>
     )
   }

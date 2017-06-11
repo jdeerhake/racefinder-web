@@ -1,4 +1,5 @@
 import React, { PureComponent } from 'react'
+import { Link } from 'react-router'
 import AppBar from 'material-ui/AppBar'
 import Dialog from 'material-ui/Dialog'
 import FlatButton from 'material-ui/FlatButton'
@@ -13,7 +14,6 @@ class Header extends PureComponent {
 
   static propTypes = {
     onFilterChange: func,
-    onTitleClick: func,
     selectedFilter: validFilter
   };
 
@@ -47,13 +47,12 @@ class Header extends PureComponent {
   };
 
   render() {
-    const { selectedFilter, onFilterChange, onTitleClick } = this.props
+    const { selectedFilter, onFilterChange } = this.props
 
     return (
       <span>
         <AppBar
-          title='RaceFinder'
-          onTitleTouchTap={ onTitleClick }
+          title={ <Link className='title-link' to='/'>RaceFinder</Link> }
           showMenuIconButton={ false }
           iconElementRight={ this.renderFilterButton() } />
         <Dialog

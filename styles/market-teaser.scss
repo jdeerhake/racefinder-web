@@ -1,0 +1,38 @@
+@import 'includes';
+$opacity: 0.95;
+
+.market-teaser {
+  display: none;
+  position: relative;
+  padding: 10px;
+  width: 100%;
+  height: 100%;
+  background-color: rgba( $color-neutral, $opacity );
+  transition: all ease 0.2s;
+  overflow-y: auto;
+
+  h2 {
+    font-size: 18px;
+    margin-bottom: 10px;
+  }
+
+  li {
+    font-size: 16px;
+    display: block;
+    padding: 3px 0;
+  }
+
+  em {
+    font-style: normal;
+  }
+}
+
+@include layout(sidebar) {
+
+  .market-teaser {
+    display: block;
+    height: auto;
+    margin-bottom: 5px;
+  }
+
+}
