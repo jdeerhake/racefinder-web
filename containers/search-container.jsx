@@ -8,8 +8,8 @@ import EventList from '../components/event-list.jsx'
 import HelpButton from '../components/help-button.jsx'
 import RacefinderTheme from '../lib/theme'
 import * as Actions from '../actions'
-import { getEventsWithStatus } from '../selectors/index'
-import { validate as validFilter, fromQueryString as filterFromQs } from '../adapters/filter'
+import { getEventsWithStatus, getFilters } from '../selectors/index'
+import { validate as validFilter } from '../adapters/filter'
 
 const { object, arrayOf } = React.PropTypes
 
@@ -73,7 +73,7 @@ export default connect(
     return {
       ...state,
       events: getEventsWithStatus( state ),
-      selectedFilter: filterFromQs( params ),
+      selectedFilter: getFilters( state ),
       params
     }
   },
