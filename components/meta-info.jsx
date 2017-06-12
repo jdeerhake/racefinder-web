@@ -3,8 +3,8 @@ import { Helmet } from 'react-helmet'
 import { validate as validFilterPreset, index as getFilterPresets } from '../adapters/filter-preset'
 import { validate as validMarket } from '../adapters/market'
 
-const DEFAULT_TITLE = 'RaceFinder - The search engine for marathons, triathlons, 5Ks, century rides, and more'
-const DEFAULT_DESC = 'RaceFinder is the search engine for marathons, triathlons, 5Ks, 10Ks, century rides, adventure ' +
+export const DEFAULT_TITLE = 'RaceFinder - The search engine for marathons, triathlons, 5Ks, century rides, and more'
+export const DEFAULT_DESC = 'RaceFinder is the search engine for marathons, triathlons, 5Ks, 10Ks, century rides, adventure ' +
                      'races, and more in your area.  Every race in the country on one convenient map.'
 const DEFAULT_KEYWORDS = [
   'race', 'running', 'cycling', 'duathlons', 'mountain bike', 'SUP', 'adventure race', 'swimming', 'search',
