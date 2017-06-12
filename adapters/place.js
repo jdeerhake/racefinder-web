@@ -29,6 +29,12 @@ export const fromJSON = js => ({
   location: locationFromJSON( js.location )
 })
 
+export const fromLatLng = ( lat, lng ) => ({
+  id: 'loc${ lat }${ lng }',
+  name: `${ lat.toFixed( 3 ) }, ${ lng.toFixed( 3 ) }`,
+  location: locationFromJSON({ lat, lng })
+})
+
 export const index = ( query, id ) => (
   api.search({ query }, id ).then( resp => resp.places.map( fromJSON ) )
 )

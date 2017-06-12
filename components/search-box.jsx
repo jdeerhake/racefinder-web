@@ -33,7 +33,7 @@ export default class SearchBox extends PureComponent {
   };
 
   handlePlaceSelect = ( selectedPlace ) => {
-    this.setState({ selectedPlace})
+    this.setState({ selectedPlace })
   };
 
   startSearch = () => {

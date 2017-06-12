@@ -54,6 +54,24 @@
     background: rgba( 0, 0, 0, 0.8 );
    }
 
+  .geolocate {
+    position: absolute;
+    right: 10px;
+    top: 5px;
+    padding: 5px;
+    z-index: 1000;
+  }
+
+  &.is-searching .geolocate {
+    display: none !important;
+  }
+
+  .geolocating {
+    position: absolute;
+    right: 35px;
+    top: 8px;
+  }
+
   @media ( min-width: 800px ) {
 
     &.is-searching {

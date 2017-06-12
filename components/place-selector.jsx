@@ -3,8 +3,9 @@ import { func } from 'prop-types'
 import TextField from 'material-ui/TextField'
 import { List, ListItem } from 'material-ui/List'
 import CircularProgress from 'material-ui/CircularProgress'
-import Snackbar from 'material-ui/Snackbar'
-import { index as searchPlaces } from '../adapters/place'
+import MyLocationIcon from 'material-ui/svg-icons/maps/my-location'
+import RefreshIndicator from 'material-ui/RefreshIndicator'
+import { index as searchPlaces, fromLatLng as placeFromLatLng } from '../adapters/place'
 import cx from 'classnames'
 import debounce from 'es6-promise-debounce'
 import colors from '../lib/colors'
@@ -23,15 +24,13 @@ export default class PlaceSelector extends PureComponent {
   state = {
     results: [],
     listOpen: false,
-    query: '',
-    noResultsMessage: false
+    query: ''
   }
 
   receiveResults = ( places ) => {
     this.setState({
       results: places.slice( 0, 5 ),
-      searchRequest: false,
-      noResultsMessage: places.length === 0
+      searchRequest: false
     })
   }
 
@@ -70,8 +69,19 @@ export default class PlaceSelector extends PureComponent {
     this.setState({ listOpen: false })
   }
 
-  closeNoResultsMessage = () => {
-    this.setState({ noResultsMessage: false })
+  handleGeoClick = () => {
+    this.setState({ geolocating: true })
+    navigator.geolocation.getCurrentPosition( position => {
+      const { latitude: lat, longitude: lng } = position.coords
+      const place = placeFromLatLng( lat, lng )
+
+      this.props.onSelect( place )
+      this.setState({
+        listOpen: false,
+        geolocating: false,
+        query: place.name
+      })
+    })
   }
 
   renderNameResult = ( place ) => {
@@ -105,6 +115,28 @@ export default class PlaceSelector extends PureComponent {
     )
   };
 
+  renderGeoButton = () => {
+    if( this.state.geolocating ) {
+      return (
+        <div className='geolocating'>
+          <RefreshIndicator
+            status={ 'loading' }
+            size={ 23 }
+            left={ 0 }
+            top={ 0 } />
+        </div>
+      )
+    } else {
+      return (
+        <MyLocationIcon
+          className='geolocate'
+          style={ { width: '30px', height: '30px' } }
+          color={ colors[ 'color-neutral' ] }
+          onClick={ this.handleGeoClick } />
+      )
+    }
+  }
+
   renderMoreCharacters = () => {
     return (
       <ListItem key='more' primaryText={ `Please enter at least ${ MIN_QUERY_SIZE } characters to search` } />
@@ -118,7 +150,7 @@ export default class PlaceSelector extends PureComponent {
   };
 
   render() {
-    const { results, query, searchRequest, listOpen, noResultsMessage } = this.state
+    const { results, query, searchRequest, listOpen } = this.state
     const textColor = { color: colors[ 'color-neutral' ] }
 
     return (
@@ -133,6 +165,7 @@ export default class PlaceSelector extends PureComponent {
             onFocus={ this.handleFocus }
             onChange={ this.handleSearchChange }
             fullWidth />
+        { this.renderGeoButton() }
         { listOpen && <div className='overlay' /> }
         { listOpen && (
           <List className='place-search-list'>
@@ -143,11 +176,6 @@ export default class PlaceSelector extends PureComponent {
           </List>
           )
         }
-        <Snackbar
-          open={ noResultsMessage }
-          message='No places found for this query'
-          autoHideDuration={ 4000 }
-          onRequestClose={ this.closeNoResultsMessage } />
       </span>
     )
   }
