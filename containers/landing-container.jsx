@@ -38,7 +38,6 @@ class LandingContainer extends PureComponent {
           <MetaInfo />
           <div className='search-header'>
             <h1>RaceFinder</h1>
-            <div className='tagline'>Find your next challenge</div>
             <SearchBox onSearch={ startSearch } />
           </div>
           <div className='popular-links'>
