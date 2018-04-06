@@ -60,6 +60,6 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com/racefinder/frontend-web.git"
+    "url": "git@gitlab.com:racefinder/frontend-web.git"
   }
 }
